@@ -11,17 +11,14 @@ app.route('/bleat/:id')
                 response.status(404).json('No bleat with that id');
                 return;
             }
-            var dataToJson = function(data) {
-                data = data.toString();
-                data = data.replace(/([^:]+): (.+)\n/g, function(a, b, c) {
-                    return '"'+b+'": ' + '"'+c+'",';
-                })
-                data = data.slice(0, -1);
-                data = '{' + data + '}';
-                data = JSON.parse(data);
-                return data;
-            };
-            response.json(dataToJson(data));
+            data = data.toString();
+            data = data.replace(/([^:]+): (.+)\n/g, function(a, b, c) {
+                return '"'+b+'": ' + '"'+c+'",';
+            })
+            data = data.slice(0, -1);
+            data = '{' + data + '}';
+            data = JSON.parse(data);
+            response.json(data);
         });
     });
 
