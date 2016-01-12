@@ -42,4 +42,19 @@ app.route('/user/:username/details')
         });
     });
 
+app.route('/user/:username/bleats')
+    .get(function(request, response) {
+        var username = request.params.username;
+        var path = __dirname + '\\dataset-medium\\users\\' + username + '\\bleats.txt';
+        fs.readFile(path, function(err, data) {
+            if (err) {
+                response.status(404).json('No user with that username');
+                return;
+            }
+            data = data.toString();
+            data = data.split('\n');
+            response.json(data);
+        });
+    });
+
 app.listen(8080);
