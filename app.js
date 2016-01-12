@@ -45,6 +45,7 @@ app.route('/user/:username/details')
 app.route('/user/:username/bleats')
     .get(function(request, response) {
         var username = request.params.username;
+        var page = request.query.page;
         var path = __dirname + '\\dataset-medium\\users\\' + username + '\\bleats.txt';
         fs.readFile(path, function(err, data) {
             if (err) {
@@ -55,8 +56,21 @@ app.route('/user/:username/bleats')
             data = data.split('\n');
             data = data.filter(function(id) {
                 return id;
-            })
-            response.json(data);
+            });
+            if (page) {
+                if (page >= 1) {
+                    data = data.slice((page-1)*10,page*10);
+                    if (data.length === 0) {
+                        response.status(404).json('No bleats on this page');
+                    } else {
+                        response.json(data);
+                    }
+                } else {
+                    response.status(400).json('Invalid page number');
+                }
+            } else {
+                response.json(data);
+            }
         });
     });
 
