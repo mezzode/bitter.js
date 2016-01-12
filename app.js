@@ -23,8 +23,12 @@ app.route('/bleat/:id')
     });
 
 app.route('/user/:username/details')
+    .all(function(request, response, next) {
+        request.username = request.params.username.toLowerCase();
+        next();
+    })
     .get(function(request, response) {
-        var username = request.params.username;
+        var username = request.username;
         var path = __dirname + '\\dataset-medium\\users\\' + username + '\\details.txt';
         fs.readFile(path, function(err, data) {
             if (err) {
@@ -46,8 +50,12 @@ app.route('/user/:username/details')
     });
 
 app.route('/user/:username/bleats')
+    .all(function(request, response, next) {
+        request.username = request.params.username.toLowerCase();
+        next();
+    })
     .get(function(request, response) {
-        var username = request.params.username;
+        var username = request.username;
         var page = request.query.page;
         var path = __dirname + '\\dataset-medium\\users\\' + username + '\\bleats.txt';
         fs.readFile(path, function(err, data) {
