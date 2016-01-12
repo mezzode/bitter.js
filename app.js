@@ -53,6 +53,9 @@ app.route('/user/:username/bleats')
             }
             data = data.toString();
             data = data.split('\n');
+            data = data.filter(function(id) {
+                return id;
+            })
             response.json(data);
         });
     });
