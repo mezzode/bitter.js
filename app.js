@@ -38,6 +38,9 @@ app.route('/user/:username/details')
             data = data.slice(0, -1);
             data = '{' + data + '}';
             data = JSON.parse(data);
+            if (data.listens) {
+                data.listens = data.listens.split(' ');
+            }
             response.json(data);
         });
     });
