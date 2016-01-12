@@ -48,7 +48,7 @@ app.route('/user/:username/bleats')
         var path = __dirname + '\\dataset-medium\\users\\' + username + '\\bleats.txt';
         fs.readFile(path, function(err, data) {
             if (err) {
-                response.status(404).json('No user with that username');
+                response.status(404).json('No bleats found for that username');
                 return;
             }
             data = data.toString();
