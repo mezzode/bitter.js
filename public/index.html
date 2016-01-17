@@ -867,8 +867,24 @@
         };
         var test_bleats = [test_bleat];
         var Bleat = React.createClass({
+            getInitialState: function() {
+                return {data: []};
+            },
+            componentWillMount: function() {
+                $.ajax({
+                    url: 'bleat/' + this.props.bleatId,
+                    dataType: 'json',
+                    cache: false,
+                    success: function(data) {
+                        this.setState({data: data});
+                    }.bind(this),
+                    error: function(xhr, status, err) {
+                        console.error(this.props.id, status, err.toString());
+                    }.bind(this)
+                });
+            },
             render: function() {
-                var data = this.props.data;
+                var data = this.state.data;
                 return (
                     <div className="panel panel-default">
                         <div className="list-group">
@@ -893,10 +909,30 @@
             }
         });
         var Bleats = React.createClass({
+            getInitialState: function() {
+                return {data: []};
+            },
+            componentDidMount: function() {
+                this.loadBleats();
+            },
+            loadBleats: function() {
+                $.ajax({
+                    url: this.props.url,
+                    dataType: 'json',
+                    cache: false,
+                    success: function(data) {
+                        console.log(data);
+                        this.setState({data: data});
+                    }.bind(this),
+                    error: function(xhr, status, err) {
+                        console.error(this.props.url, status, err.toString());
+                    }.bind(this)
+                });
+            },
             render: function() {
-                var bleatNodes = this.props.data.map(function(bleat) {
+                var bleatNodes = this.state.data.map(function(bleat) {
                     return (
-                        <Bleat data={bleat} />
+                        <Bleat key={bleat} bleatId={bleat}/>
                     );
                 });
                 return (
@@ -906,8 +942,9 @@
                 );
             }
         });
+        var user = "James41";
         ReactDOM.render(
-            <Bleats data={test_bleats} />,
+            <Bleats url={'user/' + user + '/bleats'}/>,
             document.getElementById('content')
         );
     </script>
