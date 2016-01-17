@@ -870,7 +870,7 @@
             getInitialState: function() {
                 return {data: []};
             },
-            componentWillMount: function() {
+            componentDidMount: function() {
                 $.ajax({
                     url: 'bleat/' + this.props.bleatId,
                     dataType: 'json',
@@ -885,6 +885,7 @@
             },
             render: function() {
                 var data = this.state.data;
+                if (!data) return (<div></div>);
                 return (
                     <div className="panel panel-default">
                         <div className="list-group">
@@ -922,6 +923,7 @@
                     cache: false,
                     success: function(data) {
                         console.log(data);
+                        data.reverse();
                         this.setState({data: data});
                     }.bind(this),
                     error: function(xhr, status, err) {
