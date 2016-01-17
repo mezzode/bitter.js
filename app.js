@@ -2,6 +2,8 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 
+app.use(express.static('public'));
+
 app.route('/bleat/:id')
     .get(function(request, response) {
         var id = request.params.id;
