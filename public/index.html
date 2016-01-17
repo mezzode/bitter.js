@@ -858,14 +858,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
     <script type="text/babel">
+        var test_bleat = {
+            bleat: "@PierceCat I really don't think people choose to be that way. But I think he chose not to accept my family's help   He might be dead by now",
+            longitude: "151.2357",
+            time: "1444174779",
+            latitude: "-33.8794",
+            username: "BrainyStar69"
+        };
         var Bleat = React.createClass({
             render: function() {
+                var data = this.props.data;
                 return (
                     <div className="panel panel-default">
                         <div className="list-group">
                             <div className="list-group-item">
                                 <a style={{color: "inherit"}} className="list-group-item-heading" href="?user=James41"><h4 className="list-group-item-heading">James41</h4></a>
-                                <p className="lead"><a style={{color: "inherit"}} href="?user=JuliannaWoman78">@JuliannaWoman78</a> I heard Timewarp was fantastic! Gutted I missed it, was playing @ egg</p>
+                                <p className="lead">{data.bleat}</p>
                                 <ul className="list-inline">
                                     <li><small>12:32:42 AM</small></li>
                                     <li><small>Thursday, 08 October 2015</small></li>
@@ -885,7 +893,7 @@
         });
 
         ReactDOM.render(
-            <Bleat />,
+            <Bleat data={test_bleat}/>,
             document.getElementById('content')
         );
     </script>
