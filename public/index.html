@@ -865,6 +865,7 @@
             latitude: "-33.8794",
             username: "BrainyStar69"
         };
+        var test_bleats = [test_bleat];
         var Bleat = React.createClass({
             render: function() {
                 var data = this.props.data;
@@ -891,9 +892,22 @@
                 );
             }
         });
-
+        var Bleats = React.createClass({
+            render: function() {
+                var bleatNodes = this.props.data.map(function(bleat) {
+                    return (
+                        <Bleat data={bleat} />
+                    );
+                });
+                return (
+                    <div>
+                        {bleatNodes}
+                    </div>
+                );
+            }
+        });
         ReactDOM.render(
-            <Bleat data={test_bleat}/>,
+            <Bleats data={test_bleats} />,
             document.getElementById('content')
         );
     </script>
