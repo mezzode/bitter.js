@@ -219,6 +219,7 @@
             
 </div>
  <div class="col-md-9 col-sm-7">
+ <div id="content"></div>
                     <div id="2041953970"><div class="panel panel-default">
 <div class="list-group">
 <div class="list-group-item">
@@ -851,12 +852,43 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    
+
     <!-- React -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <script type="text/babel">
+        var Bleat = React.createClass({
+            render: function() {
+                return (
+                    <div className="panel panel-default">
+                        <div className="list-group">
+                            <div className="list-group-item">
+                                <a style={{color: "inherit"}} className="list-group-item-heading" href="?user=James41"><h4 className="list-group-item-heading">James41</h4></a>
+                                <p className="lead"><a style={{color: "inherit"}} href="?user=JuliannaWoman78">@JuliannaWoman78</a> I heard Timewarp was fantastic! Gutted I missed it, was playing @ egg</p>
+                                <ul className="list-inline">
+                                    <li><small>12:32:42 AM</small></li>
+                                    <li><small>Thursday, 08 October 2015</small></li>
+                                    <li><small>Location: -33.8921, 151.1972</small></li>
+                                </ul>
+                                <a href="?bleat=2041929361" className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
+                                <div className="btn-group btn-group-sm">
+                                    <a className="btn btn-link collapsed" data-toggle="collapse" data-parent="#2041929361" href="#2041929361-reply" aria-expanded="false"><small>Reply</small></a>
+                                    <a className="btn btn-link collapsed" data-toggle="collapse" data-parent="#2041929361" href="#2041929361-conversations" aria-expanded="false"><small>View conversation</small></a>
+                                    <a className="btn btn-link collapsed" data-toggle="collapse" data-parent="#2041929361" href="#2041929361-replies" aria-expanded="false"><small>View replies</small></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        });
 
+        ReactDOM.render(
+            <Bleat />,
+            document.getElementById('content')
+        );
+    </script>
     <script>
     /*$('.collapse-link').mouseup(function(){
         id = this.getAttribute('data-id');
