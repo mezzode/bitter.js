@@ -48,7 +48,6 @@ var Bleats = React.createClass({
     },
     componentDidMount: function() {
         this.loadBleats();
-        setInterval(this.checkBleats, this.props.pollInterval);
     },
     loadBleats: function() {
         $.ajax({
@@ -56,7 +55,8 @@ var Bleats = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                this.setState({data: data, new_bleats: false});
+                var handle = setInterval(this.checkBleats, this.props.pollInterval);
+                this.setState({data: data, new_bleats: false, handle: handle});
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -79,6 +79,8 @@ var Bleats = React.createClass({
                         changed = true;
                 }
                 this.setState({new_bleats: changed});
+                if (changed)
+                    clearInterval(this.state.handle);
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
