@@ -59,6 +59,7 @@ app.route('/user/:username/bleats')
     .get(function(request, response) {
         var username = request.username;
         var page = request.query.page;
+        var per_page = 16;
         var path = __dirname + '\\dataset-medium\\users\\' + username + '\\bleats.txt';
         fs.readFile(path, function(err, data) {
             if (err) {
@@ -73,7 +74,7 @@ app.route('/user/:username/bleats')
             data.reverse();
             if (page) {
                 if (page >= 1) {
-                    data = data.slice((page-1)*10,page*10);
+                    data = data.slice((page-1)*per_page,page*per_page);
                     if (data.length === 0) {
                         response.status(404).json('No bleats on this page');
                     } else {
