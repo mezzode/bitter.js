@@ -18,6 +18,7 @@ var Bleat = React.createClass({
     },
     render: function() {
         var data = this.state.data;
+        var id = this.props.bleatId;
         if (!data) return (<div></div>);
         var date = new Date(data.time * 1000);
         var hour = date.getHours();
@@ -52,11 +53,11 @@ var Bleat = React.createClass({
                             <li><small>{date.toDateString()}</small></li>
                             <li><small>Location: {data.latitude}, {data.longitude}</small></li>
                         </ul>
-                        <a href="?bleat=2041929361" className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
+                        <a href={'?bleat='+id} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
                         <div className="btn-group btn-group-sm">
-                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent="#2041929361" href="#2041929361-reply" aria-expanded="false"><small>Reply</small></a>
-                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent="#2041929361" href="#2041929361-conversations" aria-expanded="false"><small>View conversation</small></a>
-                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent="#2041929361" href="#2041929361-replies" aria-expanded="false"><small>View replies</small></a>
+                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-reply'} aria-expanded="false"><small>Reply</small></a>
+                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-conversations'} aria-expanded="false"><small>View conversation</small></a>
+                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-replies'} aria-expanded="false"><small>View replies</small></a>
                         </div>
                     </div>
                 </div>
