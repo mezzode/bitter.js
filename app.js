@@ -70,6 +70,7 @@ app.route('/user/:username/bleats')
             data = data.filter(function(id) {
                 return id;
             });
+            data.reverse();
             if (page) {
                 if (page >= 1) {
                     data = data.slice((page-1)*10,page*10);
