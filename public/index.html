@@ -866,6 +866,7 @@
             username: "BrainyStar69"
         };
         var test_bleats = [test_bleat];
+        var page = 1;
         var Bleat = React.createClass({
             getInitialState: function() {
                 return {data: []};
@@ -911,10 +912,11 @@
         });
         var Bleats = React.createClass({
             getInitialState: function() {
-                return {data: []};
+                return {data: [], new_bleats: false};
             },
             componentDidMount: function() {
                 this.loadBleats();
+                setInterval(this.checkBleats, this.props.pollInterval);
             },
             loadBleats: function() {
                 $.ajax({
@@ -922,9 +924,29 @@
                     dataType: 'json',
                     cache: false,
                     success: function(data) {
-                        console.log(data);
-                        data.reverse();
-                        this.setState({data: data});
+                        this.setState({data: data, new_bleats: false});
+                    }.bind(this),
+                    error: function(xhr, status, err) {
+                        console.error(this.props.url, status, err.toString());
+                    }.bind(this)
+                });
+            },
+            checkBleats: function() {
+                $.ajax({
+                    url: this.props.url,
+                    dataType: 'json',
+                    cache: false,
+                    success: function(data) {
+                        if (data.length !== this.state.data.length) {
+                            this.setState({new_bleats: true});
+                            return;
+                        }
+                        var changed = false;
+                        for (var i in data) {
+                            if (data[i] !== this.state.data[i])
+                                changed = true;
+                        }
+                        this.setState({new_bleats: changed});
                     }.bind(this),
                     error: function(xhr, status, err) {
                         console.error(this.props.url, status, err.toString());
@@ -937,8 +959,12 @@
                         <Bleat key={bleat} bleatId={bleat}/>
                     );
                 });
+                var BleatUpdater;
+                if (this.state.new_bleats)
+                    BleatUpdater = (<button className="btn btn-default">Test</button>);
                 return (
                     <div>
+                        {BleatUpdater}
                         {bleatNodes}
                     </div>
                 );
@@ -946,7 +972,7 @@
         });
         var user = "James41";
         ReactDOM.render(
-            <Bleats url={'user/' + user + '/bleats'}/>,
+            <Bleats url={'user/' + user + '/bleats?page=' + page} pollInterval={2000}/>,
             document.getElementById('content')
         );
     </script>
