@@ -26,10 +26,32 @@ var BleatReply = React.createClass({
     }
 });
 var BleatConversation = React.createClass({
+    getPrecursor: function(bleatId) {
+        var precursor;
+        $.ajax({
+            url: 'bleat/' + this.props.bleatId,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                precursor = data['in_reply_to'];
+            }
+            error: function(xhr, status, err) {
+                console.error(this.props.id, status, err.toString());
+            }.bind(this)
+        });
+        return precursor; // TODO wont work since async; pass a callback in?
+    }
     render: function() {
+        var bleatChain = [];
+        var bleatChainNodes = bleatChain.map(function(bleat) {
+            return (
+                <BleatSub bleatId={bleat}/>
+            );
+        });
         return (
             <div className="panel-collapse collapse" id="2041929361-conversations" aria-expanded="false" style={{height: '0px'}}>
                 <ul className="list-group">
+                    {bleatChainNodes}
                     <li className="list-group-item">
                         <a style={{color: 'inherit'}} className="list-group-item-heading" href="?user=JuliannaWoman78"><h4 className="list-group-item-heading">JuliannaWoman78</h4></a>
                         <p className="lead">@CrazyMarisa28 nope. baby's due in 5th may! getting closer but still 1001 things not done</p>
