@@ -29,18 +29,18 @@ var BleatConversation = React.createClass({
     getPrecursor: function(bleatId) {
         var precursor;
         $.ajax({
-            url: 'bleat/' + this.props.bleatId,
+            url: 'bleat/' + bleatId,
             dataType: 'json',
             cache: false,
             success: function(data) {
                 precursor = data['in_reply_to'];
-            }
+            },
             error: function(xhr, status, err) {
                 console.error(this.props.id, status, err.toString());
             }.bind(this)
         });
         return precursor; // TODO wont work since async; pass a callback in?
-    }
+    },
     render: function() {
         var bleatChain = [];
         var bleatChainNodes = bleatChain.map(function(bleat) {
