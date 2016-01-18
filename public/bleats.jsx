@@ -1,5 +1,88 @@
 var page = 1;
 var Bleat = React.createClass({
+    render: function() {
+        var bleat = this.props.bleatId;
+        return (
+            <div id="2041929361" className="panel panel-default">
+                <BleatMain key={bleat} bleatId={bleat}/>
+                <BleatReply/>
+                <BleatConversation/>
+                <BleatReplies/>
+            </div>
+        )
+    }
+});
+var BleatReply = React.createClass({
+    render: function() {
+        return (
+           <div className="collapse panel-collapse" id="2041929361-reply" aria-expanded="false">
+                <ul className="list-group">
+                    <li className="list-group-item">
+                        <p className="list-group-item-text"><a href="?new-user=True">Sign Up</a> or <a href="" data-toggle="modal" data-target="#log-in">Login</a> to reply to this bleat</p>
+                    </li>
+                 </ul>
+            </div> 
+        );
+    }
+});
+var BleatConversation = React.createClass({
+    render: function() {
+        return (
+            <div className="panel-collapse collapse" id="2041929361-conversations" aria-expanded="false" style={{height: '0px'}}>
+                <ul className="list-group">
+                    <li className="list-group-item">
+                        <a style={{color: 'inherit'}} className="list-group-item-heading" href="?user=JuliannaWoman78"><h4 className="list-group-item-heading">JuliannaWoman78</h4></a>
+                        <p className="lead">@CrazyMarisa28 nope. baby's due in 5th may! getting closer but still 1001 things not done</p>
+                        <a href="?bleat=2041928103" style={{marginTop: '-4px'}} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
+                        <ul className="list-inline">
+                            <li><small>11:43:38 PM</small></li>
+                            <li><small>Wednesday, 07 October 2015</small></li>
+                            <li><small>Location: -33.7398, 151.2985</small></li>
+                        </ul>
+                    </li>
+                    <li className="list-group-item">
+                        <a style={{color: 'inherit'}} className="list-group-item-heading" href="?user=CupcakeGal95"><h4 className="list-group-item-heading">CupcakeGal95</h4></a>
+                        <p className="lead">@FunnyGenius47 connor, it's me, febi  are you really really mad at me??</p>
+                        <a href="?bleat=2041921106" style={{marginTop: '-4px'}} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
+                        <ul className="list-inline">
+                            <li><small>08:01:01 PM</small></li>
+                            <li><small>Wednesday, 07 October 2015</small></li>
+                            <li><small>Location: -33.8226, 151.1926</small></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        );
+    }
+});
+var BleatReplies = React.createClass({
+    render: function() {
+        return (
+            <div className="collapse panel-collapse" id="2041929361-replies" aria-expanded="false">
+                <ul className="list-group">
+                    <BleatSub/>
+                </ul>
+            </div>
+        );
+    }
+});
+var BleatSub = React.createClass({
+    render: function() {
+        return (
+            <li className="list-group-item">
+                <a style={{color: 'inherit'}} className="list-group-item-heading" href="?user=PiotrMan68"><h4 className="list-group-item-heading">PiotrMan68</h4></a>
+                <p className="lead">@James41 run was great thanks. Is very windy today so bike ride not an option this morning</p>
+                <a href="?bleat=2041929499" style={{marginTop: '-4px'}} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
+                <ul className="list-inline">
+                    <li><small>12:33:26 AM</small></li>
+                    <li><small>Thursday, 08 October 2015</small></li>
+                    <li><small>Location: -33.7831, 151.1916</small></li>
+                </ul>
+            </li>
+        );
+    }
+});
+var BleatMain = React.createClass({
     getInitialState: function() {
         return {data: []};
     },
@@ -43,22 +126,20 @@ var Bleat = React.createClass({
         if (sec < 10)
             sec = '' + '0' + sec
         return (
-            <div className="panel panel-default">
-                <div className="list-group">
-                    <div className="list-group-item">
-                        <a style={{color: 'inherit'}} className="list-group-item-heading" href={'api/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
-                        <p className="lead">{data.bleat}</p>
-                        <ul className="list-inline">
-                            <li><small>{hour}:{min}:{sec} {suffix}</small></li>
-                            <li><small>{date.toDateString()}</small></li>
-                            <li><small>Location: {data.latitude}, {data.longitude}</small></li>
-                        </ul>
-                        <a href={'?bleat='+id} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
-                        <div className="btn-group btn-group-sm">
-                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-reply'} aria-expanded="false"><small>Reply</small></a>
-                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-conversations'} aria-expanded="false"><small>View conversation</small></a>
-                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-replies'} aria-expanded="false"><small>View replies</small></a>
-                        </div>
+            <div className="list-group">
+                <div className="list-group-item">
+                    <a style={{color: 'inherit'}} className="list-group-item-heading" href={'api/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
+                    <p className="lead">{data.bleat}</p>
+                    <ul className="list-inline">
+                        <li><small>{hour}:{min}:{sec} {suffix}</small></li>
+                        <li><small>{date.toDateString()}</small></li>
+                        <li><small>Location: {data.latitude}, {data.longitude}</small></li>
+                    </ul>
+                    <a href={'?bleat='+id} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
+                    <div className="btn-group btn-group-sm">
+                        <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-reply'} aria-expanded="false"><small>Reply</small></a>
+                        <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-conversations'} aria-expanded="false"><small>View conversation</small></a>
+                        <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-replies'} aria-expanded="false"><small>View replies</small></a>
                     </div>
                 </div>
             </div>
