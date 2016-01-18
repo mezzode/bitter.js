@@ -23,7 +23,7 @@ var Bleat = React.createClass({
             <div className="panel panel-default">
                 <div className="list-group">
                     <div className="list-group-item">
-                        <a style={{color: "inherit"}} className="list-group-item-heading" href={'api/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
+                        <a style={{color: 'inherit'}} className="list-group-item-heading" href={'api/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
                         <p className="lead">{data.bleat}</p>
                         <ul className="list-inline">
                             <li><small>12:32:42 AM</small></li>
@@ -104,7 +104,7 @@ var Bleats = React.createClass({
         );
     }
 });
-var user = "James41";
+var user = 'James41'
 ReactDOM.render(
     <Bleats url={'user/' + user + '/bleats?page=' + page} pollInterval={2000}/>,
     document.getElementById('content')
