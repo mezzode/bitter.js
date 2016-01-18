@@ -19,6 +19,28 @@ var Bleat = React.createClass({
     render: function() {
         var data = this.state.data;
         if (!data) return (<div></div>);
+        var date = new Date(data.time * 1000);
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        var sec = date.getSeconds();
+        var suffix;
+        if (hour === 0) {
+            hour = 12;
+            suffix = 'AM';
+        } else if (hour === 12) {
+            suffix = 'PM';
+        } else if (hour > 12) {
+            hour -= 12;
+            suffix = 'PM';
+        } else {
+            suffix = 'AM';
+        }
+        if (hour < 10)
+            hour = '' + '0' + hour
+        if (min < 10)
+            min = '' + '0' + min
+        if (sec < 10)
+            sec = '' + '0' + sec
         return (
             <div className="panel panel-default">
                 <div className="list-group">
@@ -26,8 +48,8 @@ var Bleat = React.createClass({
                         <a style={{color: 'inherit'}} className="list-group-item-heading" href={'api/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
                         <p className="lead">{data.bleat}</p>
                         <ul className="list-inline">
-                            <li><small>12:32:42 AM</small></li>
-                            <li><small>Thursday, 08 October 2015</small></li>
+                            <li><small>{hour}:{min}:{sec} {suffix}</small></li>
+                            <li><small>{date.toDateString()}</small></li>
                             <li><small>Location: {data.latitude}, {data.longitude}</small></li>
                         </ul>
                         <a href="?bleat=2041929361" className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
