@@ -24,6 +24,30 @@ app.route('/bleat/:id')
         });
     });
 
+app.route('/bleat/:id/conversation')
+    .get(function(request, response) {
+        var id = request.params.id;
+        getBleat(id, response.json);
+    });
+
+function getBleat(id, callback) {
+    var path = __dirname + '\\dataset-medium\\bleats\\' + id;
+    fs.readFile(path, function(err, data) {
+        if (err) {
+            response.status(404).json('No bleat with that id');
+            return;
+        }
+        data = data.toString();
+        data = data.replace(/([^:]+): (.+)\n/g, function(a, b, c) {
+            return '"'+b+'": ' + '"'+c+'",';
+        })
+        data = data.slice(0, -1);
+        data = '{' + data + '}';
+        data = JSON.parse(data);
+        callback(data);
+    });
+}
+
 app.route('/user/:username/details')
     .all(function(request, response, next) {
         request.username = request.params.username.toLowerCase();
