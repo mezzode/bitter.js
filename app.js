@@ -15,10 +15,17 @@ app.route('/bleat/:id')
 app.route('/bleat/:id/conversation')
     .get(function(request, response) {
         var id = request.params.id;
-        getBleat(id, function(data) {
-            response.json(data);
-        });
+        getBleat(id, getPrecursor);
     });
+
+function getPrecursor(data) {
+    if (!data.in_reply_to) {
+        // return and send list of bleats
+    } else {
+        // recursion
+        getBleat(data.in_reply_to, getPrecursor);
+    }
+}
 
 function getBleat(id, callback) {
     var path = __dirname + '\\dataset-medium\\bleats\\' + id;
