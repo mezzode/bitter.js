@@ -17,6 +17,7 @@ app.route('/bleat/:id/replies')
         var curr_id = request.params.id;
         var path = __dirname + '\\dataset-medium\\bleats\\';
         var replies = [];
+        var checked = 0;
         fs.readdir(path, function(err, list) {
             for (i in list) {
                 getBleat(list[i], function(data) {
@@ -24,7 +25,8 @@ app.route('/bleat/:id/replies')
                         replies.push(data.id);
                         console.log(data.id);
                     }
-                    if ((i + 1) === list.length) {
+                    checked++;
+                    if (checked === list.length) {
                         response.json(replies);
                         console.log('done');
                     }
