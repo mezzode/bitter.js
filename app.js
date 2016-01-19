@@ -27,7 +27,9 @@ app.route('/bleat/:id')
 app.route('/bleat/:id/conversation')
     .get(function(request, response) {
         var id = request.params.id;
-        getBleat(id, response.json);
+        getBleat(id, function(data) {
+            response.json(data);
+        });
     });
 
 function getBleat(id, callback) {
