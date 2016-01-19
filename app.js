@@ -57,6 +57,7 @@ function getBleat(id, callback) {
         })
         data = data.slice(0, -1);
         data = '{' + data + '}';
+        data = data.replace(/\\/g,'\\\\');
         data = JSON.parse(data);
         callback(data);
     });
