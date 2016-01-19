@@ -1,5 +1,12 @@
 var page = 1;
 var Bleat = React.createClass({
+    getInitialState: function() {
+        return {conversation: [], replies: []};
+    },
+    componentDidMount: function() {
+        this.getConversation();
+        this.getReplies();
+    },
     getConversation: function() {
         $.ajax({
             url: 'bleat/' + this.props.bleatId + '/conversation',
@@ -60,7 +67,7 @@ var BleatReply = React.createClass({
 });
 var BleatConversation = React.createClass({
     render: function() {
-        var bleatChainNodes = bleatChain.map(function(bleat) {
+        var bleatChainNodes = this.props.data.map(function(bleat) {
             return (
                 <BleatSub bleatId={bleat}/>
             );
