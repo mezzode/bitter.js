@@ -1,13 +1,46 @@
 var page = 1;
 var Bleat = React.createClass({
+    getConversation: function() {
+        $.ajax({
+            url: 'bleat/' + this.props.bleatId + '/conversation',
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({conversation: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.id, status, err.toString());
+            }.bind(this)
+        });
+    },
+    getReplies: function() {
+        $.ajax({
+            url: 'bleat/' + this.props.bleatId + '/replies',
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({replies: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.id, status, err.toString());
+            }.bind(this)
+        });
+    },
     render: function() {
         var bleat = this.props.bleatId;
+        var conversationNode, repliesNode;
+        var conversation = this.state.conversation;
+        var replies = this.state.replies;
+        if (conversation.length > 0)
+            conversationNode = <BleatConversation data={conversation}/>;
+        if (replies.length > 0)
+            repliesNode = <BleatReplies data={replies}/>;
         return (
             <div id="2041929361" className="panel panel-default">
                 <BleatMain key={bleat} bleatId={bleat}/>
                 <BleatReply bleatId={bleat}/>
-                <BleatConversation bleatId={bleat}/>
-                <BleatReplies bleatId={bleat}/>
+                {conversationNode}
+                {repliesNode}
             </div>
         )
     }
@@ -26,23 +59,7 @@ var BleatReply = React.createClass({
     }
 });
 var BleatConversation = React.createClass({
-    getPrecursor: function(bleatId) {
-        var precursor;
-        $.ajax({
-            url: 'bleat/' + bleatId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                precursor = data['in_reply_to'];
-            },
-            error: function(xhr, status, err) {
-                console.error(this.props.id, status, err.toString());
-            }.bind(this)
-        });
-        return precursor; // TODO wont work since async; pass a callback in?
-    },
     render: function() {
-        var bleatChain = [];
         var bleatChainNodes = bleatChain.map(function(bleat) {
             return (
                 <BleatSub bleatId={bleat}/>
