@@ -18,14 +18,18 @@ app.route('/bleat/:id/replies')
         var path = __dirname + '\\dataset-medium\\bleats\\';
         var replies = [];
         fs.readdir(path, function(err, list) {
-            list.forEach(function(id) {
-                getBleat(id, function(data) {
+            for (i in list) {
+                getBleat(list[i], function(data) {
                     if (data.in_reply_to === curr_id) {
-                        replies.push(id);
+                        replies.push(data.id);
+                        console.log(data.id);
+                    }
+                    if ((i + 1) === list.length) {
+                        response.json(replies);
+                        console.log('done');
                     }
                 });
-            });
-            response.json(replies);
+            }
         });
     });
 
@@ -59,6 +63,7 @@ function getBleat(id, callback) {
         data = '{' + data + '}';
         data = data.replace(/\\/g,'\\\\');
         data = JSON.parse(data);
+        data.id = id;
         callback(data);
     });
 }
