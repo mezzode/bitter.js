@@ -12,6 +12,23 @@ app.route('/bleat/:id')
         });
     });
 
+app.route('/bleat/:id/replies')
+    .get(function(request, response) {
+        var curr_id = request.params.id;
+        var path = __dirname + '\\dataset-medium\\bleats\\';
+        var replies = [];
+        fs.readdir(path, function(err, list) {
+            list.forEach(function(id) {
+                getBleat(id, function(data) {
+                    if (data.in_reply_to === curr_id) {
+                        replies.push(id);
+                    }
+                });
+            });
+            response.json(replies);
+        });
+    });
+
 app.route('/bleat/:id/conversation')
     .get(function(request, response) {
         var id = request.params.id;
