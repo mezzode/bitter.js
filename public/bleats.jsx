@@ -83,11 +83,14 @@ var BleatConversation = React.createClass({
 });
 var BleatReplies = React.createClass({
     render: function() {
+        var bleatChainNodes = this.props.data.map(function(bleat) {
+            return (<BleatSub bleatId={bleat}/>);
+        });
         var id = this.props.bleatId;
         return (
             <div className="collapse panel-collapse" id={id+'-replies'} aria-expanded="false">
                 <ul className="list-group">
-                    <BleatSub bleatId={id}/>
+                    {bleatChainNodes}
                 </ul>
             </div>
         );
