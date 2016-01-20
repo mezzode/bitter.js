@@ -76,26 +76,6 @@ var BleatConversation = React.createClass({
             <div className="panel-collapse collapse" id={id+'-conversations'} aria-expanded="false" style={{height: '0px'}}>
                 <ul className="list-group">
                     {bleatChainNodes}
-                    <li className="list-group-item">
-                        <a style={{color: 'inherit'}} className="list-group-item-heading" href="?user=JuliannaWoman78"><h4 className="list-group-item-heading">JuliannaWoman78</h4></a>
-                        <p className="lead">@CrazyMarisa28 nope. baby's due in 5th may! getting closer but still 1001 things not done</p>
-                        <a href="?bleat=2041928103" style={{marginTop: '-4px'}} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
-                        <ul className="list-inline">
-                            <li><small>11:43:38 PM</small></li>
-                            <li><small>Wednesday, 07 October 2015</small></li>
-                            <li><small>Location: -33.7398, 151.2985</small></li>
-                        </ul>
-                    </li>
-                    <li className="list-group-item">
-                        <a style={{color: 'inherit'}} className="list-group-item-heading" href="?user=CupcakeGal95"><h4 className="list-group-item-heading">CupcakeGal95</h4></a>
-                        <p className="lead">@FunnyGenius47 connor, it's me, febi  are you really really mad at me??</p>
-                        <a href="?bleat=2041921106" style={{marginTop: '-4px'}} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
-                        <ul className="list-inline">
-                            <li><small>08:01:01 PM</small></li>
-                            <li><small>Wednesday, 07 October 2015</small></li>
-                            <li><small>Location: -33.8226, 151.1926</small></li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
         );
