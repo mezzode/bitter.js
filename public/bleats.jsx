@@ -275,7 +275,7 @@ var Bleats = React.createClass({
                             <li className="disabled"><a>&laquo;</a></li>
                             <li className="active"><a>1</a></li>
                             <li><a href="?user=James41&page=2">2</a></li>
-                            <li><a href="?user=James41&page=2">&raquo;</a></li>
+                            <li><a href="?user=James41&page=2" >&raquo;</a></li>
                         </ul>
                     </div>
                 </nav>
