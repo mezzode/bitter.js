@@ -39,12 +39,12 @@ var Bleat = React.createClass({
         var conversation = this.state.conversation;
         var replies = this.state.replies;
         if (conversation.length > 0)
-            conversationNode = <BleatConversation data={conversation}/>;
+            conversationNode = <BleatConversation data={conversation} bleatId={bleat}/>;
         if (replies.length > 0)
-            repliesNode = <BleatReplies data={replies}/>;
+            repliesNode = <BleatReplies data={replies} bleatId={bleat}/>;
         return (
             <div id="2041929361" className="panel panel-default">
-                <BleatMain key={bleat} bleatId={bleat}/>
+                <BleatMain bleatId={bleat}/>
                 <BleatReply bleatId={bleat}/>
                 {conversationNode}
                 {repliesNode}
@@ -54,8 +54,9 @@ var Bleat = React.createClass({
 });
 var BleatReply = React.createClass({
     render: function() {
+        var id = this.props.bleatId;
         return (
-           <div className="collapse panel-collapse" id="2041929361-reply" aria-expanded="false">
+           <div className="collapse panel-collapse" id={id+'-reply'} aria-expanded="false">
                 <ul className="list-group">
                     <li className="list-group-item">
                         <p className="list-group-item-text"><a href="?new-user=True">Sign Up</a> or <a href="" data-toggle="modal" data-target="#log-in">Login</a> to reply to this bleat</p>
@@ -68,12 +69,11 @@ var BleatReply = React.createClass({
 var BleatConversation = React.createClass({
     render: function() {
         var bleatChainNodes = this.props.data.map(function(bleat) {
-            return (
-                <BleatSub bleatId={bleat}/>
-            );
+            return (<BleatSub bleatId={bleat}/>);
         });
+        var id = this.props.bleatId;
         return (
-            <div className="panel-collapse collapse" id="2041929361-conversations" aria-expanded="false" style={{height: '0px'}}>
+            <div className="panel-collapse collapse" id={id+'-conversations'} aria-expanded="false" style={{height: '0px'}}>
                 <ul className="list-group">
                     {bleatChainNodes}
                     <li className="list-group-item">
@@ -103,11 +103,11 @@ var BleatConversation = React.createClass({
 });
 var BleatReplies = React.createClass({
     render: function() {
-        var bleat = this.props.bleatId;
+        var id = this.props.bleatId;
         return (
-            <div className="collapse panel-collapse" id="2041929361-replies" aria-expanded="false">
+            <div className="collapse panel-collapse" id={id+'-replies'} aria-expanded="false">
                 <ul className="list-group">
-                    <BleatSub key={bleat} bleatId={bleat}/>
+                    <BleatSub bleatId={id}/>
                 </ul>
             </div>
         );
@@ -158,7 +158,7 @@ var BleatSub = React.createClass({
             sec = '' + '0' + sec
         return (
             <li className="list-group-item">
-                <a style={{color: 'inherit'}} className="list-group-item-heading" href="?user=PiotrMan68"><h4 className="list-group-item-heading">{data.username}</h4></a>
+                <a style={{color: 'inherit'}} className="list-group-item-heading" href={'/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
                 <p className="lead">{data.bleat}</p>
                 <a href={'?bleat='+id} style={{marginTop: '-4px'}} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
                 <ul className="list-inline">
@@ -216,7 +216,7 @@ var BleatMain = React.createClass({
         return (
             <div className="list-group">
                 <div className="list-group-item">
-                    <a style={{color: 'inherit'}} className="list-group-item-heading" href={'api/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
+                    <a style={{color: 'inherit'}} className="list-group-item-heading" href={'/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
                     <p className="lead">{data.bleat}</p>
                     <ul className="list-inline">
                         <li><small>{hour}:{min}:{sec} {suffix}</small></li>
