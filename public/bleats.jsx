@@ -1,11 +1,25 @@
 var page = 1;
 var Bleat = React.createClass({
     getInitialState: function() {
-        return {conversation: [], replies: []};
+        return {conversation: [], replies: [], data: []};
     },
     componentDidMount: function() {
+        this.getData();
         this.getConversation();
         this.getReplies();
+    },
+    getData: function() {
+        $.ajax({
+            url: 'bleat/' + this.props.bleatId,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.id, status, err.toString());
+            }.bind(this)
+        });
     },
     getConversation: function() {
         $.ajax({
@@ -34,18 +48,58 @@ var Bleat = React.createClass({
         });
     },
     render: function() {
-        var bleat = this.props.bleatId;
+        var data = this.state.data;
+        if (!data) return (<div></div>);
+        var id = this.props.bleatId;
+        var date = new Date(data.time * 1000);
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        var sec = date.getSeconds();
+        var suffix;
+        if (hour === 0) {
+            hour = 12;
+            suffix = 'AM';
+        } else if (hour === 12) {
+            suffix = 'PM';
+        } else if (hour > 12) {
+            hour -= 12;
+            suffix = 'PM';
+        } else {
+            suffix = 'AM';
+        }
+        if (hour < 10)
+            hour = '' + '0' + hour
+        if (min < 10)
+            min = '' + '0' + min
+        if (sec < 10)
+            sec = '' + '0' + sec
         var conversationNode, repliesNode;
         var conversation = this.state.conversation;
         var replies = this.state.replies;
         if (conversation.length > 0)
-            conversationNode = <BleatConversation data={conversation} bleatId={bleat}/>;
+            conversationNode = <BleatConversation data={conversation} bleatId={id}/>;
         if (replies.length > 0)
-            repliesNode = <BleatReplies data={replies} bleatId={bleat}/>;
+            repliesNode = <BleatReplies data={replies} bleatId={id}/>;
         return (
-            <div id="2041929361" className="panel panel-default">
-                <BleatMain bleatId={bleat}/>
-                <BleatReply bleatId={bleat}/>
+            <div id={id} className="panel panel-default">
+                <div className="list-group">
+                    <div className="list-group-item">
+                        <a style={{color: 'inherit'}} className="list-group-item-heading" href={'/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
+                        <p className="lead">{data.bleat}</p>
+                        <ul className="list-inline">
+                            <li><small>{hour}:{min}:{sec} {suffix}</small></li>
+                            <li><small>{date.toDateString()}</small></li>
+                            <li><small>Location: {data.latitude}, {data.longitude}</small></li>
+                        </ul>
+                        <a href={'?bleat='+id} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
+                        <div className="btn-group btn-group-sm">
+                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-reply'} aria-expanded="false"><small>Reply</small></a>
+                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-conversations'} aria-expanded="false"><small>View conversation</small></a>
+                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-replies'} aria-expanded="false"><small>View replies</small></a>
+                        </div>
+                    </div>
+                </div>
+                <BleatReply bleatId={id}/>
                 {conversationNode}
                 {repliesNode}
             </div>
@@ -150,70 +204,6 @@ var BleatSub = React.createClass({
                     <li><small>Location: {data.latitude}, {data.longitude}</small></li>
                 </ul>
             </li>
-        );
-    }
-});
-var BleatMain = React.createClass({
-    getInitialState: function() {
-        return {data: []};
-    },
-    componentDidMount: function() {
-        $.ajax({
-            url: 'bleat/' + this.props.bleatId,
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                this.setState({data: data});
-            }.bind(this),
-            error: function(xhr, status, err) {
-                console.error(this.props.id, status, err.toString());
-            }.bind(this)
-        });
-    },
-    render: function() {
-        var data = this.state.data;
-        var id = this.props.bleatId;
-        if (!data) return (<div></div>);
-        var date = new Date(data.time * 1000);
-        var hour = date.getHours();
-        var min = date.getMinutes();
-        var sec = date.getSeconds();
-        var suffix;
-        if (hour === 0) {
-            hour = 12;
-            suffix = 'AM';
-        } else if (hour === 12) {
-            suffix = 'PM';
-        } else if (hour > 12) {
-            hour -= 12;
-            suffix = 'PM';
-        } else {
-            suffix = 'AM';
-        }
-        if (hour < 10)
-            hour = '' + '0' + hour
-        if (min < 10)
-            min = '' + '0' + min
-        if (sec < 10)
-            sec = '' + '0' + sec
-        return (
-            <div className="list-group">
-                <div className="list-group-item">
-                    <a style={{color: 'inherit'}} className="list-group-item-heading" href={'/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
-                    <p className="lead">{data.bleat}</p>
-                    <ul className="list-inline">
-                        <li><small>{hour}:{min}:{sec} {suffix}</small></li>
-                        <li><small>{date.toDateString()}</small></li>
-                        <li><small>Location: {data.latitude}, {data.longitude}</small></li>
-                    </ul>
-                    <a href={'?bleat='+id} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
-                    <div className="btn-group btn-group-sm">
-                        <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-reply'} aria-expanded="false"><small>Reply</small></a>
-                        <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-conversations'} aria-expanded="false"><small>View conversation</small></a>
-                        <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-replies'} aria-expanded="false"><small>View replies</small></a>
-                    </div>
-                </div>
-            </div>
         );
     }
 });
