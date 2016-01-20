@@ -54,7 +54,9 @@ function getBleat(id, callback) {
     var path = __dirname + '\\dataset-medium\\bleats\\' + id;
     fs.readFile(path, function(err, data) {
         if (err) {
-            response.status(404).json('No bleat with that id');
+            // response.status(404).json('No bleat with id '+id);
+            // TODO pass in error callback instead?
+            console.log('No bleat with id '+id);
             return;
         }
         data = data.toString();
