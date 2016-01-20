@@ -73,13 +73,17 @@ var Bleat = React.createClass({
             min = '' + '0' + min
         if (sec < 10)
             sec = '' + '0' + sec
-        var conversationNode, repliesNode;
+        var conversationNode, repliesNode, conversationButton, repliesButton;
         var conversation = this.state.conversation;
         var replies = this.state.replies;
-        if (conversation.length > 0)
+        if (conversation.length > 0) {
             conversationNode = <BleatConversation data={conversation} bleatId={id}/>;
-        if (replies.length > 0)
+            conversationButton = <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-conversations'} aria-expanded="false"><small>View conversation</small></a>;
+        }
+        if (replies.length > 0) {
             repliesNode = <BleatReplies data={replies} bleatId={id}/>;
+            repliesButton = <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-replies'} aria-expanded="false"><small>View replies</small></a>;
+        }
         return (
             <div id={id} className="panel panel-default">
                 <div className="list-group">
@@ -94,8 +98,8 @@ var Bleat = React.createClass({
                         <a href={'?bleat='+id} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
                         <div className="btn-group btn-group-sm">
                             <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-reply'} aria-expanded="false"><small>Reply</small></a>
-                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-conversations'} aria-expanded="false"><small>View conversation</small></a>
-                            <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-replies'} aria-expanded="false"><small>View replies</small></a>
+                            {conversationButton}
+                            {repliesButton}
                         </div>
                     </div>
                 </div>
