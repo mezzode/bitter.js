@@ -262,12 +262,12 @@ var Bleats = React.createClass({
                 <Bleat key={bleat} bleatId={bleat}/>
             );
         });
-        var BleatUpdater;
+        var bleatUpdater;
         if (this.state.new_bleats)
-            BleatUpdater = (<button className="btn btn-default" onClick={this.loadBleats}>Test</button>);
+            bleatUpdater = (<button className="btn btn-default" onClick={this.loadBleats}>Test</button>);
         return (
             <div>
-                {BleatUpdater}
+                {bleatUpdater}
                 {bleatNodes}
                 <Paginator/>
             </div>
