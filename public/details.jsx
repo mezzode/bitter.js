@@ -11,8 +11,24 @@ var Details = React.createClass({
     }
 });
 var Listen = React.createClass({
+    componentDidMount: function() {
+        $.ajax({
+            url: 'user/' + this.props.user + '/details',
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+                this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error(this.props.id, status, err.toString());
+            }.bind(this)
+        });
+    },
     render: function() {
+        var data = this.state.data;
+        if (!data) return (<div></div>);
         var user = this.props.user;
+        var name = data.full_name;
         return (
             <a href={'/user/'+user} className="list-group-item">
                 <div className="media">
