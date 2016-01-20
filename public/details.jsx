@@ -10,6 +10,38 @@ var Details = React.createClass({
         );
     }
 });
+var Listen = React.createClass({
+    render: function() {
+        var user = this.props.user;
+        return (
+            <a href={'/user/'+user} className="list-group-item">
+                <div className="media">
+                    <div className="media-left">
+                        <img style="max-width:64px; max-height:64px;" className="media-object" src={pic}/>
+                    </div>
+                    <div className="media-body">
+                        <h4 className="media-heading">{name}<br/><small>{user}</small></h4>
+                    </div>
+                </div>
+            </a>
+        );
+    }
+});
+var Listens = React.createClass({
+    render: function() {
+        var listenNodes = this.props.map(function(user) {
+            return (<Listen user={user}/>);
+        });
+        return (
+            <li class="list-group-item">
+                <h3 class="list-group-item-heading">Listens</h3>
+                <div class="list-group">
+                    {listenNodes}
+                </div>
+            </li>
+        );
+    }
+});
 ReactDOM.render(
     <Details/>,
     document.getElementById('details')
