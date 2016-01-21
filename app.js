@@ -137,4 +137,15 @@ app.route('/user/:username/bleats')
         });
     });
 
+app.route('/user/:username/picture')
+    .all(function(request, response, next) {
+        request.username = request.params.username.toLowerCase();
+        next();
+    })
+    .get(function(request, response) {
+        var username = request.username;
+        var path = __dirname + '\\dataset-medium\\users\\' + username + '\\profile.jpg';
+        response.sendFile(path);
+    });
+
 app.listen(8080);
