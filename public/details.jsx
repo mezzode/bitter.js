@@ -1,4 +1,5 @@
 (function() {
+    'use strict';
     var Details = React.createClass({
         getInitialState: function() {
             return {data: {}};

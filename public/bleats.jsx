@@ -1,4 +1,5 @@
 (function() {
+    'use strict';
     var page = 1;
     var Bleat = React.createClass({
         getInitialState: function() {
