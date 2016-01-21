@@ -145,7 +145,13 @@ app.route('/user/:username/picture')
     .get(function(request, response) {
         var username = request.username;
         var path = __dirname + '\\dataset-medium\\users\\' + username + '\\profile.jpg';
-        response.sendFile(path);
+        var placeholder = __dirname + '\\public\\placeholder.png';
+        fs.exists(path, function(exists) {
+            if (exists)
+                response.sendFile(path);
+            else
+                response.sendFile(placeholder);
+        });
     });
 
 app.listen(8080);
