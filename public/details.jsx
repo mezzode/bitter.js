@@ -29,6 +29,7 @@ var Listen = React.createClass({
         if (!data) return (<div></div>);
         var user = this.props.user;
         var name = data.full_name;
+        var pic = 'user/' + user + '/picture';
         return (
             <a href={'/user/'+user} className="list-group-item">
                 <div className="media">
