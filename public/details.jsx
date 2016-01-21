@@ -30,8 +30,36 @@ var Details = React.createClass({
                 </div>
                 <ul className="list-group">
                     <Listens listens={listens}/>
+                    <Home data={data}/>
                 </ul>
             </div>
+        );
+    }
+});
+var Home = React.createClass({
+    render: function() {
+        var data = this.props.data;
+        var latitude = data.home_latitude;
+        var longitude = data.home_longitude;
+        var suburb = data.home_suburb;
+        if (!(latitude || longitude || suburb))
+            return (<div></div>);
+        var latitudeNode, longitudeNode, suburbNode;
+        if (latitude)
+            latitudeNode = <div><dt>Latitude</dt><dd>{latitude}</dd></div>;
+        if (longitude)
+            longitudeNode = <div><dt>Longitude</dt><dd>{longitude}</dd></div>;
+        if (suburb)
+            suburbNode = <div><dt>Suburb</dt><dd>{suburb}</dd></div>;
+        return (
+            <li className="list-group-item">
+                <h3 className="list-group-item-heading">Home Details</h3>
+                <dl>
+                    {latitudeNode}
+                    {longitudeNode}
+                    {suburbNode}
+                </dl>
+            </li>
         );
     }
 });
