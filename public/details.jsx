@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-    var Details = React.createClass({
+    const Details = React.createClass({
         getInitialState: function() {
             return {data: {}};
         },
@@ -18,12 +18,12 @@
             });
         },
         render: function() {
-            var data = this.state.data;
+            const data = this.state.data;
             if (!data) return (<div></div>);
-            var user = this.props.user;
-            var pic = 'user/' + user + '/picture';
-            var name = data.full_name;
-            var listens = data.listens;
+            const user = this.props.user;
+            const pic = 'user/' + user + '/picture';
+            const name = data.full_name;
+            const listens = data.listens;
             return (
                 <div className="panel panel-primary">
                     <div className="panel-body">
@@ -38,15 +38,15 @@
             );
         }
     });
-    var Home = React.createClass({
+    const Home = React.createClass({
         render: function() {
-            var data = this.props.data;
-            var latitude = data.home_latitude;
-            var longitude = data.home_longitude;
-            var suburb = data.home_suburb;
+            const data = this.props.data;
+            const latitude = data.home_latitude;
+            const longitude = data.home_longitude;
+            const suburb = data.home_suburb;
             if (!(latitude || longitude || suburb))
                 return (<div></div>);
-            var latitudeNode, longitudeNode, suburbNode;
+            let latitudeNode, longitudeNode, suburbNode;
             if (latitude)
                 latitudeNode = <div><dt>Latitude</dt><dd>{latitude}</dd></div>;
             if (longitude)
@@ -65,7 +65,7 @@
             );
         }
     });
-    var Listen = React.createClass({
+    const Listen = React.createClass({
         getInitialState: function() {
             return {data: {}};
         },
@@ -83,11 +83,11 @@
             });
         },
         render: function() {
-            var data = this.state.data;
+            const data = this.state.data;
             if (!data) return (<div></div>);
-            var user = this.props.user;
-            var name = data.full_name;
-            var pic = 'user/' + user + '/picture';
+            const user = this.props.user;
+            const name = data.full_name;
+            const pic = 'user/' + user + '/picture';
             return (
                 <a href={'/user/'+user} className="list-group-item">
                     <div className="media">
@@ -102,11 +102,11 @@
             );
         }
     });
-    var Listens = React.createClass({
+    const Listens = React.createClass({
         render: function() {
-            var listens = this.props.listens;
+            const listens = this.props.listens;
             if (!listens) return (<div></div>);
-            var listenNodes = listens.map(function(user) {
+            const listenNodes = listens.map(function(user) {
                 return (<Listen user={user}/>);
             });
             return (
@@ -119,7 +119,7 @@
             );
         }
     });
-    var user = 'James41';
+    const user = 'James41';
     ReactDOM.render(
         <Details user={user}/>,
         document.getElementById('details')

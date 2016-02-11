@@ -1,7 +1,7 @@
 (function() {
     'use strict';
-    var page = 1;
-    var Bleat = React.createClass({
+    const page = 1;
+    const Bleat = React.createClass({
         getInitialState: function() {
             return {conversation: [], replies: [], data: []};
         },
@@ -50,14 +50,14 @@
             });
         },
         render: function() {
-            var data = this.state.data;
+            const data = this.state.data;
             if (!data) return (<div></div>);
-            var id = this.props.bleatId;
-            var date = new Date(data.time * 1000);
-            var hour = date.getHours();
-            var min = date.getMinutes();
-            var sec = date.getSeconds();
-            var suffix;
+            const id = this.props.bleatId;
+            const date = new Date(data.time * 1000);
+            let hour = date.getHours();
+            let min = date.getMinutes();
+            let sec = date.getSeconds();
+            let suffix;
             if (hour === 0) {
                 hour = 12;
                 suffix = 'AM';
@@ -75,9 +75,9 @@
                 min = '' + '0' + min
             if (sec < 10)
                 sec = '' + '0' + sec
-            var conversationNode, repliesNode, conversationButton, repliesButton;
-            var conversation = this.state.conversation;
-            var replies = this.state.replies;
+            let conversationNode, repliesNode, conversationButton, repliesButton;
+            const conversation = this.state.conversation;
+            const replies = this.state.replies;
             if (conversation.length > 0) {
                 conversationNode = <BleatConversation data={conversation} bleatId={id}/>;
                 conversationButton = <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-conversations'} aria-expanded="false"><small>View conversation</small></a>;
@@ -112,9 +112,9 @@
             )
         }
     });
-    var BleatReply = React.createClass({
+    const BleatReply = React.createClass({
         render: function() {
-            var id = this.props.bleatId;
+            const id = this.props.bleatId;
             return (
                <div className="collapse panel-collapse" id={id+'-reply'} aria-expanded="false">
                     <ul className="list-group">
@@ -126,12 +126,12 @@
             );
         }
     });
-    var BleatConversation = React.createClass({
+    const BleatConversation = React.createClass({
         render: function() {
-            var bleatChainNodes = this.props.data.map(function(bleat) {
+            const bleatChainNodes = this.props.data.map(function(bleat) {
                 return (<BleatSub bleatId={bleat}/>);
             });
-            var id = this.props.bleatId;
+            const id = this.props.bleatId;
             return (
                 <div className="panel-collapse collapse" id={id+'-conversations'} aria-expanded="false" style={{height: '0px'}}>
                     <ul className="list-group">
@@ -141,12 +141,12 @@
             );
         }
     });
-    var BleatReplies = React.createClass({
+    const BleatReplies = React.createClass({
         render: function() {
-            var bleatChainNodes = this.props.data.map(function(bleat) {
+            const bleatChainNodes = this.props.data.map(function(bleat) {
                 return (<BleatSub bleatId={bleat}/>);
             });
-            var id = this.props.bleatId;
+            const id = this.props.bleatId;
             return (
                 <div className="collapse panel-collapse" id={id+'-replies'} aria-expanded="false">
                     <ul className="list-group">
@@ -156,7 +156,7 @@
             );
         }
     });
-    var BleatSub = React.createClass({
+    const BleatSub = React.createClass({
         getInitialState: function() {
             return {data: []};
         },
@@ -174,14 +174,14 @@
             });
         },
         render: function() {
-            var data = this.state.data;
-            var id = this.props.bleatId;
+            const data = this.state.data;
+            const id = this.props.bleatId;
             if (!data) return (<div></div>);
-            var date = new Date(data.time * 1000);
-            var hour = date.getHours();
-            var min = date.getMinutes();
-            var sec = date.getSeconds();
-            var suffix;
+            const date = new Date(data.time * 1000);
+            let hour = date.getHours();
+            let min = date.getMinutes();
+            let sec = date.getSeconds();
+            let suffix;
             if (hour === 0) {
                 hour = 12;
                 suffix = 'AM';
@@ -213,7 +213,7 @@
             );
         }
     });
-    var Bleats = React.createClass({
+    const Bleats = React.createClass({
         getInitialState: function() {
             return {data: [], new_bleats: false};
         },
@@ -226,7 +226,7 @@
                 dataType: 'json',
                 cache: false,
                 success: function(data) {
-                    var handle = setInterval(this.checkBleats, this.props.pollInterval);
+                    const handle = setInterval(this.checkBleats, this.props.pollInterval);
                     this.setState({data: data, new_bleats: false, handle: handle});
                 }.bind(this),
                 error: function(xhr, status, err) {
@@ -244,8 +244,8 @@
                         this.setState({new_bleats: true});
                         return;
                     }
-                    var changed = false;
-                    for (var i in data) {
+                    let changed = false;
+                    for (let i in data) {
                         if (data[i] !== this.state.data[i])
                             changed = true;
                     }
@@ -259,12 +259,12 @@
             });
         },
         render: function() {
-            var bleatNodes = this.state.data.map(function(bleat) {
+            const bleatNodes = this.state.data.map(function(bleat) {
                 return (
                     <Bleat key={bleat} bleatId={bleat}/>
                 );
             });
-            var bleatUpdater;
+            let bleatUpdater;
             if (this.state.new_bleats)
                 bleatUpdater = (<button className="btn btn-default" onClick={this.loadBleats}>Test</button>);
             return (
@@ -276,7 +276,7 @@
             );
         }
     });
-    var Paginator = React.createClass({
+    const Paginator = React.createClass({
         render: function() {
             return (
                 <nav>
@@ -292,7 +292,7 @@
             );
         }
     });
-    var user = 'James41'
+    const user = 'James41'
     ReactDOM.render(
         <Bleats url={'user/' + user + '/bleats?page=' + page} pollInterval={2000}/>,
         document.getElementById('content')
