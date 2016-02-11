@@ -15,12 +15,12 @@
                 url: 'bleat/' + this.props.bleatId,
                 dataType: 'json',
                 cache: false,
-                success: function(data) {
-                    this.setState({data: data});
-                }.bind(this),
-                error: function(xhr, status, err) {
+                success: (data) => {
+                    this.setState({data});
+                },
+                error: (xhr, status, err) => {
                     console.error(this.props.id, status, err.toString());
-                }.bind(this)
+                }
             });
         },
         getConversation() {
@@ -28,12 +28,12 @@
                 url: 'bleat/' + this.props.bleatId + '/conversation',
                 dataType: 'json',
                 cache: false,
-                success: function(data) {
+                success: (data) => {
                     this.setState({conversation: data});
-                }.bind(this),
-                error: function(xhr, status, err) {
+                },
+                error: (xhr, status, err) => {
                     console.error(this.props.id, status, err.toString());
-                }.bind(this)
+                }
             });
         },
         getReplies() {
@@ -41,12 +41,12 @@
                 url: 'bleat/' + this.props.bleatId + '/replies',
                 dataType: 'json',
                 cache: false,
-                success: function(data) {
+                success: (data) => {
                     this.setState({replies: data});
-                }.bind(this),
-                error: function(xhr, status, err) {
+                },
+                error: (xhr, status, err) => {
                     console.error(this.props.id, status, err.toString());
-                }.bind(this)
+                }
             });
         },
         render() {
@@ -165,12 +165,12 @@
                 url: 'bleat/' + this.props.bleatId,
                 dataType: 'json',
                 cache: false,
-                success: function(data) {
-                    this.setState({data: data});
-                }.bind(this),
-                error: function(xhr, status, err) {
+                success: (data) => {
+                    this.setState({data});
+                },
+                error: (xhr, status, err) => {
                     console.error(this.props.id, status, err.toString());
-                }.bind(this)
+                }
             });
         },
         render() {
@@ -225,13 +225,13 @@
                 url: this.props.url,
                 dataType: 'json',
                 cache: false,
-                success: function(data) {
+                success: (data) => {
                     const handle = setInterval(this.checkBleats, this.props.pollInterval);
-                    this.setState({data: data, new_bleats: false, handle: handle});
-                }.bind(this),
-                error: function(xhr, status, err) {
+                    this.setState({data, new_bleats: false, handle});
+                },
+                error: (xhr, status, err) => {
                     console.error(this.props.url, status, err.toString());
-                }.bind(this)
+                }
             });
         },
         checkBleats() {
@@ -239,7 +239,7 @@
                 url: this.props.url,
                 dataType: 'json',
                 cache: false,
-                success: function(data) {
+                success: (data) => {
                     if (data.length !== this.state.data.length) {
                         this.setState({new_bleats: true});
                         return;
@@ -252,10 +252,10 @@
                     this.setState({new_bleats: changed});
                     if (changed)
                         clearInterval(this.state.handle);
-                }.bind(this),
-                error: function(xhr, status, err) {
+                },
+                error: (xhr, status, err) => {
                     console.error(this.props.url, status, err.toString());
-                }.bind(this)
+                }
             });
         },
         render() {

@@ -9,12 +9,12 @@
                 url: 'user/' + this.props.user + '/details',
                 dataType: 'json',
                 cache: false,
-                success: function(data) {
-                    this.setState({data: data});
-                }.bind(this),
-                error: function(xhr, status, err) {
+                success: (data) => {
+                    this.setState({data});
+                },
+                error: (xhr, status, err) => {
                     console.error(this.props.id, status, err.toString());
-                }.bind(this)
+                }
             });
         },
         render() {
@@ -74,12 +74,12 @@
                 url: 'user/' + this.props.user + '/details',
                 dataType: 'json',
                 cache: false,
-                success: function(data) {
-                    this.setState({data: data});
-                }.bind(this),
-                error: function(xhr, status, err) {
+                success: (data) => {
+                    this.setState({data});
+                },
+                error: (xhr, status, err) => {
                     console.error(this.props.id, status, err.toString());
-                }.bind(this)
+                }
             });
         },
         render() {
