@@ -245,7 +245,7 @@
                         return;
                     }
                     let changed = false;
-                    for (let i in data) {
+                    for (const i in data) {
                         if (data[i] !== this.state.data[i])
                             changed = true;
                     }

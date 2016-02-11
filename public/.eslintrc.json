@@ -19,7 +19,10 @@
         "no-unexpected-multiline": 2,
         "no-console": 0,
         "quotes": [2, "single", "avoid-escape"],
-        "strict": [2, "function"]
+        "strict": [2, "function"],
+        "object-shorthand": [2, "always"],
+        "no-var": 2,
+        "prefer-const": 2
     },
     "env": {
         "es6": true,
@@ -28,7 +31,8 @@
     "extends": "eslint:recommended",
     "ecmaFeatures": {
         "jsx": true,
-        "experimentalObjectRestSpread": true
+        "experimentalObjectRestSpread": true,
+        "blockBindings": true
     },
     "plugins": [
         "react"
