@@ -22,7 +22,11 @@
         "strict": [2, "function"],
         "object-shorthand": [2, "always"],
         "no-var": 2,
-        "prefer-const": 2
+        "prefer-const": 2,
+        "prefer-arrow-callback": 2,
+        "constructor-super": 2,
+        "no-this-before-super": 2,
+        "no-arrow-condition": 2
     },
     "env": {
         "es6": true,

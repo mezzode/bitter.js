@@ -106,9 +106,7 @@
         render() {
             const listens = this.props.listens;
             if (!listens) return (<div></div>);
-            const listenNodes = listens.map(function(user) {
-                return (<Listen user={user}/>);
-            });
+            const listenNodes = listens.map(user => <Listen user={user}/>);
             return (
                 <li className="list-group-item">
                     <h3 className="list-group-item-heading">Listens</h3>

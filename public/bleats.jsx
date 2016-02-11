@@ -128,9 +128,7 @@
     });
     const BleatConversation = React.createClass({
         render() {
-            const bleatChainNodes = this.props.data.map(function(bleat) {
-                return (<BleatSub bleatId={bleat}/>);
-            });
+            const bleatChainNodes = this.props.data.map(bleat => <BleatSub bleatId={bleat}/>);
             const id = this.props.bleatId;
             return (
                 <div className="panel-collapse collapse" id={id+'-conversations'} aria-expanded="false" style={{height: '0px'}}>
@@ -143,9 +141,7 @@
     });
     const BleatReplies = React.createClass({
         render() {
-            const bleatChainNodes = this.props.data.map(function(bleat) {
-                return (<BleatSub bleatId={bleat}/>);
-            });
+            const bleatChainNodes = this.props.data.map(bleat => <BleatSub bleatId={bleat}/>);
             const id = this.props.bleatId;
             return (
                 <div className="collapse panel-collapse" id={id+'-replies'} aria-expanded="false">
@@ -259,11 +255,7 @@
             });
         },
         render() {
-            const bleatNodes = this.state.data.map(function(bleat) {
-                return (
-                    <Bleat key={bleat} bleatId={bleat}/>
-                );
-            });
+            const bleatNodes = this.state.data.map(bleat => <Bleat key={bleat} bleatId={bleat}/>);
             let bleatUpdater;
             if (this.state.new_bleats)
                 bleatUpdater = (<button className="btn btn-default" onClick={this.loadBleats}>Test</button>);
