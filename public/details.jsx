@@ -1,10 +1,10 @@
 (function() {
     'use strict';
     const Details = React.createClass({
-        getInitialState: function() {
+        getInitialState() {
             return {data: {}};
         },
-        componentDidMount: function() {
+        componentDidMount() {
             $.ajax({
                 url: 'user/' + this.props.user + '/details',
                 dataType: 'json',
@@ -17,7 +17,7 @@
                 }.bind(this)
             });
         },
-        render: function() {
+        render() {
             const data = this.state.data;
             if (!data) return (<div></div>);
             const user = this.props.user;
@@ -39,7 +39,7 @@
         }
     });
     const Home = React.createClass({
-        render: function() {
+        render() {
             const data = this.props.data;
             const latitude = data.home_latitude;
             const longitude = data.home_longitude;
@@ -66,10 +66,10 @@
         }
     });
     const Listen = React.createClass({
-        getInitialState: function() {
+        getInitialState() {
             return {data: {}};
         },
-        componentDidMount: function() {
+        componentDidMount() {
             $.ajax({
                 url: 'user/' + this.props.user + '/details',
                 dataType: 'json',
@@ -82,7 +82,7 @@
                 }.bind(this)
             });
         },
-        render: function() {
+        render() {
             const data = this.state.data;
             if (!data) return (<div></div>);
             const user = this.props.user;
@@ -103,7 +103,7 @@
         }
     });
     const Listens = React.createClass({
-        render: function() {
+        render() {
             const listens = this.props.listens;
             if (!listens) return (<div></div>);
             const listenNodes = listens.map(function(user) {

@@ -2,15 +2,15 @@
     'use strict';
     const page = 1;
     const Bleat = React.createClass({
-        getInitialState: function() {
+        getInitialState() {
             return {conversation: [], replies: [], data: []};
         },
-        componentDidMount: function() {
+        componentDidMount() {
             this.getData();
             this.getConversation();
             this.getReplies();
         },
-        getData: function() {
+        getData() {
             $.ajax({
                 url: 'bleat/' + this.props.bleatId,
                 dataType: 'json',
@@ -23,7 +23,7 @@
                 }.bind(this)
             });
         },
-        getConversation: function() {
+        getConversation() {
             $.ajax({
                 url: 'bleat/' + this.props.bleatId + '/conversation',
                 dataType: 'json',
@@ -36,7 +36,7 @@
                 }.bind(this)
             });
         },
-        getReplies: function() {
+        getReplies() {
             $.ajax({
                 url: 'bleat/' + this.props.bleatId + '/replies',
                 dataType: 'json',
@@ -49,7 +49,7 @@
                 }.bind(this)
             });
         },
-        render: function() {
+        render() {
             const data = this.state.data;
             if (!data) return (<div></div>);
             const id = this.props.bleatId;
@@ -113,7 +113,7 @@
         }
     });
     const BleatReply = React.createClass({
-        render: function() {
+        render() {
             const id = this.props.bleatId;
             return (
                <div className="collapse panel-collapse" id={id+'-reply'} aria-expanded="false">
@@ -127,7 +127,7 @@
         }
     });
     const BleatConversation = React.createClass({
-        render: function() {
+        render() {
             const bleatChainNodes = this.props.data.map(function(bleat) {
                 return (<BleatSub bleatId={bleat}/>);
             });
@@ -142,7 +142,7 @@
         }
     });
     const BleatReplies = React.createClass({
-        render: function() {
+        render() {
             const bleatChainNodes = this.props.data.map(function(bleat) {
                 return (<BleatSub bleatId={bleat}/>);
             });
@@ -157,10 +157,10 @@
         }
     });
     const BleatSub = React.createClass({
-        getInitialState: function() {
+        getInitialState() {
             return {data: []};
         },
-        componentDidMount: function() {
+        componentDidMount() {
             $.ajax({
                 url: 'bleat/' + this.props.bleatId,
                 dataType: 'json',
@@ -173,7 +173,7 @@
                 }.bind(this)
             });
         },
-        render: function() {
+        render() {
             const data = this.state.data;
             const id = this.props.bleatId;
             if (!data) return (<div></div>);
@@ -214,13 +214,13 @@
         }
     });
     const Bleats = React.createClass({
-        getInitialState: function() {
+        getInitialState() {
             return {data: [], new_bleats: false};
         },
-        componentDidMount: function() {
+        componentDidMount() {
             this.loadBleats();
         },
-        loadBleats: function() {
+        loadBleats() {
             $.ajax({
                 url: this.props.url,
                 dataType: 'json',
@@ -234,7 +234,7 @@
                 }.bind(this)
             });
         },
-        checkBleats: function() {
+        checkBleats() {
             $.ajax({
                 url: this.props.url,
                 dataType: 'json',
@@ -258,7 +258,7 @@
                 }.bind(this)
             });
         },
-        render: function() {
+        render() {
             const bleatNodes = this.state.data.map(function(bleat) {
                 return (
                     <Bleat key={bleat} bleatId={bleat}/>
@@ -277,7 +277,7 @@
         }
     });
     const Paginator = React.createClass({
-        render: function() {
+        render() {
             return (
                 <nav>
                     <div className="text-center">
