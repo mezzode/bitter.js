@@ -1,12 +1,9 @@
 import React from 'react';
 export default class Navbar extends React.Component {
-    constructor() {
-        super();
-        this.state = {user: false};
-    }
     render() {
         let right;
-        if (this.state.user) {
+        const user = this.state.user;
+        if (user) {
             right = (
                 <div></div>
             );
@@ -48,4 +45,3 @@ export default class Navbar extends React.Component {
         );
     }
 }
-// ReactDOM.render(<Navbar/>, document.getElementById('react-navbar'));

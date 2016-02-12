@@ -11,7 +11,7 @@ class App extends React.Component {
         const page = 1;
         return (
             <div>
-                <Navbar/>
+                <Navbar user={false}/>
                 <Login/>
                 <div className="container">
                     <div className="row">
