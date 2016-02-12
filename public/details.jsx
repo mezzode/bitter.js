@@ -6,7 +6,7 @@
         },
         componentDidMount() {
             $.ajax({
-                url: 'user/' + this.props.user + '/details',
+                url: 'api/user/' + this.props.user + '/details',
                 dataType: 'json',
                 cache: false,
                 success: (data) => {
@@ -21,7 +21,7 @@
             const data = this.state.data;
             if (!data) return (<div></div>);
             const user = this.props.user;
-            const pic = 'user/' + user + '/picture';
+            const pic = 'api/user/' + user + '/picture';
             const name = data.full_name;
             const listens = data.listens;
             return (
@@ -71,7 +71,7 @@
         },
         componentDidMount() {
             $.ajax({
-                url: 'user/' + this.props.user + '/details',
+                url: 'api/user/' + this.props.user + '/details',
                 dataType: 'json',
                 cache: false,
                 success: (data) => {
@@ -87,7 +87,7 @@
             if (!data) return (<div></div>);
             const user = this.props.user;
             const name = data.full_name;
-            const pic = 'user/' + user + '/picture';
+            const pic = 'api/user/' + user + '/picture';
             return (
                 <a href={'/user/'+user} className="list-group-item">
                     <div className="media">

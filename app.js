@@ -6,7 +6,7 @@
 
     app.use(express.static('public'));
 
-    app.route('/bleat/:id')
+    app.route('/api/bleat/:id')
         .get(function(request, response) {
             var id = request.params.id;
             getBleat(id, function(data) {
@@ -14,7 +14,7 @@
             });
         });
 
-    app.route('/bleat/:id/replies')
+    app.route('/api/bleat/:id/replies')
         .get(function(request, response) {
             var curr_id = request.params.id;
             var path = __dirname + '\\dataset-medium\\bleats\\';
@@ -37,7 +37,7 @@
             });
         });
 
-    app.route('/bleat/:id/conversation')
+    app.route('/api/bleat/:id/conversation')
         .get(function(request, response) {
             var id = request.params.id;
             var conversation = [];
@@ -74,7 +74,7 @@
         });
     }
 
-    app.route('/user/:username/details')
+    app.route('/api/user/:username/details')
         .all(function(request, response, next) {
             request.username = request.params.username.toLowerCase();
             next();
@@ -101,7 +101,7 @@
             });
         });
 
-    app.route('/user/:username/bleats')
+    app.route('/api/user/:username/bleats')
         .all(function(request, response, next) {
             request.username = request.params.username.toLowerCase();
             next();
@@ -139,7 +139,7 @@
             });
         });
 
-    app.route('/user/:username/picture')
+    app.route('/api/user/:username/picture')
         .all(function(request, response, next) {
             request.username = request.params.username.toLowerCase();
             next();

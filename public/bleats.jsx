@@ -12,7 +12,7 @@
         },
         getData() {
             $.ajax({
-                url: 'bleat/' + this.props.bleatId,
+                url: 'api/bleat/' + this.props.bleatId,
                 dataType: 'json',
                 cache: false,
                 success: (data) => {
@@ -25,7 +25,7 @@
         },
         getConversation() {
             $.ajax({
-                url: 'bleat/' + this.props.bleatId + '/conversation',
+                url: 'api/bleat/' + this.props.bleatId + '/conversation',
                 dataType: 'json',
                 cache: false,
                 success: (data) => {
@@ -38,7 +38,7 @@
         },
         getReplies() {
             $.ajax({
-                url: 'bleat/' + this.props.bleatId + '/replies',
+                url: 'api/bleat/' + this.props.bleatId + '/replies',
                 dataType: 'json',
                 cache: false,
                 success: (data) => {
@@ -158,7 +158,7 @@
         },
         componentDidMount() {
             $.ajax({
-                url: 'bleat/' + this.props.bleatId,
+                url: 'api/bleat/' + this.props.bleatId,
                 dataType: 'json',
                 cache: false,
                 success: (data) => {
@@ -286,7 +286,7 @@
     });
     const user = 'James41'
     ReactDOM.render(
-        <Bleats url={'user/' + user + '/bleats?page=' + page} pollInterval={2000}/>,
+        <Bleats url={'api/user/' + user + '/bleats?page=' + page} pollInterval={2000}/>,
         document.getElementById('content')
     );
 })();
