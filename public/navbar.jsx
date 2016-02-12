@@ -2,11 +2,11 @@
     'use strict';
     const Navbar = React.createClass({
         getInitialState() {
-            return {logged_in: false};
+            return {user: false};
         },
         render() {
             let right;
-            if (this.state.logged_in) {
+            if (this.state.user) {
                 right = (
                     <div></div>
                 );
