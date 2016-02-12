@@ -19,33 +19,7 @@
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle nagivation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>  
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="?">Bitter</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <form class="navbar-form navbar-left" action="?" id="search" role="search">
-                    <div class="input-group">
-                        <input type="text" name="search" class="form-control" placeholder="Search">
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-link">
-                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </button>
-                        </span>
-                    </div>
-                    </form>
-                    <button class="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
-                    <a class="btn btn-link navbar-btn navbar-right" href="?new-user=True">Sign Up</a>
-                </div>
-            </div>
-        </nav>
+        <div id="react-navbar"></div>
         <div class="modal fade" id="log-in" tabindex="-1" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -94,6 +68,8 @@
     <script src="js/react-dom.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script> -->
     <script src="js/babel.js"></script>
+    <script src="https://npmcdn.com/react-router/umd/ReactRouter.min.js"></script>
+    <script src="navbar.jsx" type="text/babel"></script>
     <script src="details.jsx" type="text/babel"></script>
     <script src="bleats.jsx" type="text/babel"></script>
     <script>
