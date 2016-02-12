@@ -2,6 +2,21 @@
     'use strict';
     const Navbar = React.createClass({
         render() {
+            // check if logged in
+            const logged_in = false;
+            let right;
+            if (logged_in) {
+                right = (
+                    <div></div>
+                );
+            } else {
+                right = (
+                    <div>
+                        <button className="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
+                        <a className="btn btn-link navbar-btn navbar-right" href="?new-user=True">Sign Up</a>
+                    </div>
+                );
+            }
             return (
                 <nav className="navbar navbar-default navbar-fixed-top">
                     <div className="container">
@@ -25,8 +40,7 @@
                                 </span>
                             </div>
                             </form>
-                            <button className="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
-                            <a className="btn btn-link navbar-btn navbar-right" href="?new-user=True">Sign Up</a>
+                            {right}
                         </div>
                     </div>
                 </nav>
