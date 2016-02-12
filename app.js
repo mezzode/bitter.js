@@ -6,6 +6,29 @@
 
     app.use(express.static('public'));
 
+    // app.route('/api/login')
+    //     .post(function(request, response) {
+    //         // hash password
+    //         // check against database
+    //         // issue token if valid
+    //         // update sessions in database
+    //     });
+
+    app.route('/api/authenticate')
+        .get(function(request, response) {
+            var user = request.query.user;
+            var token = request.query.token;
+            var valid;
+            // check against database
+            // if matches, return true
+            if (user === 'James41' && token === 'blahblah') {
+                valid = true;
+            } else {
+                valid = false;
+            }
+            response.json(valid);
+        })
+
     app.route('/api/bleat/:id')
         .get(function(request, response) {
             var id = request.params.id;

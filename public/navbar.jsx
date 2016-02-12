@@ -2,10 +2,10 @@ import React from 'react';
 export default class Navbar extends React.Component {
     render() {
         let right;
-        const user = this.state.user;
+        const user = this.props.user;
         if (user) {
             right = (
-                <div></div>
+                <div>Moo</div>
             );
         } else {
             right = (
