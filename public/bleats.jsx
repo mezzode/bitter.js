@@ -60,15 +60,17 @@ export default class Bleats extends React.Component {
         );
     }
 }
-const Bleat = React.createClass({
-    getInitialState() {
-        return {conversation: [], replies: [], data: []};
-    },
+
+class Bleat extends React.Component {
+    constructor() {
+        super();
+        this.state = {conversation: [], replies: [], data: []};
+    }
     componentDidMount() {
         this.getData();
         this.getConversation();
         this.getReplies();
-    },
+    }
     getData() {
         $.ajax({
             url: 'api/bleat/' + this.props.bleatId,
@@ -81,7 +83,7 @@ const Bleat = React.createClass({
                 console.error(this.props.id, status, err.toString());
             }
         });
-    },
+    }
     getConversation() {
         $.ajax({
             url: 'api/bleat/' + this.props.bleatId + '/conversation',
@@ -94,7 +96,7 @@ const Bleat = React.createClass({
                 console.error(this.props.id, status, err.toString());
             }
         });
-    },
+    }
     getReplies() {
         $.ajax({
             url: 'api/bleat/' + this.props.bleatId + '/replies',
@@ -107,7 +109,7 @@ const Bleat = React.createClass({
                 console.error(this.props.id, status, err.toString());
             }
         });
-    },
+    }
     render() {
         const data = this.state.data;
         if (!data) return (<div></div>);
@@ -170,8 +172,9 @@ const Bleat = React.createClass({
             </div>
         )
     }
-});
-const BleatReply = React.createClass({
+}
+
+class BleatReply extends React.Component {
     render() {
         const id = this.props.bleatId;
         return (
@@ -184,8 +187,9 @@ const BleatReply = React.createClass({
             </div> 
         );
     }
-});
-const BleatConversation = React.createClass({
+}
+
+class BleatConversation extends React.Component {
     render() {
         const bleatChainNodes = this.props.data.map(bleat => <BleatSub bleatId={bleat}/>);
         const id = this.props.bleatId;
@@ -197,8 +201,9 @@ const BleatConversation = React.createClass({
             </div>
         );
     }
-});
-const BleatReplies = React.createClass({
+}
+
+class BleatReplies extends React.Component {
     render() {
         const bleatChainNodes = this.props.data.map(bleat => <BleatSub bleatId={bleat}/>);
         const id = this.props.bleatId;
@@ -210,11 +215,13 @@ const BleatReplies = React.createClass({
             </div>
         );
     }
-});
-const BleatSub = React.createClass({
-    getInitialState() {
-        return {data: []};
-    },
+}
+
+class BleatSub extends React.Component {
+    constructor() {
+        super();
+        this.state = {data: []};
+    }
     componentDidMount() {
         $.ajax({
             url: 'api/bleat/' + this.props.bleatId,
@@ -227,7 +234,7 @@ const BleatSub = React.createClass({
                 console.error(this.props.id, status, err.toString());
             }
         });
-    },
+    }
     render() {
         const data = this.state.data;
         const id = this.props.bleatId;
@@ -267,8 +274,9 @@ const BleatSub = React.createClass({
             </li>
         );
     }
-});
-const Paginator = React.createClass({
+}
+
+class Paginator extends React.Component {
     render() {
         return (
             <nav>
@@ -283,4 +291,4 @@ const Paginator = React.createClass({
             </nav>
         );
     }
-});
+}

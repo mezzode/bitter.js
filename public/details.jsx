@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+
 export default class Details extends React.Component {
     constructor() {
         super();
@@ -38,7 +39,8 @@ export default class Details extends React.Component {
         );
     }
 }
-const Home = React.createClass({
+
+class Home extends React.Component{
     render() {
         const data = this.props.data;
         const latitude = data.home_latitude;
@@ -64,11 +66,13 @@ const Home = React.createClass({
             </li>
         );
     }
-});
-const Listen = React.createClass({
-    getInitialState() {
-        return {data: {}};
-    },
+}
+
+class Listen extends React.Component {
+    constructor() {
+        super();
+        this.state = {data: {}};
+    }
     componentDidMount() {
         $.ajax({
             url: 'api/user/' + this.props.user + '/details',
@@ -81,7 +85,7 @@ const Listen = React.createClass({
                 console.error(this.props.id, status, err.toString());
             }
         });
-    },
+    }
     render() {
         const data = this.state.data;
         if (!data) return (<div></div>);
@@ -101,8 +105,9 @@ const Listen = React.createClass({
             </a>
         );
     }
-});
-const Listens = React.createClass({
+}
+
+class Listens extends React.Component {
     render() {
         const listens = this.props.listens;
         if (!listens) return (<div></div>);
@@ -116,5 +121,4 @@ const Listens = React.createClass({
             </li>
         );
     }
-});
-const user = 'James41';
+}
