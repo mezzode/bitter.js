@@ -87,9 +87,17 @@
         })
         .delete(function(request, response) {
             var id = request.params.id;
-            var user = request.query.user;
-            var token = request.query.token;
-            // if user is valid and owns bleat, mark as deleted
+            var token = request.cookies.token;
+            jwt.verify(token, 'secret', function(err, data) {
+                if (err) {
+                    response.sendStatus(401);
+                    return err;
+                }
+                var user = data.user;
+                // if user owns bleat, mark as deleted
+                // else 401
+                response.sendStatus(401);
+            });
         })
         .put(function(request, response) {
             var id = request.params.id;
