@@ -57,17 +57,25 @@
         .get(function(request, response) {
             var token = request.cookies.token;
             var decoded = jwt.verify(token, 'secret', function(err, data) {
-                if (err) response.json(false);
+                if (err) {
+                    response.status(401).json(false);
+                    return err;
+                }
                 response.json(data.user);
             });
         })
 
     app.route('/api/bleat/')
         .post(function(request, response) {
-            var user = request.query.user;
-            var token = request.query.token;
-            // check database to see if valid
-            // write bleat if valid
+            var token = request.cookies.token;
+            jwt.verify(token, 'secret', function(err, data) {
+                if (err) {
+                    response.sendStatus(401);
+                    return err;
+                }
+                var bleat = request.query.bleat;
+                // write bleat to db
+            });
         });
 
     app.route('/api/bleat/:id')
