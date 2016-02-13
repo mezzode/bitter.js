@@ -49,7 +49,11 @@
                     if (err) return err;
                     if (res) {
                         jwt.sign({user: user}, 'secret', {expiresIn: "1h"}, function(token) {
-                            response.cookie('token', token, {maxAge: 1000 * 60 * 60});
+                            if (request.query.remember) {
+                                response.cookie('token', token, {maxAge: 1000*60*60*24*30});
+                            } else {
+                                response.cookie('token', token);
+                            }
                             response.json(true);
                         });
                     } else {
