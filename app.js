@@ -45,13 +45,10 @@
                     response.json(false);
                     return err;
                 }
-                console.log(row.password);
-                console.log(pass);
                 bcrypt.compare(pass, row.password, function(err, res) {
                     if (err) return err;
                     if (res) {
-                        var token = jwt.sign({user: user}, 'secret');
-                        jwt.sign({user: 'James41'}, 'secret', {expiresIn: "1h"}, function(token) {
+                        jwt.sign({user: user}, 'secret', {expiresIn: "1h"}, function(token) {
                             response.cookie('token', token, {maxAge: 1000 * 60 * 60});
                             response.json(true);
                         });
