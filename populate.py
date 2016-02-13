@@ -1,6 +1,6 @@
 #!python
 
-import os, sys, sqlite3
+import os, sys, sqlite3, bcrypt
 
 users_dir = './dataset-medium/users'
 
@@ -22,6 +22,8 @@ for user in os.listdir(users_dir):
             if field == 'listens':
                 listens = value.split(' ')
                 continue
+            if field == 'password':
+                value = bcrypt.hashpw(value, bcrypt.gensalt())
             keys.append(field)
             values.append(value)
     if os.path.exists(os.path.join(users_dir,user,"profile.jpg")):
