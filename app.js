@@ -3,6 +3,7 @@
     var fs = require('fs');
     var sqlite3 = require('sqlite3').verbose();
     var db = new sqlite3.Database('bitter.db');
+    var bcrypt = require('bcrypt');
     var express = require('express');
     var cookieParser = require('cookie-parser');
     var jwt = require('jsonwebtoken');
@@ -39,18 +40,26 @@
         .get(function(request, response) {
             var user = request.query.user;
             var pass = request.query.pass;
-            var valid;
-            // check against database
-            // if matches, return true
-            if (user === 'James41' && pass === 'blahblah') {
-                var token = jwt.sign({user: user}, 'secret');
-                jwt.sign({user: 'James41'}, 'secret', {expiresIn: "1h"}, function(token) {
-                    response.cookie('token', token, {maxAge: 1000 * 60 * 60});
-                    response.json(true);
+            db.get("SELECT password FROM users WHERE username = $user;", {'$user': user}, function(err, row) {
+                if (err || !row) {
+                    response.json(false);
+                    return err;
+                }
+                console.log(row.password);
+                console.log(pass);
+                bcrypt.compare(pass, row.password, function(err, res) {
+                    if (err) return err;
+                    if (res) {
+                        var token = jwt.sign({user: user}, 'secret');
+                        jwt.sign({user: 'James41'}, 'secret', {expiresIn: "1h"}, function(token) {
+                            response.cookie('token', token, {maxAge: 1000 * 60 * 60});
+                            response.json(true);
+                        });
+                    } else {
+                        response.json(false);
+                    }
                 });
-            } else {
-                response.json(false);
-            }
+            });
         })
 
     app.route('/api/current')
