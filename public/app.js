@@ -10,12 +10,16 @@ class App extends React.Component {
         super();
         this.state = {curr: false};
     }
+    logout() {
+        document.cookie = 'token=; Max-Age=0';
+        this.setState({curr: false});
+    }
     render() {
         const user = 'James41';
         const page = 1;
         return (
             <div>
-                <Navbar user={this.state.curr}/>
+                <Navbar user={this.state.curr} logout={this.logout.bind(this)}/>
                 <Login/>
                 <div className="container">
                     <div className="row">
