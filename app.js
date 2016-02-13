@@ -48,14 +48,17 @@
                 bcrypt.compare(pass, row.password, function(err, res) {
                     if (err) return err;
                     if (res) {
-                        jwt.sign({user: user}, 'secret', {expiresIn: "1h"}, function(token) {
-                            if (request.query.remember) {
+                        if (request.query.remember) {
+                            jwt.sign({user: user}, 'secret', {expiresIn: "30d"}, function(token) {
                                 response.cookie('token', token, {maxAge: 1000*60*60*24*30});
-                            } else {
+                                response.json(true);
+                            });
+                        } else {
+                            jwt.sign({user: user}, 'secret', {expiresIn: "1h"}, function(token) {
                                 response.cookie('token', token);
-                            }
-                            response.json(true);
-                        });
+                                response.json(true);
+                            });
+                        }
                     } else {
                         response.json(false);
                     }
