@@ -31,21 +31,12 @@ class App extends React.Component {
         );
     }
     componentDidMount() {
-        // get user and token from cookie
-        const user = 'James41';
-        const token = 'blahblah';
         $.ajax({
-            url: 'api/authenticate/',
+            url: 'api/current/',
             dataType: 'json',
             cache: false,
-            data: {user, token},
             success: (data) => {
-                if (data) {
-                    this.setState({curr: user});
-                } else {
-                    this.setState({curr: false});
-                }
-                console.log(data);
+                this.setState({curr: data});
             },
             error: (xhr, status, err) => {
                 console.error(this.props.id, status, err.toString());
