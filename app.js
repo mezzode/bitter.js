@@ -53,8 +53,7 @@
 
     app.route('/api/current')
         .get(function(request, response) {
-            var token = request.cookies.token;
-            var decoded = jwt.verify(token, 'secret', function(err, data) {
+            jwt.verify(request.cookies.token, 'secret', function(err, data) {
                 if (err) {
                     response.json(false);
                     return err;
