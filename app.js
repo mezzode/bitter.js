@@ -58,7 +58,7 @@
             var token = request.cookies.token;
             var decoded = jwt.verify(token, 'secret', function(err, data) {
                 if (err) {
-                    response.status(401).json(false);
+                    response.json(false);
                     return err;
                 }
                 response.json(data.user);
