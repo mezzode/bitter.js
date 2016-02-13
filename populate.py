@@ -7,7 +7,7 @@ users_dir = './dataset-medium/users'
 conn = sqlite3.connect('bitter.db')
 c = conn.cursor()
 
-all_keys = ['username', 'password', 'full_name', 'email', 'home_suburb', 'home_latitude', 'home_longitude', 'pic']
+all_keys = ['username', 'password', 'full_name', 'email', 'home_suburb', 'home_latitude', 'home_longitude']
 
 c.execute("CREATE TABLE users (%s);" % ",".join(all_keys))
 c.execute("CREATE TABLE listens (username, listen);")
@@ -26,11 +26,6 @@ for user in os.listdir(users_dir):
                 value = bcrypt.hashpw(value, bcrypt.gensalt())
             keys.append(field)
             values.append(value)
-    if os.path.exists(os.path.join(users_dir,user,"profile.jpg")):
-        with open(os.path.join(users_dir,user,"profile.jpg")) as f:
-            pic = f.read()
-            keys.append('pic')
-            values.append(buffer(pic))
     insert_str = "INSERT INTO users (%s) values (%s);" % (",".join(keys),",".join(['?']*len(keys)))
     # print insert_str, ','.join(values)
     c.execute(insert_str, values)
