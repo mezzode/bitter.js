@@ -44,12 +44,13 @@
             // if matches, return true
             if (user === 'James41' && pass === 'blahblah') {
                 var token = jwt.sign({user: user}, 'secret');
-                response.cookie('token', token, {maxAge: 1000 * 60 * 60});
-                valid = true;
+                jwt.sign({user: 'James41'}, 'secret', {expiresIn: "1h"}, function(token) {
+                    response.cookie('token', token, {maxAge: 1000 * 60 * 60});
+                    response.json(true);
+                });
             } else {
-                valid = false;
+                response.json(false);
             }
-            response.json(valid);
         })
 
     app.route('/api/current')
