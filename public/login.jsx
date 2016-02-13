@@ -5,6 +5,14 @@ export default class Login extends React.Component {
         super();
         this.state = {disabled: 'disabled', username: ''};
     }
+    check(event) {
+        this.setState({username: event.target.value});
+        if (event.target.value.length > 0) {
+            this.setState({disabled: false});
+        } else {
+            this.setState({disabled: 'disabled'});
+        }
+    }
     render() {
         return (
             <div className="modal fade" id="log-in" tabIndex="-1" role="dialog">
@@ -17,7 +25,7 @@ export default class Login extends React.Component {
                         <div className="modal-body">
                             <form method="POST" action="/api/authenticate" login>
                             <div className="form-group">
-                            <input type="text" className="form-control" name="username" placeholder="Username" value={this.state.username} onChange={this.props.check.bind(this)}/>
+                            <input type="text" className="form-control" name="username" placeholder="Username" value={this.state.username} onChange={this.check.bind(this)}/>
                             </div>
                             <div className="form-group">
                             <input type="password" className="form-control" name="password" placeholder="Password"/>

@@ -14,21 +14,13 @@ class App extends React.Component {
         document.cookie = 'token=; Max-Age=0';
         this.setState({curr: false});
     }
-    check(event) {
-        this.setState({username: event.target.value});
-        if (event.target.value.length > 0) {
-            this.setState({disabled: false});
-        } else {
-            this.setState({disabled: 'disabled'});
-        }
-    }
     render() {
         const user = 'James41';
         const page = 1;
         return (
             <div>
                 <Navbar user={this.state.curr} logout={this.logout.bind(this)}/>
-                <Login check={this.check}/>
+                <Login/>
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-5 col-md-3">
