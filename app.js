@@ -12,23 +12,8 @@
     app.use(express.static('public'));
     app.use(cookieParser());
 
-    // app.route('/api/login')
-    //     .post(function(request, response) {
-    //         // hash password
-    //         // check against database
-    //         // issue token if valid
-    //         // update sessions in database
-    //     });
-
-    // token implementation testing
-    app.route('/api/tokenSet')
-        .get(function(request, response) {
-            var token = jwt.sign({user: 'James41'}, 'secret', {expiresIn: "1h"}, function(token) {
-                response.cookie('token', token, {maxAge: 1000 * 60 * 60});
-                response.json('success');
-            });
-        });
-    app.route('/api/tokenCheck')
+    // token debugger
+    app.route('/api/tokenDebug')
         .get(function(request, response) {
             var token = request.cookies.token;
             var decoded = jwt.verify(token, 'secret', function(err, data) {
