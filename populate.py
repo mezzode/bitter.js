@@ -23,7 +23,7 @@ for user in os.listdir(users_dir):
                 listens = value.split(' ')
                 continue
             if field == 'password':
-                value = bcrypt.hashpw(value, bcrypt.gensalt())
+                value = bcrypt.hashpw(value, bcrypt.gensalt(prefix=b'2a'))
             keys.append(field)
             values.append(value)
     insert_str = "INSERT INTO users (%s) values (%s);" % (",".join(keys),",".join(['?']*len(keys)))
