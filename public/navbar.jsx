@@ -6,7 +6,13 @@ export default class Navbar extends React.Component {
         const user = this.props.user;
         if (user) {
             right = (
-                <div>Moo</div>
+                <div>
+                    <ul className="nav navbar-nav navbar-right">
+                        <li><p className="navbar-text">Signed in as <a href={'/user/'+user} className="navbar-link">{user}</a></p></li>
+                        <li><form><button className="btn btn-link navbar-btn" type="submit" name="edit" value="True">Settings</button></form></li>
+                        <li><form method="POST"><button className="btn btn-link navbar-btn" type="submit" name="logout" value="True">Log Out</button></form></li>
+                    </ul>
+                </div>
             );
         } else {
             right = (

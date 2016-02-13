@@ -22,11 +22,13 @@
         });
 
     app.route('/api/authenticate')
-        .post(function(request, response) {
+        .get(function(request, response) {
             var user = request.query.user;
             var pass = request.query.pass;
             db.get("SELECT password FROM users WHERE username = $user;", {'$user': user}, function(err, row) {
                 if (err || !row) {
+                    console.log("Error: "+err);
+                    console.log(row);
                     response.json(false);
                     return err;
                 }
@@ -49,7 +51,7 @@
                     }
                 });
             });
-        })
+        });
 
     app.route('/api/current')
         .get(function(request, response) {

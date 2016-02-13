@@ -11,7 +11,7 @@ export default class Login extends React.Component {
                             <h4 className="modal-title">Log In</h4>
                         </div>
                         <div className="modal-body">
-                            <form method="POST" action="?" login>
+                            <form method="POST" action="/api/authenticate" login>
                             <div className="form-group">
                             <input type="text" className="form-control" name="username" placeholder="Username"/>
                             </div>
