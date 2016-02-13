@@ -52,6 +52,15 @@
             response.json(valid);
         })
 
+    app.route('/api/current')
+        .get(function(request, response) {
+            var token = request.cookies.token;
+            var decoded = jwt.verify(token, 'secret', function(err, data) {
+                if (err) response.json(false);
+                response.json(data.user);
+            });
+        })
+
     app.route('/api/bleat/')
         .post(function(request, response) {
             var user = request.query.user;
