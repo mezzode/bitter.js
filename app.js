@@ -29,12 +29,40 @@
             response.json(valid);
         })
 
+    app.route('/api/bleat/')
+        .post(function(request, response) {
+            var user = request.query.user;
+            var token = request.query.token;
+            // check database to see if valid
+            // write bleat if valid
+        });
+
     app.route('/api/bleat/:id')
         .get(function(request, response) {
             var id = request.params.id;
             getBleat(id, function(data) {
                 response.json(data);
             });
+        })
+        .delete(function(request, response) {
+            var id = request.params.id;
+            var user = request.query.user;
+            var token = request.query.token;
+            // if user is valid and owns bleat, mark as deleted
+        })
+        .put(function(request, response) {
+            var id = request.params.id;
+            var user = request.query.user;
+            var token = request.query.token;
+            var bleat = request.query.bleat; // object
+            // if user is valid and owns bleat, update bleat
+        })
+        .patch(function(request, response) {
+            var id = request.params.id;
+            var user = request.query.user;
+            var token = request.query.token;
+            var bleat = request.query.bleat; // object containing changes
+            // if user is valid and owns bleat, update bleat
         });
 
     app.route('/api/bleat/:id/replies')
@@ -177,6 +205,13 @@
                 else
                     response.sendFile(placeholder);
             });
+        })
+        .put(function(request, response) {
+            var id = request.params.id;
+            var user = request.query.user;
+            var token = request.query.token;
+            var bleat = request.query.pic;
+            // if user is valid, update pic
         });
 
     app.listen(8080);
