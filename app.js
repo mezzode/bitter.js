@@ -1,10 +1,15 @@
 (function() {
     'use strict';
     var fs = require('fs');
+    var sqlite3 = require('sqlite3').verbose();
+    var db = new sqlite3.Database('bitter.db');
     var express = require('express');
+    var cookieParser = require('cookie-parser');
+    var jwt = require('jsonwebtoken');
     var app = express();
 
     app.use(express.static('public'));
+    app.use(cookieParser());
 
     // app.route('/api/login')
     //     .post(function(request, response) {
@@ -14,14 +19,32 @@
     //         // update sessions in database
     //     });
 
+    // token implementation testing
+    app.route('/api/tokenSet')
+        .get(function(request, response) {
+            var token = jwt.sign({user: 'James41'}, 'secret', {expiresIn: "1h"}, function(token) {
+                response.cookie('token', token, {maxAge: 1000 * 60 * 60});
+                response.json('success');
+            });
+        });
+    app.route('/api/tokenCheck')
+        .get(function(request, response) {
+            var token = request.cookies.token;
+            var decoded = jwt.verify(token, 'secret', function(err, data) {
+                response.json(data);
+            });
+        });
+
     app.route('/api/authenticate')
         .get(function(request, response) {
             var user = request.query.user;
-            var token = request.query.token;
+            var pass = request.query.pass;
             var valid;
             // check against database
             // if matches, return true
-            if (user === 'James41' && token === 'blahblah') {
+            if (user === 'James41' && pass === 'blahblah') {
+                var token = jwt.sign({user: user}, 'secret');
+                response.cookie('token', token, {maxAge: 1000 * 60 * 60});
                 valid = true;
             } else {
                 valid = false;
