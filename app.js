@@ -122,24 +122,12 @@
 
     app.route('/api/bleat/:id/replies')
         .get(function(request, response) {
-            var curr_id = request.params.id;
-            var path = __dirname + '\\dataset-medium\\bleats\\';
-            var replies = [];
-            var checked = 0;
-            fs.readdir(path, function(err, list) {
-                for (var i in list) {
-                    getBleat(list[i], function(data) {
-                        if (data.in_reply_to === curr_id) {
-                            replies.push(data.id);
-                            console.log(data.id);
-                        }
-                        checked++;
-                        if (checked === list.length) {
-                            response.json(replies);
-                            console.log('done');
-                        }
-                    });
-                }
+            var id = request.params.id;
+            db.all("SELECT id FROM bleats WHERE in_reply_to = $id;", {'$id': id}, function(err, rows) {
+                rows = rows.map(function(row) {
+                    return row.id
+                });
+                response.json(rows);
             });
         });
 
