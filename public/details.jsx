@@ -24,7 +24,6 @@ export default class Details extends React.Component {
         const user = this.props.user;
         const pic = 'api/user/' + user + '/picture';
         const name = data.full_name;
-        const listens = data.listens;
         return (
             <div className="panel panel-primary">
                 <div className="panel-body">
