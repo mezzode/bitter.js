@@ -6,11 +6,14 @@
     var bcrypt = require('bcrypt');
     var express = require('express');
     var cookieParser = require('cookie-parser');
+    var bodyParser = require('body-parser')
     var jwt = require('jsonwebtoken');
     var app = express();
 
     app.use(express.static('public'));
     app.use(cookieParser());
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({extended: true}));
 
     // token debugger
     app.route('/api/tokenDebug')
@@ -22,15 +25,18 @@
         });
 
     app.route('/api/authenticate')
-        .get(function(request, response) {
-            var user = request.query.user;
-            var pass = request.query.pass;
+        .post(function(request, response) {
+            var user = request.body.user;
+            var pass = request.body.pass;
             db.get("SELECT password FROM users WHERE username = $user;", {'$user': user}, function(err, row) {
-                if (err || !row) {
+                if (err) {
                     console.log("Error: "+err);
-                    console.log(row);
                     response.json(false);
                     return err;
+                } else if (!row) {
+                    console.log("No user "+user);
+                    response.json(false);
+                    return;
                 }
                 bcrypt.compare(pass, row.password, function(err, res) {
                     if (err) return err;
@@ -47,6 +53,7 @@
                             });
                         }
                     } else {
+                        console.log("Incorrect password");
                         response.json(false);
                     }
                 });

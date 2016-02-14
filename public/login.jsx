@@ -25,10 +25,10 @@ export default class Login extends React.Component {
                         <div className="modal-body">
                             <form method="POST" action="/api/authenticate" login>
                             <div className="form-group">
-                            <input type="text" className="form-control" name="username" placeholder="Username" value={this.state.username} onChange={this.check.bind(this)}/>
+                            <input type="text" className="form-control" name="user" placeholder="Username" value={this.state.username} onChange={this.check.bind(this)}/>
                             </div>
                             <div className="form-group">
-                            <input type="password" className="form-control" name="password" placeholder="Password"/>
+                            <input type="password" className="form-control" name="pass" placeholder="Password"/>
                             </div>
                             <div className="checkbox">
                                 <label>
