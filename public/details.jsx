@@ -32,7 +32,7 @@ export default class Details extends React.Component {
                     <h2>{name}<br/><small>{user}</small></h2>
                 </div>
                 <ul className="list-group">
-                    <Listens listens={listens}/>
+                    <Listens user={user}/>
                     <Home data={data}/>
                 </ul>
             </div>
@@ -108,8 +108,25 @@ class Listen extends React.Component {
 }
 
 class Listens extends React.Component {
+    constructor() {
+        super();
+        this.state = {};
+    }
+    componentDidMount() {
+        $.ajax({
+            url: 'api/user/' + this.props.user + '/listens',
+            dataType: 'json',
+            cache: false,
+            success: (listens) => {
+                this.setState({listens});
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.id, status, err.toString());
+            }
+        });
+    }
     render() {
-        const listens = this.props.listens;
+        const listens = this.state.listens;
         if (!listens) return (<div></div>);
         const listenNodes = listens.map(user => <Listen user={user}/>);
         return (
