@@ -192,40 +192,33 @@
 
     app.route('/api/user/:username/bleats')
         .all(function(request, response, next) {
-            request.username = request.params.username.toLowerCase();
+            // request.username = request.params.username.toLowerCase();
+            request.username = request.params.username;
             next();
         })
         .get(function(request, response) {
             var username = request.username;
-            var page = request.query.page;
+            var page = request.query.page || 1;
             var per_page = 16;
-            var path = __dirname + '\\dataset-medium\\users\\' + username + '\\bleats.txt';
-            fs.readFile(path, function(err, data) {
-                if (err) {
-                    response.status(404).json('No bleats found for that username');
-                    return;
-                }
-                data = data.toString();
-                data = data.split('\n');
-                data = data.filter(function(id) {
-                    return id;
-                });
-                data.reverse();
-                if (page) {
-                    if (page >= 1) {
-                        data = data.slice((page-1)*per_page,page*per_page);
-                        if (data.length === 0) {
-                            response.status(404).json('No bleats on this page');
-                        } else {
-                            response.json(data);
-                        }
-                    } else {
-                        response.status(400).json('Invalid page number');
+            if (page <  1) {
+                response.status(400).json('Invalid page number');
+                return;
+            }
+            db.all(
+                "SELECT id FROM bleats WHERE username = $user ORDER BY time DESC LIMIT $offset, $rows;",
+                {'$user': username, '$offset': (page-1)*per_page, '$rows': per_page },
+                function(err, rows) {
+                    if (err || rows.length === 0) {
+                        response.status(404).json('No bleats found');
+                        console.log(err);
+                        return;
                     }
-                } else {
-                    response.json(data);
+                    rows = rows.map(function(row) {
+                        return row.id;
+                    });
+                    response.json(rows);
                 }
-            });
+            );
         });
 
     app.route('/api/user/:username/picture')
