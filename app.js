@@ -166,29 +166,20 @@
 
     app.route('/api/user/:username/details')
         .all(function(request, response, next) {
-            request.username = request.params.username.toLowerCase();
+            // request.username = request.params.username.toLowerCase();
+            request.username = request.params.username;
             next();
         })
         .get(function(request, response) {
             var username = request.username;
-            var path = __dirname + '\\dataset-medium\\users\\' + username + '\\details.txt';
-            fs.readFile(path, function(err, data) {
-                if (err) {
-                    response.status(404).json('No user with that username');
-                    return;
-                }
-                data = data.toString();
-                data = data.replace(/([^:]+): (.+)\n/g, function(a, b, c) {
-                    return '"'+b+'": ' + '"'+c+'",';
-                })
-                data = data.slice(0, -1);
-                data = '{' + data + '}';
-                data = JSON.parse(data);
-                if (data.listens) {
-                    data.listens = data.listens.split(' ');
-                }
-                response.json(data);
-            });
+            db.get("SELECT username, full_name, home_suburb, home_latitude, home_longitude FROM users WHERE username = $user;", {'$user': username},
+                function(err, row) {
+                    if (err) {
+                        console.log(err);
+                        return err;
+                    }
+                    response.json(row);
+                });
         });
 
     app.route('/api/user/:username/bleats')
