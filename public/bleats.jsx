@@ -147,6 +147,10 @@ class Bleat extends React.Component {
             repliesNode = <BleatReplies data={replies} bleatId={id}/>;
             repliesButton = <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-replies'} aria-expanded="false"><small>View replies</small></a>;
         }
+        let location;
+        if (data.latitude && data.longitude) {
+            location = <li><small>Location: {data.latitude}, {data.longitude}</small></li>;
+        }
         return (
             <div id={id} className="panel panel-default">
                 <div className="list-group">
@@ -156,7 +160,7 @@ class Bleat extends React.Component {
                         <ul className="list-inline">
                             <li><small>{hour}:{min}:{sec} {suffix}</small></li>
                             <li><small>{date.toDateString()}</small></li>
-                            <li><small>Location: {data.latitude}, {data.longitude}</small></li>
+                            {location}
                         </ul>
                         <a href={'?bleat='+id} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
                         <div className="btn-group btn-group-sm">
