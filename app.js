@@ -159,24 +159,8 @@
         });
 
     function getBleat(id, callback) {
-        var path = __dirname + '\\dataset-medium\\bleats\\' + id;
-        fs.readFile(path, function(err, data) {
-            if (err) {
-                // response.status(404).json('No bleat with id '+id);
-                // TODO pass in error callback instead?
-                console.log('No bleat with id '+id);
-                return;
-            }
-            data = data.toString();
-            data = data.replace(/([^:]+): (.+)\n/g, function(a, b, c) {
-                return '"'+b+'": ' + '"'+c+'",';
-            })
-            data = data.slice(0, -1);
-            data = '{' + data + '}';
-            data = data.replace(/\\/g,'\\\\');
-            data = JSON.parse(data);
-            data.id = id;
-            callback(data);
+        db.get("SELECT * FROM bleats WHERE id = $id;", {'$id': id}, function(err, row) {
+            callback(row);
         });
     }
 
