@@ -41,7 +41,7 @@
                 bcrypt.compare(pass, row.password, function(err, res) {
                     if (err) return err;
                     if (res) {
-                        if (request.query.remember) {
+                        if (request.body.remember === 'true') {
                             jwt.sign({user: user}, 'secret', {expiresIn: "30d"}, function(token) {
                                 response.cookie('token', token, {maxAge: 1000*60*60*24*30});
                                 response.json(user);
