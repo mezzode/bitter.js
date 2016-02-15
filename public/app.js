@@ -30,10 +30,14 @@ class App extends React.Component {
     render() {
         const user = 'James41';
         const page = 1;
+        let login;
+        if (!this.state.curr){
+            login = <Login login={this.login.bind(this)}/>;
+        }
         return (
             <div>
                 <Navbar user={this.state.curr} logout={this.logout.bind(this)}/>
-                <Login login={this.login.bind(this)}/>
+                {login}
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-5 col-md-3">
