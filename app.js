@@ -3,7 +3,7 @@
     var fs = require('fs');
     var sqlite3 = require('sqlite3').verbose();
     var db = new sqlite3.Database('bitter.db');
-    var bcrypt = require('bcrypt');
+    var bcrypt = require('bcryptjs');
     var express = require('express');
     var cookieParser = require('cookie-parser');
     var bodyParser = require('body-parser')
