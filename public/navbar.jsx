@@ -18,7 +18,7 @@ export default class Navbar extends React.Component {
             right = (
                 <div>
                     <button className="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
-                    <a className="btn btn-link navbar-btn navbar-right" href="?new-user=True">Sign Up</a>
+                    <a className="btn btn-link navbar-btn navbar-right" href="/signup">Sign Up</a>
                 </div>
             );
         }
@@ -32,7 +32,7 @@ export default class Navbar extends React.Component {
                             <span className="icon-bar"></span>  
                             <span className="icon-bar"></span>
                         </button>
-                        <a className="navbar-brand" href="?">Bitter</a>
+                        <a className="navbar-brand" href="/">Bitter</a>
                     </div>
                     <div id="navbar" className="collapse navbar-collapse">
                         <form className="navbar-form navbar-left" action="?" id="search" role="search">
