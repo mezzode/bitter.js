@@ -26,8 +26,8 @@
 
     app.route('/api/authenticate')
         .post(function(request, response) {
-            var user = request.body.user;
-            var pass = request.body.pass;
+            var user = request.body.username;
+            var pass = request.body.password;
             db.get("SELECT password FROM users WHERE username = $user;", {'$user': user}, function(err, row) {
                 if (err) {
                     console.log("Error: "+err);
