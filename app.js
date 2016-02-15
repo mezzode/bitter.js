@@ -44,12 +44,12 @@
                         if (request.query.remember) {
                             jwt.sign({user: user}, 'secret', {expiresIn: "30d"}, function(token) {
                                 response.cookie('token', token, {maxAge: 1000*60*60*24*30});
-                                response.json(true);
+                                response.json(user);
                             });
                         } else {
                             jwt.sign({user: user}, 'secret', {expiresIn: "1h"}, function(token) {
                                 response.cookie('token', token);
-                                response.json(true);
+                                response.json(user);
                             });
                         }
                     } else {
