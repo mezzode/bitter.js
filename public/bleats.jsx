@@ -64,7 +64,7 @@ export default class Bleats extends React.Component {
 class Bleat extends React.Component {
     constructor() {
         super();
-        this.state = {conversation: [], replies: [], data: []};
+        this.state = {conversation: [], replies: [], data: {bleat: ''}};
     }
     componentDidMount() {
         this.getData();
@@ -151,12 +151,21 @@ class Bleat extends React.Component {
         if (data.latitude && data.longitude) {
             location = <li><small>Location: {data.latitude}, {data.longitude}</small></li>;
         }
+        let bleat = data.bleat.split(/(@\w+)/).map((element) => {
+            if (element.match(/@\w+/)) {
+                return <a style={{color: 'inherit'}} href={'/user/'+element.substr(1)}>{element}</a>;
+            } else {
+                return element;
+            }
+        });
+        bleat = <p className="lead">{bleat}</p>;
+        data.bleat.replace(/@(\w+)/g, '<a href="$1">@$1</a>');
         return (
             <div id={id} className="panel panel-default">
                 <div className="list-group">
                     <div className="list-group-item">
-                        <a style={{color: 'inherit'}} className="list-group-item-heading" href={'/users/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
-                        <p className="lead">{data.bleat}</p>
+                        <a style={{color: 'inherit'}} className="list-group-item-heading" href={'/user/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
+                        {bleat}
                         <ul className="list-inline">
                             <li><small>{hour}:{min}:{sec} {suffix}</small></li>
                             <li><small>{date.toDateString()}</small></li>
