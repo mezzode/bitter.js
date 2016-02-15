@@ -8,7 +8,7 @@ import Login from './login.jsx';
 class App extends React.Component {
     constructor() {
         super();
-        this.state = {curr: false};
+        this.state = {};
     }
     logout() {
         document.cookie = 'token=; Max-Age=0';

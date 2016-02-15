@@ -14,7 +14,7 @@ export default class Navbar extends React.Component {
                     </ul>
                 </div>
             );
-        } else {
+        } else if (user === false) {
             right = (
                 <div>
                     <button className="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
