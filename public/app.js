@@ -14,13 +14,26 @@ class App extends React.Component {
         document.cookie = 'token=; Max-Age=0';
         this.setState({curr: false});
     }
+    login(username, password) {
+        $.ajax({
+            url: 'api/authenticate/',
+            method: 'POST',
+            dataType: 'json',
+            cache: false,
+            data: {username, password},
+            success: data => this.setState({curr: data}),
+            error: (xhr, status, err) => {
+                console.error(this.props.id, status, err.toString());
+            }
+        });
+    }
     render() {
         const user = 'James41';
         const page = 1;
         return (
             <div>
                 <Navbar user={this.state.curr} logout={this.logout.bind(this)}/>
-                <Login/>
+                <Login login={this.login.bind(this)}/>
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-5 col-md-3">

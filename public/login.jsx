@@ -8,6 +8,9 @@ export default class Login extends React.Component {
     check(event) {
         this.setState({[event.target.name]: event.target.value});
     }
+    submit() {
+        this.props.login(this.state.username, this.state.password);
+    }
     render() {
         return (
             <div className="modal fade" id="log-in" tabIndex="-1" role="dialog">
@@ -18,7 +21,6 @@ export default class Login extends React.Component {
                             <h4 className="modal-title">Log In</h4>
                         </div>
                         <div className="modal-body">
-                            <form method="POST" action="/api/authenticate" login>
                             <div className="form-group">
                             <input type="text" className="form-control" name="username" placeholder="Username" value={this.state.username} onChange={this.check.bind(this)}/>
                             </div>
@@ -30,9 +32,7 @@ export default class Login extends React.Component {
                                     <input type="checkbox" name="remember-me"/> Remember Me
                                  </label>
                             </div>
-                            <button type="submit" className="btn btn-default" disabled={this.state.username && this.state.password ? false : 'disabled'}>Submit</button>
-                            
-                            </form>
+                            <button className="btn btn-default" disabled={this.state.username && this.state.password ? false : 'disabled'} onClick={this.submit.bind(this)} data-dismiss="modal">Submit</button>
                         </div>
                     </div>
                 </div>
