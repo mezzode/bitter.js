@@ -3,7 +3,7 @@ import React from 'react';
 export default class Login extends React.Component {
     constructor() {
         super();
-        this.state = {disabled: 'disabled', username: '', password: '', remember: false};
+        this.state = {username: '', password: '', remember: false};
     }
     check(event) {
         this.setState({[event.target.name]: event.target.value});
@@ -13,6 +13,7 @@ export default class Login extends React.Component {
     }
     submit() {
         this.props.login(this.state.username, this.state.password, this.state.remember);
+        this.setState({username: '', password: '', remember: false});
     }
     render() {
         return (
