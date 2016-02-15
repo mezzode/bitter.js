@@ -3,13 +3,16 @@ import React from 'react';
 export default class Login extends React.Component {
     constructor() {
         super();
-        this.state = {disabled: 'disabled', username: '', password: ''};
+        this.state = {disabled: 'disabled', username: '', password: '', remember: false};
     }
     check(event) {
         this.setState({[event.target.name]: event.target.value});
     }
+    remember(event) {
+        this.setState({remember: event.target.checked});
+    }
     submit() {
-        this.props.login(this.state.username, this.state.password);
+        this.props.login(this.state.username, this.state.password, this.state.remember);
     }
     render() {
         return (
@@ -29,7 +32,7 @@ export default class Login extends React.Component {
                             </div>
                             <div className="checkbox">
                                 <label>
-                                    <input type="checkbox" name="remember-me"/> Remember Me
+                                    <input type="checkbox" name="remember" checked={this.state.checked} onChange={this.remember.bind(this)}/> Remember Me
                                  </label>
                             </div>
                             <button className="btn btn-default" disabled={this.state.username && this.state.password ? false : 'disabled'} onClick={this.submit.bind(this)} data-dismiss="modal">Submit</button>

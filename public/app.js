@@ -14,13 +14,13 @@ class App extends React.Component {
         document.cookie = 'token=; Max-Age=0';
         this.setState({curr: false});
     }
-    login(username, password) {
+    login(username, password, remember) {
         $.ajax({
             url: 'api/authenticate/',
             method: 'POST',
             dataType: 'json',
             cache: false,
-            data: {username, password},
+            data: {username, password, remember},
             success: data => this.setState({curr: data}),
             error: (xhr, status, err) => {
                 console.error(this.props.id, status, err.toString());
