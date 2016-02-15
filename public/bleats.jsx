@@ -171,7 +171,7 @@ class Bleat extends React.Component {
                             <li><small>{date.toDateString()}</small></li>
                             {location}
                         </ul>
-                        <a href={'?bleat='+id} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
+                        <a href={'/bleat/'+id} className="btn-sm btn btn-link pull-right"><span className="glyphicon glyphicon-link"></span></a>
                         <div className="btn-group btn-group-sm">
                             <a className="btn btn-link collapsed" data-toggle="collapse" data-parent={'#'+id} href={'#'+id+'-reply'} aria-expanded="false"><small>Reply</small></a>
                             {conversationButton}
