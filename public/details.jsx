@@ -6,6 +6,15 @@ export default class Details extends React.Component {
         this.state = {data: {}};
     }
     componentDidMount() {
+        this.getDetails();
+    }
+    componentDidUpdate() {
+        this.getDetails();
+    }
+    // componentWillReceiveProps() {
+    //     this.getDetails();
+    // }
+    getDetails() {
         $.ajax({
             url: '/api/user/' + this.props.user + '/details',
             dataType: 'json',
