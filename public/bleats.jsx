@@ -1,4 +1,5 @@
 import React from 'react';
+import {Router, Route, Link, browserHistory} from 'react-router';
 
 export default class Bleats extends React.Component {
     constructor() {
@@ -153,7 +154,7 @@ class Bleat extends React.Component {
         }
         let bleat = data.bleat.split(/(@\w+)/).map((element) => {
             if (element.match(/@\w+/)) {
-                return <a style={{color: 'inherit'}} href={'/user/'+element.substr(1)}>{element}</a>;
+                return <Link style={{color: 'inherit'}} to={'/user/'+element.substr(1)}>{element}</Link>;
             } else {
                 return element;
             }
