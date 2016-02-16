@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route, Link, hashHistory, IndexRoute} from 'react-router';
+import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router';
 import Navbar from './navbar.jsx';
 import Details from './details.jsx';
 import Bleats from './bleats.jsx';
@@ -98,7 +98,7 @@ class Signup extends React.Component {
 }
 
 ReactDOM.render((
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Home}/>
             <Route path="user/:user" component={User}/>
