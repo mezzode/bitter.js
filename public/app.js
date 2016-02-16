@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Router, Route, Link, hashHistory, IndexRoute} from 'react-router';
 import Navbar from './navbar.jsx';
 import Details from './details.jsx';
 import Bleats from './bleats.jsx';
@@ -28,8 +29,6 @@ class App extends React.Component {
         });
     }
     render() {
-        const user = 'James41';
-        const page = 1;
         let login;
         if (!this.state.curr){
             login = <Login login={this.login.bind(this)}/>;
@@ -39,14 +38,7 @@ class App extends React.Component {
                 <Navbar user={this.state.curr} logout={this.logout.bind(this)}/>
                 {login}
                 <div className="container">
-                    <div className="row">
-                        <div className="col-sm-5 col-md-3">
-                            <Details user={user}/>
-                        </div>
-                        <div className="col-md-9 col-sm-7" id="content">
-                            <Bleats url={'api/user/' + user + '/bleats?page=' + page} pollInterval={2000}/>
-                        </div>
-                    </div>
+                    {this.props.children}
                 </div>
             </div>
         );
@@ -66,4 +58,41 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+class Home extends React.Component {
+    render() {
+        const user = 'James41';
+        const page = 1;
+        return (
+            <div className="row">
+                <div className="col-sm-5 col-md-3">
+                    <Details user={user}/>
+                </div>
+                <div className="col-md-9 col-sm-7" id="content">
+                    <Bleats url={'api/user/' + user + '/bleats?page=' + page} pollInterval={2000}/>
+                </div>
+            </div>
+        );
+    }
+}
+
+class Settings extends React.Component {
+    render() {
+        return(<div>Moo</div>);
+    }
+}
+
+class Signup extends React.Component {
+    render() {
+        return(<div>Moo</div>);
+    }
+}
+
+ReactDOM.render((
+    <Router history={hashHistory}>
+        <Route path="/" component={App}>
+            <IndexRoute component={Home}/>
+            <Route path="settings" component={Settings}/>
+            <Route path="signup" component={Signup}/>
+        </Route>
+    </Router>
+), document.getElementById('app'));

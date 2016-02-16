@@ -1,4 +1,5 @@
 import React from 'react';
+import {Router, Route, Link, browserHistory} from 'react-router';
 
 export default class Navbar extends React.Component {
     render() {
@@ -9,7 +10,7 @@ export default class Navbar extends React.Component {
                 <div>
                     <ul className="nav navbar-nav navbar-right">
                         <li><p className="navbar-text">Signed in as <a href={'/user/'+user} className="navbar-link">{user}</a></p></li>
-                        <li><div><a href="/settings/" className="btn btn-link navbar-btn">Settings</a></div></li>
+                        <li><div><Link to="/settings" className="btn btn-link navbar-btn">Settings</Link></div></li>
                         <li><button className="btn btn-link navbar-btn" type="submit" name="logout" value="True" onClick={this.props.logout}>Log Out</button></li>
                     </ul>
                 </div>
@@ -18,7 +19,7 @@ export default class Navbar extends React.Component {
             right = (
                 <div>
                     <button className="btn btn-link navbar-btn navbar-right" data-toggle="modal" data-target="#log-in">Log In</button>
-                    <a className="btn btn-link navbar-btn navbar-right" href="/signup">Sign Up</a>
+                    <Link className="btn btn-link navbar-btn navbar-right" to="/signup">Sign Up</Link>
                 </div>
             );
         }
@@ -32,7 +33,7 @@ export default class Navbar extends React.Component {
                             <span className="icon-bar"></span>  
                             <span className="icon-bar"></span>
                         </button>
-                        <a className="navbar-brand" href="/">Bitter</a>
+                        <Link className="navbar-brand" to="/">Bitter</Link>
                     </div>
                     <div id="navbar" className="collapse navbar-collapse">
                         <form className="navbar-form navbar-left" action="?" id="search" role="search">
