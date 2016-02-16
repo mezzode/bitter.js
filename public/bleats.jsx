@@ -74,7 +74,7 @@ class Bleat extends React.Component {
     }
     getData() {
         $.ajax({
-            url: 'api/bleat/' + this.props.bleatId,
+            url: '/api/bleat/' + this.props.bleatId,
             dataType: 'json',
             cache: false,
             success: (data) => {
@@ -87,7 +87,7 @@ class Bleat extends React.Component {
     }
     getConversation() {
         $.ajax({
-            url: 'api/bleat/' + this.props.bleatId + '/conversation',
+            url: '/api/bleat/' + this.props.bleatId + '/conversation',
             dataType: 'json',
             cache: false,
             success: (data) => {
@@ -100,7 +100,7 @@ class Bleat extends React.Component {
     }
     getReplies() {
         $.ajax({
-            url: 'api/bleat/' + this.props.bleatId + '/replies',
+            url: '/api/bleat/' + this.props.bleatId + '/replies',
             dataType: 'json',
             cache: false,
             success: (data) => {
@@ -238,7 +238,7 @@ class BleatSub extends React.Component {
     }
     componentDidMount() {
         $.ajax({
-            url: 'api/bleat/' + this.props.bleatId,
+            url: '/api/bleat/' + this.props.bleatId,
             dataType: 'json',
             cache: false,
             success: (data) => {

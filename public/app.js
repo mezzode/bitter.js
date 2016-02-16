@@ -17,7 +17,7 @@ class App extends React.Component {
     }
     login(username, password, remember) {
         $.ajax({
-            url: 'api/authenticate/',
+            url: '/api/authenticate/',
             method: 'POST',
             dataType: 'json',
             cache: false,
@@ -45,7 +45,7 @@ class App extends React.Component {
     }
     componentDidMount() {
         $.ajax({
-            url: 'api/current/',
+            url: '/api/current/',
             dataType: 'json',
             cache: false,
             success: (data) => {
@@ -78,7 +78,7 @@ class User extends React.Component {
                     <Details user={user}/>
                 </div>
                 <div className="col-md-9 col-sm-7" id="content">
-                    <Bleats url={'api/user/' + user + '/bleats?page=' + page} pollInterval={2000}/>
+                    <Bleats url={'/api/user/' + user + '/bleats?page=' + page} pollInterval={2000}/>
                 </div>
             </div>
         );

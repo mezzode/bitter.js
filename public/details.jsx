@@ -7,7 +7,7 @@ export default class Details extends React.Component {
     }
     componentDidMount() {
         $.ajax({
-            url: 'api/user/' + this.props.user + '/details',
+            url: '/api/user/' + this.props.user + '/details',
             dataType: 'json',
             cache: false,
             success: (data) => {
@@ -22,7 +22,7 @@ export default class Details extends React.Component {
         const data = this.state.data;
         if (!data) return (<div></div>);
         const user = this.props.user;
-        const pic = 'api/user/' + user + '/picture';
+        const pic = '/api/user/' + user + '/picture';
         const name = data.full_name;
         return (
             <div className="panel panel-primary">
@@ -74,7 +74,7 @@ class Listen extends React.Component {
     }
     componentDidMount() {
         $.ajax({
-            url: 'api/user/' + this.props.user + '/details',
+            url: '/api/user/' + this.props.user + '/details',
             dataType: 'json',
             cache: false,
             success: (data) => {
@@ -90,7 +90,7 @@ class Listen extends React.Component {
         if (!data) return (<div></div>);
         const user = this.props.user;
         const name = data.full_name;
-        const pic = 'api/user/' + user + '/picture';
+        const pic = '/api/user/' + user + '/picture';
         return (
             <a href={'/user/'+user} className="list-group-item">
                 <div className="media">
@@ -113,7 +113,7 @@ class Listens extends React.Component {
     }
     componentDidMount() {
         $.ajax({
-            url: 'api/user/' + this.props.user + '/listens',
+            url: '/api/user/' + this.props.user + '/listens',
             dataType: 'json',
             cache: false,
             success: (listens) => {
