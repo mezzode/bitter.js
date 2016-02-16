@@ -60,8 +60,18 @@ class App extends React.Component {
 
 class Home extends React.Component {
     render() {
-        const user = 'James41';
-        const page = 1;
+        return (
+            <div className="row">
+                Home
+            </div>
+        );
+    }
+}
+
+class User extends React.Component {
+    render() {
+        const user = this.props.params.user;
+        const page = this.props.location.query.page || 1;
         return (
             <div className="row">
                 <div className="col-sm-5 col-md-3">
@@ -91,6 +101,7 @@ ReactDOM.render((
     <Router history={hashHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Home}/>
+            <Route path="user/:user" component={User}/>
             <Route path="settings" component={Settings}/>
             <Route path="signup" component={Signup}/>
         </Route>
