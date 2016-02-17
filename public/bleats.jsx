@@ -2,65 +2,10 @@ import React from 'react';
 import {Router, Route, Link, browserHistory} from 'react-router';
 
 export default class Bleats extends React.Component {
-    constructor() {
-        super();
-        this.state = {data: [], new_bleats: false};
-    }
-    componentDidMount() {
-        this.loadBleats();
-    }
-    componentDidUpdate(prevProps) {
-        if (prevProps.url !== this.props.url) {
-            console.log('test');
-            this.loadBleats();
-        }
-    }
-    loadBleats() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            success: (data) => {
-                // const handle = setInterval(this.checkBleats.bind(this), this.props.pollInterval);
-                this.setState({data, new_bleats: false});
-            },
-            error: (xhr, status, err) => {
-                console.error(this.props.url, status, err.toString());
-            }
-        });
-    }
-    checkBleats() {
-        $.ajax({
-            url: this.props.url,
-            dataType: 'json',
-            cache: false,
-            success: (data) => {
-                if (data.length !== this.state.data.length) {
-                    this.setState({new_bleats: true});
-                    return;
-                }
-                let changed = false;
-                for (const i in data) {
-                    if (data[i] !== this.state.data[i])
-                        changed = true;
-                }
-                this.setState({new_bleats: changed});
-                if (changed)
-                    clearInterval(this.state.handle);
-            },
-            error: (xhr, status, err) => {
-                console.error(this.props.url, status, err.toString());
-            }
-        });
-    }
     render() {
-        const bleatNodes = this.state.data.map(bleat => <Bleat key={bleat} bleatId={bleat}/>);
-        let bleatUpdater;
-        if (this.state.new_bleats)
-            bleatUpdater = (<button className="btn btn-default" onClick={this.loadBleats}>Test</button>);
+        const bleatNodes = this.props.bleats.map(bleat => <Bleat key={bleat} bleatId={bleat}/>);
         return (
             <div>
-                {bleatUpdater}
                 {bleatNodes}
                 <Paginator/>
             </div>

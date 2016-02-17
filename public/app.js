@@ -69,17 +69,44 @@ class Home extends React.Component {
 }
 
 class User extends React.Component {
+    constructor() {
+        super();
+        this.state = {bleats: []};
+    }
+    componentDidMount() {
+        this.getBleats();
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.params.user !== this.props.params.user) {
+            this.getBleats();
+        }
+    }
+    getBleats() {
+        const user = this.props.params.user;
+        const page = this.props.location.query.page || 1;
+        $.ajax({
+            url: `/api/user/${user}/bleats?page=${page}`,
+            dataType: 'json',
+            cache: false,
+            success: (bleats) => {
+                this.setState({bleats});
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.url, status, err.toString());
+            }
+        });
+    }
     render() {
         console.log('noooo');
         const user = this.props.params.user;
-        const page = this.props.location.query.page || 1;
+        const bleats = this.state.bleats;
         return (
             <div className="row">
                 <div className="col-sm-5 col-md-3">
                     <Details user={user}/>
                 </div>
                 <div className="col-md-9 col-sm-7" id="content">
-                    <Bleats url={'/api/user/' + user + '/bleats?page=' + page}/>
+                    <Bleats bleats={bleats}/>
                 </div>
             </div>
         );
