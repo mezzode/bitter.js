@@ -9,6 +9,9 @@ export default class Bleats extends React.Component {
     componentDidMount() {
         this.loadBleats();
     }
+    componentDidUpdate() {
+        this.loadBleats();
+    }
     loadBleats() {
         $.ajax({
             url: this.props.url,

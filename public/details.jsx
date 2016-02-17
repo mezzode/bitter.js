@@ -121,6 +121,12 @@ class Listens extends React.Component {
         this.state = {};
     }
     componentDidMount() {
+        this.getListens();
+    }
+    componentDidUpdate() {
+        this.getListens();
+    }
+    getListens() {
         $.ajax({
             url: '/api/user/' + this.props.user + '/listens',
             dataType: 'json',
