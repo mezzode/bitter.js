@@ -257,9 +257,9 @@ class Paginator extends React.Component {
             <nav>
                 <div className="text-center">
                     <ul className="pagination">
-                        <li className="disabled"><a>&laquo;</a></li>
+                        <li className={+page === 1 ? 'disabled' : ''}><Link to={{pathname: src, query: {page: 1}}}>&laquo;</Link></li>
                         {links}
-                        <li><a href="?user=James41&page=2" >&raquo;</a></li>
+                        <li className={+page === pages ? 'disabled' : ''}><Link to={{pathname: src, query: {page: pages}}}>&raquo;</Link></li>
                     </ul>
                 </div>
             </nav>
