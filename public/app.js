@@ -102,10 +102,13 @@ class UserBleats extends React.Component {
     getBleats() {
         const user = this.props.user;
         const page = this.props.page || 1;
+        const start = (page-1)*16;
+        const limit = 16;
         $.ajax({
-            url: `/api/user/${user}/bleats?page=${page}`,
+            url: `/api/user/${user}/bleats`,
             dataType: 'json',
             cache: false,
+            data: {start, limit},
             success: (bleats) => {
                 this.setState({bleats});
             },

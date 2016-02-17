@@ -198,15 +198,15 @@
         })
         .get(function(request, response) {
             var username = request.username;
-            var page = request.query.page || 1;
-            var per_page = 16;
-            if (page <  1) {
-                response.status(400).json('Invalid page number');
+            var start = request.query.start || 0;
+            var limit = request.query.limit || 16;
+            if (start < 0) {
+                response.status(400).json('Invalid start');
                 return;
             }
             db.all(
                 "SELECT id FROM bleats WHERE username = $user ORDER BY time DESC LIMIT $offset, $rows;",
-                {'$user': username, '$offset': (page-1)*per_page, '$rows': per_page },
+                {'$user': username, '$offset': start, '$rows': limit },
                 function(err, rows) {
                     if (err || rows.length === 0) {
                         response.status(404).json('No bleats found');
