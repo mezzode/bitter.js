@@ -208,7 +208,7 @@ class BleatReply extends React.Component {
 
 class BleatConversation extends React.Component {
     render() {
-        const bleatChainNodes = this.props.data.map(bleat => <BleatSub bleatId={bleat}/>);
+        const bleatChainNodes = this.props.data.map(bleat => <BleatSub key={bleat} bleatId={bleat}/>);
         const id = this.props.bleatId;
         return (
             <div className="panel-collapse collapse" id={id+'-conversations'} aria-expanded="false" style={{height: '0px'}}>
@@ -222,7 +222,7 @@ class BleatConversation extends React.Component {
 
 class BleatReplies extends React.Component {
     render() {
-        const bleatChainNodes = this.props.data.map(bleat => <BleatSub bleatId={bleat}/>);
+        const bleatChainNodes = this.props.data.map(bleat => <BleatSub key={bleat} bleatId={bleat}/>);
         const id = this.props.bleatId;
         return (
             <div className="collapse panel-collapse" id={id+'-replies'} aria-expanded="false">
