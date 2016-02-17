@@ -8,9 +8,11 @@ export default class Details extends React.Component {
     componentDidMount() {
         this.getDetails();
     }
-    componentDidUpdate() {
-        console.log('moo');
-        // this.getDetails();
+    componentDidUpdate(prevProps) {
+        if (prevProps.user !== this.props.user) {
+            console.log('moo');
+            this.getDetails();
+        }
     }
     // componentWillReceiveProps() {
     //     this.getDetails();
