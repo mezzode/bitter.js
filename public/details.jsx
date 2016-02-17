@@ -142,7 +142,7 @@ class Listens extends React.Component {
     render() {
         const listens = this.state.listens;
         if (!listens) return (<div></div>);
-        const listenNodes = listens.map(user => <Listen user={user}/>);
+        const listenNodes = listens.map(user => <Listen key={user} user={user}/>);
         return (
             <li className="list-group-item">
                 <h3 className="list-group-item-heading">Listens</h3>
