@@ -245,5 +245,11 @@
             // if user is valid, update pic
         });
 
+    app.route('*')
+        .get(function(request, response) {
+            var path = require('path');
+            response.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+        });
+
     app.listen(8080);
 })();
