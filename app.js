@@ -221,6 +221,23 @@
             );
         });
 
+    app.route('/api/user/:username/bleats/total')
+        .all(function(request, response, next) {
+            // request.username = request.params.username.toLowerCase();
+            request.username = request.params.username;
+            next();
+        })
+        .get(function(request, response) {
+            var username = request.username;
+            db.all("SELECT id FROM bleats WHERE username = $user;", {'$user': username}, function(err, rows) {
+                if (err) {
+                    console.log(err);
+                    return err;
+                }
+                response.json(rows.length);
+            });
+        });
+
     app.route('/api/user/:username/picture')
         .all(function(request, response, next) {
             request.username = request.params.username.toLowerCase();
