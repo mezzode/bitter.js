@@ -251,11 +251,7 @@ class Paginator extends React.Component {
         }
         const links = [];
         for (let i = 1; i <= pages; i++) {
-            if (i === +page) {
-                links.push(<li key={i} className="active"><Link to={{pathname: src, query: {page: i}}}>{i}</Link></li>);
-            } else {
-                links.push(<li key={i}><Link to={{pathname: src, query: {page: i}}}>{i}</Link></li>);
-            }
+            links.push(<li key={i} className={i === +page ? 'active' : ''}><Link to={{pathname: src, query: {page: i}}}>{i}</Link></li>);
         }
         return (
             <nav>
