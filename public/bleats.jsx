@@ -9,6 +9,7 @@ export default class Bleats extends React.Component {
             <div>
                 {bleatNodes}
                 <Paginator total={total} page={page} src={src}/>
+                <LoadMore loadMore={this.props.loadMore}/>
             </div>
         );
     }
@@ -260,6 +261,20 @@ class Paginator extends React.Component {
                         <li className={+page === 1 ? 'disabled' : ''}><Link to={{pathname: src, query: {page: 1}}}>&laquo;</Link></li>
                         {links}
                         <li className={+page === pages ? 'disabled' : ''}><Link to={{pathname: src, query: {page: pages}}}>&raquo;</Link></li>
+                    </ul>
+                </div>
+            </nav>
+        );
+    }
+}
+
+class LoadMore extends React.Component {
+    render() {
+        return (
+            <nav>
+                <div className="text-center">
+                    <ul className="pagination">
+                        <li onClick={this.props.loadMore}><a>Load More</a></li>
                     </ul>
                 </div>
             </nav>

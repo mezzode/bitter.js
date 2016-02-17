@@ -133,11 +133,27 @@ class UserBleats extends React.Component {
             }
         });
     }
+    loadMore() {
+        const user = this.props.user;
+        const limit = this.state.bleats.length + 16;
+        $.ajax({
+            url: `/api/user/${user}/bleats`,
+            dataType: 'json',
+            cache: false,
+            data: {limit},
+            success: (bleats) => {
+                this.setState({bleats});
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.url, status, err.toString());
+            }
+        });
+    }
     render() {
         const {bleats, total} = this.state;
         const {page, user} = this.props;
         const src = '/user/'+ user;
-        return <Bleats bleats={bleats} page={page} total={total} src={src}/>;
+        return <Bleats bleats={bleats} page={page} total={total} src={src} loadMore={this.loadMore.bind(this)}/>;
     }
 }
 
