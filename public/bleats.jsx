@@ -18,8 +18,8 @@ export default class Bleats extends React.Component {
             dataType: 'json',
             cache: false,
             success: (data) => {
-                const handle = setInterval(this.checkBleats.bind(this), this.props.pollInterval);
-                this.setState({data, new_bleats: false, handle});
+                // const handle = setInterval(this.checkBleats.bind(this), this.props.pollInterval);
+                this.setState({data, new_bleats: false});
             },
             error: (xhr, status, err) => {
                 console.error(this.props.url, status, err.toString());
