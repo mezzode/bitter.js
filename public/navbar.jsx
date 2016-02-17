@@ -9,7 +9,7 @@ export default class Navbar extends React.Component {
             right = (
                 <div>
                     <ul className="nav navbar-nav navbar-right">
-                        <li><p className="navbar-text">Signed in as <a href={'/user/'+user} className="navbar-link">{user}</a></p></li>
+                        <li><p className="navbar-text">Signed in as <Link to={'/user/'+user} className="navbar-link">{user}</Link></p></li>
                         <li><div><Link to="/settings" className="btn btn-link navbar-btn">Settings</Link></div></li>
                         <li><button className="btn btn-link navbar-btn" type="submit" name="logout" value="True" onClick={this.props.logout}>Log Out</button></li>
                     </ul>
