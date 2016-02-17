@@ -93,10 +93,12 @@ class UserBleats extends React.Component {
     }
     componentDidMount() {
         this.getBleats();
+        this.getTotal();
     }
     componentDidUpdate(prevProps) {
         if (prevProps.user !== this.props.user) {
             this.getBleats();
+            this.getTotal();
         }
     }
     getBleats() {
@@ -117,9 +119,23 @@ class UserBleats extends React.Component {
             }
         });
     }
+    getTotal() {
+        const user = this.props.user;
+        $.ajax({
+            url: `/api/user/${user}/bleats/total`,
+            dataType: 'json',
+            cache: false,
+            success: (total) => {
+                this.setState({total});
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.url, status, err.toString());
+            }
+        });
+    }
     render() {
-        const bleats = this.state.bleats;
-        return <Bleats bleats={bleats}/>;
+        const {bleats, total} = this.state;
+        return <Bleats bleats={bleats} total={total}/>;
     }
 }
 

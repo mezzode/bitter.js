@@ -7,7 +7,7 @@ export default class Bleats extends React.Component {
         return (
             <div>
                 {bleatNodes}
-                <Paginator/>
+                <Paginator total={this.props.total}/>
             </div>
         );
     }
@@ -243,6 +243,8 @@ class BleatSub extends React.Component {
 
 class Paginator extends React.Component {
     render() {
+        console.log('Testificate');
+        console.log(this.props.total);
         return (
             <nav>
                 <div className="text-center">
