@@ -125,9 +125,11 @@ class Listens extends React.Component {
     componentDidMount() {
         this.getListens();
     }
-    componentWillReceiveProps() {
-        console.log('problem?');
-        this.getListens();
+    componentDidUpdate(prevProps) {
+        if (prevProps.user !== this.props.user) {
+            console.log('problem?');
+            this.getListens();
+        }
     }
     getListens() {
         $.ajax({
