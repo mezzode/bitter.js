@@ -157,7 +157,7 @@ class Bleat extends React.Component {
         }
         let bleat = data.bleat.split(/(@\w+)/).map((element) => {
             if (element.match(/@\w+/)) {
-                return <Link style={{color: 'inherit'}} to={'/user/'+element.substr(1)}>{element}</Link>;
+                return <Link key={element} style={{color: 'inherit'}} to={'/user/'+element.substr(1)}>{element}</Link>;
             } else {
                 return element;
             }
