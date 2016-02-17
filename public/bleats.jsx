@@ -244,10 +244,11 @@ class BleatSub extends React.Component {
 
 class Paginator extends React.Component {
     render() {
-        console.log('Testificate');
-        console.log(this.props.total);
         const {total, page, src} = this.props;
         const pages = Math.ceil(total / 16);
+        if (pages <= 1) {
+            return false;
+        }
         const links = [];
         for (let i = 1; i <= pages; i++) {
             links.push(<li key={i}><Link to={{pathname: src, query: {page: i}}} className={i === page ? 'active' : ''}>{i}</Link></li>);
