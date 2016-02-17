@@ -70,6 +70,7 @@ class Home extends React.Component {
 
 class User extends React.Component {
     render() {
+        console.log('noooo');
         const user = this.props.params.user;
         const page = this.props.location.query.page || 1;
         return (
@@ -78,7 +79,7 @@ class User extends React.Component {
                     <Details user={user}/>
                 </div>
                 <div className="col-md-9 col-sm-7" id="content">
-                    <Bleats url={'/api/user/' + user + '/bleats?page=' + page} pollInterval={2000}/>
+                    <Bleats url={'/api/user/' + user + '/bleats?page=' + page}/>
                 </div>
             </div>
         );

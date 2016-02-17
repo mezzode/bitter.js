@@ -9,7 +9,8 @@ export default class Details extends React.Component {
         this.getDetails();
     }
     componentDidUpdate() {
-        this.getDetails();
+        console.log('moo');
+        // this.getDetails();
     }
     // componentWillReceiveProps() {
     //     this.getDetails();
@@ -28,6 +29,7 @@ export default class Details extends React.Component {
         });
     }
     render() {
+        console.log('asdfasdf');
         const data = this.state.data;
         if (!data) return (<div></div>);
         const user = this.props.user;
@@ -123,7 +125,8 @@ class Listens extends React.Component {
     componentDidMount() {
         this.getListens();
     }
-    componentDidUpdate() {
+    componentWillReceiveProps() {
+        console.log('problem?');
         this.getListens();
     }
     getListens() {
