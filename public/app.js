@@ -135,7 +135,8 @@ class UserBleats extends React.Component {
     }
     render() {
         const {bleats, total} = this.state;
-        return <Bleats bleats={bleats} total={total}/>;
+        const page = this.props.page;
+        return <Bleats bleats={bleats} page={page} total={total}/>;
     }
 }
 
