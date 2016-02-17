@@ -68,7 +68,7 @@ export default class Bleats extends React.Component {
 class Bleat extends React.Component {
     constructor() {
         super();
-        this.state = {conversation: [], replies: [], data: {bleat: ''}};
+        this.state = {conversation: [], replies: []};
     }
     componentDidMount() {
         this.getData();
