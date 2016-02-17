@@ -4,11 +4,11 @@ import {Router, Route, Link, browserHistory} from 'react-router';
 export default class Bleats extends React.Component {
     render() {
         const bleatNodes = this.props.bleats.map(bleat => <Bleat key={bleat} bleatId={bleat}/>);
-        const {total, page} = this.props;
+        const {total, page, src} = this.props;
         return (
             <div>
                 {bleatNodes}
-                <Paginator total={total} page={page}/>
+                <Paginator total={total} page={page} src={src}/>
             </div>
         );
     }
@@ -246,11 +246,11 @@ class Paginator extends React.Component {
     render() {
         console.log('Testificate');
         console.log(this.props.total);
-        const {total, page} = this.props;
+        const {total, page, src} = this.props;
         const pages = Math.ceil(total / 16);
         const links = [];
         for (let i = 1; i <= pages; i++) {
-            links.push(<li key={i}><Link to={`?page=${i}`} className={i === page ? 'active' : ''}>{i}</Link></li>);
+            links.push(<li key={i}><Link to={{pathname: src, query: {page: i}}} className={i === page ? 'active' : ''}>{i}</Link></li>);
         }
         return (
             <nav>

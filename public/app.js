@@ -96,7 +96,7 @@ class UserBleats extends React.Component {
         this.getTotal();
     }
     componentDidUpdate(prevProps) {
-        if (prevProps.user !== this.props.user) {
+        if ((prevProps.user !== this.props.user) || (prevProps.page !== this.props.page)) {
             this.getBleats();
             this.getTotal();
         }
@@ -135,8 +135,9 @@ class UserBleats extends React.Component {
     }
     render() {
         const {bleats, total} = this.state;
-        const page = this.props.page;
-        return <Bleats bleats={bleats} page={page} total={total}/>;
+        const {page, user} = this.props;
+        const src = '/user/'+ user;
+        return <Bleats bleats={bleats} page={page} total={total} src={src}/>;
     }
 }
 
