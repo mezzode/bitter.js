@@ -171,7 +171,7 @@ class Bleat extends React.Component {
             <div id={id} className="panel panel-default">
                 <div className="list-group">
                     <div className="list-group-item">
-                        <a style={{color: 'inherit'}} className="list-group-item-heading" href={'/user/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></a>
+                        <Link style={{color: 'inherit'}} className="list-group-item-heading" to={'/user/' + data.username}><h4 className="list-group-item-heading">{data.username}</h4></Link>
                         {bleat}
                         <ul className="list-inline">
                             <li><small>{hour}:{min}:{sec} {suffix}</small></li>

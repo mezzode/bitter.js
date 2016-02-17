@@ -1,4 +1,5 @@
 import React from 'react';
+import {Router, Route, Link, browserHistory} from 'react-router';
 
 export default class Details extends React.Component {
     constructor() {
@@ -14,9 +15,6 @@ export default class Details extends React.Component {
             this.getDetails();
         }
     }
-    // componentWillReceiveProps() {
-    //     this.getDetails();
-    // }
     getDetails() {
         $.ajax({
             url: '/api/user/' + this.props.user + '/details',
@@ -105,7 +103,7 @@ class Listen extends React.Component {
         const name = data.full_name;
         const pic = '/api/user/' + user + '/picture';
         return (
-            <a href={'/user/'+user} className="list-group-item">
+            <Link to={'/user/'+user} className="list-group-item">
                 <div className="media">
                     <div className="media-left">
                         <img style={{maxWidth:'64px', maxHeight:'64px'}} className="media-object" src={pic}/>
@@ -114,7 +112,7 @@ class Listen extends React.Component {
                         <h4 className="media-heading">{name}<br/><small>{user}</small></h4>
                     </div>
                 </div>
-            </a>
+            </Link>
         );
     }
 }
