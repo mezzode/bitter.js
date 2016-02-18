@@ -3,9 +3,14 @@ import {Router, Route, Link, browserHistory} from 'react-router';
 
 export default class Bleats extends React.Component {
     render() {
+        const {total, page, src, bleats} = this.props;
         const bleatNodes = this.props.bleats.map(bleat => <Bleat key={bleat} bleatId={bleat}/>);
-        const {total, page, src} = this.props;
-        const nav = page ? <Paginator total={total} page={page} src={src}/> : <LoadMore loadMore={this.props.loadMore}/>;
+        let nav;
+        if (page) {
+            nav = <Paginator total={total} page={page} src={src}/>;
+        } else if (bleats.length < total) {
+            nav = <LoadMore loadMore={this.props.loadMore}/>;
+        }
         return (
             <div>
                 {bleatNodes}
