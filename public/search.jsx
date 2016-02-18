@@ -31,6 +31,7 @@ export default class Search extends React.Component {
     render() {
         let results;
         const type = this.props.location.query.type || 'users';
+        const term = this.props.params.term;
         if (type === 'bleats') {
             results = this.state.results.map(result => <BleatResult key={result} bleat={result}/>);
         } else if (type === 'users') {
@@ -43,13 +44,13 @@ export default class Search extends React.Component {
         return (
             <div className="row">
                 <div className="col-md-12 col-sm-12" id="content">
-                    <h2>Search Results: <small>{this.props.params.term}</small></h2>
+                    <h2>Search Results: <small>{term}</small></h2>
                     <ul className="nav nav-pills">
                         <li className={type === 'users' ? 'active' : ''}>
-                            <Link to='/'>Users</Link>
+                            <Link to={{pathname: `/search/${term}`, query: {type: 'users'}}}>Users</Link>
                         </li>
                         <li className={type === 'bleats' ? 'active' : ''}>
-                            <Link to='/'>Bleats</Link>
+                            <Link to={{pathname: `/search/${term}`, query: {type: 'bleats'}}}>Bleats</Link>
                         </li>
                     </ul>
                     <br/>
