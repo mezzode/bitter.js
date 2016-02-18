@@ -103,7 +103,20 @@ class BleatResults extends React.Component {
         this.search();
     }
     loadMore() {
-        console.log('asdfasdfasdf');
+        const {term} = this.props;
+        const limit = this.state.results.length + 16;
+        $.ajax({
+            url: `/api/search/bleats/${term}`,
+            dataType: 'json',
+            cache: false,
+            data: {limit},
+            success: (data) => {
+                this.setState(data);
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.url, status, err.toString());
+            }
+        });
     }
     search() {
         const {term, page} = this.props;
@@ -125,7 +138,7 @@ class BleatResults extends React.Component {
     render() {
         const {page, term} = this.props;
         const {results, total} = this.state;
-        return <Bleats bleats={results} page={page} total={total} src={`/search/${term}?type=bleats`} loadMore={this.loadMore.bind(this)}/>;
+        return <Bleats bleats={results} page={page} total={total} src={`/search/${term}?type=bleats`} loaded={results.length} loadMore={this.loadMore.bind(this)}/>;
     }
 }
 
