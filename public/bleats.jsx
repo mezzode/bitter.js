@@ -5,12 +5,7 @@ export default class Bleats extends React.Component {
     render() {
         const bleatNodes = this.props.bleats.map(bleat => <Bleat key={bleat} bleatId={bleat}/>);
         const {total, page, src} = this.props;
-        let nav;
-        if (page) {
-            nav = <Paginator total={total} page={page} src={src}/>;
-        } else {
-            nav = <LoadMore loadMore={this.props.loadMore}/>;
-        }
+        const nav = page ? <Paginator total={total} page={page} src={src}/> : <LoadMore loadMore={this.props.loadMore}/>;
         return (
             <div>
                 {bleatNodes}
