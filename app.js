@@ -294,15 +294,17 @@
                 );
             } else if (type === 'bleats') {
                 db.all(
-                    'SELECT id FROM bleats WHERE bleat LIKE $term ORDER BY username DESC LIMIT $offset, $rows;',
-                    {'$term': term, '$offset': start, '$rows': limit},
+                    'SELECT id FROM bleats WHERE bleat LIKE $term ORDER BY username DESC;',
+                    {'$term': term},
                     function(err, rows) {
                         if (err) {
                             response.sendStatus(404);
                             console.log(err);
                             return;
                         }
-                        response.json(rows.map(function(row) {return row.id}));
+                        var total = rows.length;
+                        var results = rows.slice(start, start + limit).map(function(row) {return row.id});
+                        response.json({total: total, results: results});
                     }
                 );
             }

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
+import Bleats from './bleats.jsx';
 
 export default class Search extends React.Component {
     constructor() {
@@ -8,6 +9,9 @@ export default class Search extends React.Component {
     }
     componentDidMount() {
         this.search();
+    }
+    loadMore() {
+        console.log('asdfasdfasdfasdf');
     }
     search() {
         const term = this.props.params.term;
