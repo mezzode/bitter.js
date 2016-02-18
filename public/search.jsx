@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Bleats from './bleats.jsx';
-import Paginator from './paginator.jsx';
+import Nav from './nav.jsx';
 
 export default class Search extends React.Component {
     render() {
@@ -72,7 +72,7 @@ class UserResults extends React.Component {
                 <div className="panel panel-default">
                     {results.map(result => <UserResult key={result.username} user={result}/>)}
                 </div>
-                <Paginator total={total} page={page} src={`/search/${term}`}/>
+                <Nav total={total} page={page} src={`/search/${term}`}/>
             </div>
         );
     }

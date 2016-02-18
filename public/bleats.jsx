@@ -1,12 +1,12 @@
 import React from 'react';
 import {Router, Route, Link, browserHistory} from 'react-router';
-import Paginator from './paginator.jsx'
+import Nav from './nav.jsx'
 
 export default class Bleats extends React.Component {
     render() {
         const {total, page, src, bleats} = this.props;
         const bleatNodes = bleats.map(bleat => <Bleat key={bleat} bleatId={bleat}/>);
-        const nav = <Paginator total={total} page={page} src={src} loaded={bleats.length} loadMore={this.props.loadMore}/>;
+        const nav = <Nav total={total} page={page} src={src} loaded={bleats.length} loadMore={this.props.loadMore}/>;
         return (
             <div>
                 {bleatNodes}
