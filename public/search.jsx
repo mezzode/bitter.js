@@ -69,15 +69,22 @@ class UserResults extends React.Component {
 }
 
 class BleatResults extends React.Component {
+    constructor() {
+        super();
+        this.state = {results: [], total: 0};
+    }
+    componentDidMount() {
+        this.search();
+    }
+    loadMore() {
+        console.log('asdfasdfasdf');
+    }
     search() {
-        const term = this.props.params.term;
-        const page = this.props.location.query.page || 1;
-        const type = this.props.location.query.type || 'users';
+        const {term, page} = this.props;
         const start = (page-1)*16;
         const limit = 16;
-        console.log(type);
         $.ajax({
-            url: `/api/search/${type}/${term}`,
+            url: `/api/search/bleats/${term}`,
             dataType: 'json',
             cache: false,
             data: {start, limit},
@@ -90,8 +97,9 @@ class BleatResults extends React.Component {
         });
     }
     render() {
-        const {bleats, page, total, src, loadMore} = this.props;
-        return <Bleats bleats={bleats} page={page} total={total} src={src} loadMore={loadMore}/>;
+        const {page, term} = this.props;
+        const {results, total} = this.state;
+        return <Bleats bleats={results} page={page} total={total} src={`/search/${term}?type=bleats`} loadMore={this.loadMore.bind(this)}/>;
     }
 }
 
