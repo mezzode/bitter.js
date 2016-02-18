@@ -50,13 +50,13 @@ class UserResults extends React.Component {
     loadMore() {
         const {term} = this.props;
         const limit = this.state.results.length + 16;
-        search('users', term, {limit}, data => this.setState(data));
+        search.call(this, 'users', term, {limit});
     }
     search() {
         const {term, page} = this.props;
         const start = (page-1)*16;
         const limit = 16;
-        search('users', term, {start, limit}, data => this.setState(data));
+        search.call(this, 'users', term, {start, limit});
     }
     render() {
         const {results, total} = this.state;
@@ -72,13 +72,13 @@ class UserResults extends React.Component {
     }
 }
 
-function search(type, term, {start = 0, limit = 16} = {}, cb) {
+function search(type, term, {start = 0, limit = 16} = {}) {
     $.ajax({
         url: `/api/search/${type}/${term}`,
         dataType: 'json',
         cache: false,
         data: {start, limit},
-        success: cb,
+        success: data => this.setState(data),
         error: (xhr, status, err) => {
             console.error(status, err.toString());
         }
