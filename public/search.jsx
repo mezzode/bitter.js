@@ -42,9 +42,8 @@ export default class Search extends React.Component {
         }
         return (
             <div className="row">
-                <div className="col-sm-5 col-md-3">
-                </div>
-                <div className="col-md-9 col-sm-7" id="content">
+                <div className="col-md-12 col-sm-12" id="content">
+                    <h2>Search Results: <small>{this.props.params.term}</small></h2>
                     {results}
                 </div>
             </div>
