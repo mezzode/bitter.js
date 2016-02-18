@@ -279,15 +279,17 @@
                 return;
             } else if (type === 'users') {
                 db.all(
-                    'SELECT username, full_name FROM users WHERE username LIKE $term OR full_name LIKE $term ORDER BY username DESC LIMIT $offset, $rows;',
-                    {'$term': term, '$offset': start, '$rows': limit},
+                    'SELECT username, full_name FROM users WHERE username LIKE $term OR full_name LIKE $term ORDER BY username DESC;',
+                    {'$term': term},
                     function(err, rows) {
                         if (err) {
                             response.sendStatus(404);
                             console.log(err);
                             return;
                         }
-                        response.json(rows);
+                        var total = rows.length;
+                        var results = rows.slice(start, start + limit);
+                        response.json({total: total, results: results});
                     }
                 );
             } else if (type === 'bleats') {

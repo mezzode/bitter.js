@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 export default class Search extends React.Component {
     constructor() {
         super();
-        this.state = {results: []};
+        this.state = {results: [], total: 0};
     }
     componentDidMount() {
         this.search();
@@ -20,8 +20,8 @@ export default class Search extends React.Component {
             dataType: 'json',
             cache: false,
             data: {start, limit},
-            success: (results) => {
-                this.setState({results});
+            success: (data) => {
+                this.setState(data);
             },
             error: (xhr, status, err) => {
                 console.error(this.props.url, status, err.toString());
