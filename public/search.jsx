@@ -34,11 +34,28 @@ export default class Search extends React.Component {
     }
 }
 
-class UserResults extends React.Component {
+class Results extends React.Component {
     constructor() {
         super();
         this.state = {results: [], total: 0};
-        this.search = search;
+    }
+    search(type, term, {start = 0, limit = 16} = {}) {
+        $.ajax({
+            url: `/api/search/${type}/${term}`,
+            dataType: 'json',
+            cache: false,
+            data: {start, limit},
+            success: data => this.setState(data),
+            error: (xhr, status, err) => {
+                console.error(status, err.toString());
+            }
+        });
+    }
+}
+
+class UserResults extends Results {
+    constructor() {
+        super();
     }
     componentDidMount() {
         this.getResults();
@@ -73,24 +90,9 @@ class UserResults extends React.Component {
     }
 }
 
-function search(type, term, {start = 0, limit = 16} = {}) {
-    $.ajax({
-        url: `/api/search/${type}/${term}`,
-        dataType: 'json',
-        cache: false,
-        data: {start, limit},
-        success: data => this.setState(data),
-        error: (xhr, status, err) => {
-            console.error(status, err.toString());
-        }
-    });
-}
-
-class BleatResults extends React.Component {
+class BleatResults extends Results {
     constructor() {
         super();
-        this.state = {results: [], total: 0};
-        this.search = search;
     }
     componentDidMount() {
         this.getResults();
