@@ -275,7 +275,7 @@
             var start = request.query.start || 0;
             var limit = request.query.limit || 16;
             if (type !== 'bleats' && type !== 'users') {
-                response.status(404).json('Invalid type: '+term);
+                response.status(404).json('Invalid type');
                 return;
             } else if (type === 'users') {
                 db.all(
@@ -288,6 +288,19 @@
                             return;
                         }
                         response.json(rows);
+                    }
+                );
+            } else if (type === 'bleats') {
+                db.all(
+                    'SELECT id FROM bleats WHERE bleat LIKE $term ORDER BY username DESC LIMIT $offset, $rows;',
+                    {'$term': term, '$offset': start, '$rows': limit},
+                    function(err, rows) {
+                        if (err) {
+                            response.sendStatus(404);
+                            console.log(err);
+                            return;
+                        }
+                        response.json(rows.map(function(row) {return row.id}));
                     }
                 );
             }
