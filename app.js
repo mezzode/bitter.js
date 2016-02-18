@@ -279,7 +279,7 @@
                 return;
             } else if (type === 'users') {
                 db.all(
-                    'SELECT username, full_name FROM users WHERE username LIKE $term ORDER BY username DESC LIMIT $offset, $rows;',
+                    'SELECT username, full_name FROM users WHERE username LIKE $term OR full_name LIKE $term ORDER BY username DESC LIMIT $offset, $rows;',
                     {'$term': term, '$offset': start, '$rows': limit},
                     function(err, rows) {
                         if (err) {
