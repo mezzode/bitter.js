@@ -276,7 +276,7 @@ class Paginator extends React.Component {
 class LoadMore extends React.Component {
     render() {
         return (
-            <div className="text-center" style={{'margin-bottom': '20px'}}>
+            <div className="text-center" style={{marginBottom: '20px'}}>
                 <button className="btn btn-link" onClick={this.props.loadMore}>Load More</button>
             </div>
         );
