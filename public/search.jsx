@@ -29,15 +29,17 @@ export default class Search extends React.Component {
         });
     }
     render() {
-        let results;
+        let resultsNode;
         const type = this.props.location.query.type || 'users';
+        const page = this.props.location.query.page || 1;
         const term = this.props.params.term;
+        const {results, total} = this.state;
         if (type === 'bleats') {
-            results = this.state.results.map(result => <BleatResult key={result} bleat={result}/>);
+            resultsNode = <BleatResults bleats={results} page={page} total={total} src={`/search/${term}?type=bleats`} loadMore={this.loadMore.bind(this)}/>;
         } else if (type === 'users') {
-            results = (
+            resultsNode = (
                 <div className="panel panel-default">
-                    {this.state.results.map(result => <UserResult key={result.username} user={result}/>)}
+                    {results.map(result => <UserResult key={result.username} user={result}/>)}
                 </div>
             );
         }
@@ -54,16 +56,17 @@ export default class Search extends React.Component {
                         </li>
                     </ul>
                     <br/>
-                    {results}
+                    {resultsNode}
                 </div>
             </div>
         );
     }
 }
 
-class BleatResult extends React.Component {
+class BleatResults extends React.Component {
     render() {
-        return <div></div>;
+        const {bleats, page, total, src, loadMore} = this.props;
+        return <Bleats bleats={bleats} page={page} total={total} src={src} loadMore={loadMore}/>;
     }
 }
 
