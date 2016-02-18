@@ -42,6 +42,11 @@ class UserResults extends React.Component {
     componentDidMount() {
         this.search();
     }
+    componentDidUpdate(prevProps) {
+        if (prevProps.page !== this.props.page) {
+            this.search();
+        }
+    }
     search() {
         const {term, page} = this.props;
         const start = (page-1)*16;
