@@ -51,12 +51,6 @@ class Results extends React.Component {
             }
         });
     }
-}
-
-class UserResults extends Results {
-    constructor() {
-        super();
-    }
     componentDidMount() {
         this.getResults();
     }
@@ -68,13 +62,20 @@ class UserResults extends Results {
     loadMore() {
         const {term} = this.props;
         const limit = this.state.results.length + 16;
-        this.search('users', term, {limit});
+        this.search(this.type, term, {limit});
     }
     getResults() {
         const {term, page} = this.props;
         const start = (page-1)*16;
         const limit = 16;
-        this.search('users', term, {start, limit});
+        this.search(this.type, term, {start, limit});
+    }
+}
+
+class UserResults extends Results {
+    constructor() {
+        super();
+        this.type = 'users';
     }
     render() {
         const {results, total} = this.state;
@@ -93,20 +94,7 @@ class UserResults extends Results {
 class BleatResults extends Results {
     constructor() {
         super();
-    }
-    componentDidMount() {
-        this.getResults();
-    }
-    loadMore() {
-        const {term} = this.props;
-        const limit = this.state.results.length + 16;
-        this.search('bleats', term, {limit});
-    }
-    getResults() {
-        const {term, page} = this.props;
-        const start = (page-1)*16;
-        const limit = 16;
-        this.search('bleats', term, {start, limit});
+        this.type = 'bleats';
     }
     render() {
         const {page, term} = this.props;
