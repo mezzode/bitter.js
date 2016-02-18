@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import {Router, Route, Link, browserHistory, IndexRoute} from 'react-router';
 import Navbar from './navbar.jsx';
 import Login from './login.jsx';
-import User from './user.jsx'
+import User from './user.jsx';
+import Search from './search.jsx';
 
 class App extends React.Component {
     constructor() {
@@ -86,6 +87,7 @@ ReactDOM.render((
             <Route path="user/:user" component={User}/>
             <Route path="settings" component={Settings}/>
             <Route path="signup" component={Signup}/>
+            <Route path="search/:term" component={Search}/>
         </Route>
     </Router>
 ), document.getElementById('app'));
