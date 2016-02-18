@@ -3,49 +3,15 @@ import {Link} from 'react-router';
 import Bleats from './bleats.jsx';
 
 export default class Search extends React.Component {
-    constructor() {
-        super();
-        this.state = {results: [], total: 0};
-    }
-    componentDidMount() {
-        this.search();
-    }
-    loadMore() {
-        console.log('asdfasdfasdfasdf');
-    }
-    search() {
-        const term = this.props.params.term;
-        const page = this.props.location.query.page || 1;
-        const type = this.props.location.query.type || 'users';
-        const start = (page-1)*16;
-        const limit = 16;
-        $.ajax({
-            url: `/api/search/${type}/${term}`,
-            dataType: 'json',
-            cache: false,
-            data: {start, limit},
-            success: (data) => {
-                this.setState(data);
-            },
-            error: (xhr, status, err) => {
-                console.error(this.props.url, status, err.toString());
-            }
-        });
-    }
     render() {
         let resultsNode;
         const type = this.props.location.query.type || 'users';
         const page = this.props.location.query.page || 1;
         const term = this.props.params.term;
-        const {results, total} = this.state;
         if (type === 'bleats') {
-            resultsNode = <BleatResults bleats={results} page={page} total={total} src={`/search/${term}?type=bleats`} loadMore={this.loadMore.bind(this)}/>;
+            resultsNode = <BleatResults term={term} page={page}/>;
         } else if (type === 'users') {
-            resultsNode = (
-                <div className="panel panel-default">
-                    {results.map(result => <UserResult key={result.username} user={result}/>)}
-                </div>
-            );
+            resultsNode = <UserResults term={term} page={page}/>;
         }
         return (
             <div className="row">
@@ -67,7 +33,62 @@ export default class Search extends React.Component {
     }
 }
 
+class UserResults extends React.Component {
+    constructor() {
+        super();
+        this.state = {results: [], total: 0};
+    }
+    componentDidMount() {
+        this.search();
+    }
+    search() {
+        const {term, page} = this.props;
+        const start = (page-1)*16;
+        const limit = 16;
+        $.ajax({
+            url: `/api/search/users/${term}`,
+            dataType: 'json',
+            cache: false,
+            data: {start, limit},
+            success: (data) => {
+                this.setState(data);
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.url, status, err.toString());
+            }
+        });
+    }
+    render() {
+        const results = this.state.results;
+        return (
+            <div className="panel panel-default">
+                {results.map(result => <UserResult key={result.username} user={result}/>)}
+            </div>
+        );
+    }
+}
+
 class BleatResults extends React.Component {
+    search() {
+        const term = this.props.params.term;
+        const page = this.props.location.query.page || 1;
+        const type = this.props.location.query.type || 'users';
+        const start = (page-1)*16;
+        const limit = 16;
+        console.log(type);
+        $.ajax({
+            url: `/api/search/${type}/${term}`,
+            dataType: 'json',
+            cache: false,
+            data: {start, limit},
+            success: (data) => {
+                this.setState(data);
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.url, status, err.toString());
+            }
+        });
+    }
     render() {
         const {bleats, page, total, src, loadMore} = this.props;
         return <Bleats bleats={bleats} page={page} total={total} src={src} loadMore={loadMore}/>;
