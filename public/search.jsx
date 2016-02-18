@@ -33,7 +33,7 @@ export default class Search extends React.Component {
         if (type === 'bleats') {
             results = this.state.results.map(result => <BleatResult key={result} bleat={result}/>);
         } else if ((type === 'users') || !type) {
-            results = this.state.results.map(result => <UserResult key={result} user={result}/>);
+            results = this.state.results.map(result => <UserResult key={result.username} user={result}/>);
         }
         return (
             <div className="row">
@@ -55,6 +55,9 @@ class BleatResult extends React.Component {
 
 class UserResult extends React.Component {
     render() {
+        const user = this.props.user;
+        console.log(user.username);
+        console.log(user.full_name);
         return <div></div>;
     }
 }
