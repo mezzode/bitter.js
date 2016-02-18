@@ -272,8 +272,8 @@
         .get(function(request, response) {
             var term = '%'+request.term+'%';
             var type = request.type;
-            var start = request.query.start || 0;
-            var limit = request.query.limit || 16;
+            var start = parseInt(request.query.start) || 0;
+            var limit = parseInt(request.query.limit) || 16;
             if (type !== 'bleats' && type !== 'users') {
                 response.status(404).json('Invalid type');
                 return;
