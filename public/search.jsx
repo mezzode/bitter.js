@@ -20,10 +20,10 @@ export default class Search extends React.Component {
                     <h2>Search Results: <small>{term}</small></h2>
                     <ul className="nav nav-pills">
                         <li className={type === 'users' ? 'active' : ''}>
-                            <Link to={{pathname: `/search/${term}`, query: {type: 'users'}}}>Users</Link>
+                            <Link to={{pathname: `/search/${term}`, query: page ? {type: 'users', page: 1} : {type: 'users'}}}>Users</Link>
                         </li>
                         <li className={type === 'bleats' ? 'active' : ''}>
-                            <Link to={{pathname: `/search/${term}`, query: {type: 'bleats'}}}>Bleats</Link>
+                            <Link to={{pathname: `/search/${term}`, query: page ? {type: 'bleats', page: 1} : {type: 'bleats'}}}>Bleats</Link>
                         </li>
                     </ul>
                     <br/>
