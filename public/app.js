@@ -72,7 +72,7 @@ class User extends React.Component {
     render() {
         console.log('noooo');
         const user = this.props.params.user;
-        const page = this.props.location.query.page || 1;
+        const page = this.props.location.query.page;
         return (
             <div className="row">
                 <div className="col-sm-5 col-md-3">

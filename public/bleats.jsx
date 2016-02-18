@@ -5,11 +5,16 @@ export default class Bleats extends React.Component {
     render() {
         const bleatNodes = this.props.bleats.map(bleat => <Bleat key={bleat} bleatId={bleat}/>);
         const {total, page, src} = this.props;
+        let nav;
+        if (page) {
+            nav = <Paginator total={total} page={page} src={src}/>;
+        } else {
+            nav = <LoadMore loadMore={this.props.loadMore}/>;
+        }
         return (
             <div>
                 {bleatNodes}
-                <Paginator total={total} page={page} src={src}/>
-                <LoadMore loadMore={this.props.loadMore}/>
+                {nav}
             </div>
         );
     }
@@ -271,13 +276,9 @@ class Paginator extends React.Component {
 class LoadMore extends React.Component {
     render() {
         return (
-            <nav>
-                <div className="text-center">
-                    <ul className="pagination">
-                        <li onClick={this.props.loadMore}><a>Load More</a></li>
-                    </ul>
-                </div>
-            </nav>
+            <div className="text-center" style={{'margin-bottom': '20px'}}>
+                <button className="btn btn-link" onClick={this.props.loadMore}>Load More</button>
+            </div>
         );
     }
 }
