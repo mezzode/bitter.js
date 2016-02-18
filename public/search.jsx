@@ -31,9 +31,9 @@ export default class Search extends React.Component {
         let results;
         const type = this.props.location.query.type;
         if (type === 'bleats') {
-            results = this.state.results.map(result => <BleatResult user={result}/>);
+            results = this.state.results.map(result => <BleatResult key={result} bleat={result}/>);
         } else if ((type === 'users') || !type) {
-            results = this.state.results.map(result => <UserResult user={result}/>);
+            results = this.state.results.map(result => <UserResult key={result} user={result}/>);
         }
         return (
             <div className="row">
@@ -44,5 +44,17 @@ export default class Search extends React.Component {
                 </div>
             </div>
         );
+    }
+}
+
+class BleatResult extends React.Component {
+    render() {
+        return <div></div>;
+    }
+}
+
+class UserResult extends React.Component {
+    render() {
+        return <div></div>;
     }
 }
