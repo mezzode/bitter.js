@@ -38,25 +38,26 @@ class UserResults extends React.Component {
     constructor() {
         super();
         this.state = {results: [], total: 0};
+        this.search = search;
     }
     componentDidMount() {
-        this.search();
+        this.getResults();
     }
     componentDidUpdate(prevProps) {
         if (prevProps.page !== this.props.page) {
-            this.search();
+            this.getResults();
         }
     }
     loadMore() {
         const {term} = this.props;
         const limit = this.state.results.length + 16;
-        search.call(this, 'users', term, {limit});
+        this.search('users', term, {limit});
     }
-    search() {
+    getResults() {
         const {term, page} = this.props;
         const start = (page-1)*16;
         const limit = 16;
-        search.call(this, 'users', term, {start, limit});
+        this.search('users', term, {start, limit});
     }
     render() {
         const {results, total} = this.state;
