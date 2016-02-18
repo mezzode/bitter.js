@@ -5,13 +5,8 @@ import Paginator from './paginator.jsx'
 export default class Bleats extends React.Component {
     render() {
         const {total, page, src, bleats} = this.props;
-        const bleatNodes = this.props.bleats.map(bleat => <Bleat key={bleat} bleatId={bleat}/>);
-        let nav;
-        if (page) {
-            nav = <Paginator total={total} page={page} src={src}/>;
-        } else if (bleats.length < total) {
-            nav = <LoadMore loadMore={this.props.loadMore}/>;
-        }
+        const bleatNodes = bleats.map(bleat => <Bleat key={bleat} bleatId={bleat}/>);
+        const nav = <Paginator total={total} page={page} src={src} loaded={bleats.length} loadMore={this.props.loadMore}/>;
         return (
             <div>
                 {bleatNodes}
@@ -245,16 +240,6 @@ class BleatSub extends React.Component {
                     <li><small>Location: {data.latitude}, {data.longitude}</small></li>
                 </ul>
             </li>
-        );
-    }
-}
-
-class LoadMore extends React.Component {
-    render() {
-        return (
-            <div className="text-center" style={{marginBottom: '20px'}}>
-                <button className="btn btn-link" onClick={this.props.loadMore}>Load More</button>
-            </div>
         );
     }
 }

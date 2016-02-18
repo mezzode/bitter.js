@@ -1,7 +1,22 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-export default class Paginator extends React.Component {
+export default class Nav extends React.Component {
+    render() {
+        const {total, page, src, loadMore, loaded} = this.props;
+        let nav;
+        if (page) {
+            nav = <Paginator total={total} page={page} src={src}/>;
+        } else if (loaded < total) {
+            nav = <LoadMore loadMore={loadMore}/>;
+        } else {
+            nav = false;
+        }
+        return nav;
+    }
+}
+
+class Paginator extends React.Component {
     render() {
         const {total, page, src} = this.props;
         const pages = Math.ceil(total / 16);
@@ -22,6 +37,16 @@ export default class Paginator extends React.Component {
                     </ul>
                 </div>
             </nav>
+        );
+    }
+}
+
+class LoadMore extends React.Component {
+    render() {
+        return (
+            <div className="text-center" style={{marginBottom: '20px'}}>
+                <button className="btn btn-link" onClick={this.props.loadMore}>Load More</button>
+            </div>
         );
     }
 }
