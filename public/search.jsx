@@ -7,7 +7,7 @@ export default class Search extends React.Component {
     render() {
         let resultsNode;
         const type = this.props.location.query.type || 'users';
-        const page = this.props.location.query.page || 1;
+        const page = this.props.location.query.page;
         const term = this.props.params.term;
         if (type === 'bleats') {
             resultsNode = <BleatResults term={term} page={page}/>;
@@ -47,6 +47,22 @@ class UserResults extends React.Component {
             this.search();
         }
     }
+    loadMore() {
+        const {term} = this.props;
+        const limit = this.state.results.length + 16;
+        $.ajax({
+            url: `/api/search/users/${term}`,
+            dataType: 'json',
+            cache: false,
+            data: {limit},
+            success: (data) => {
+                this.setState(data);
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.url, status, err.toString());
+            }
+        });
+    }
     search() {
         const {term, page} = this.props;
         const start = (page-1)*16;
@@ -72,7 +88,7 @@ class UserResults extends React.Component {
                 <div className="panel panel-default">
                     {results.map(result => <UserResult key={result.username} user={result}/>)}
                 </div>
-                <Nav total={total} page={page} src={`/search/${term}`}/>
+                <Nav total={total} page={page} src={`/search/${term}`} loaded={results.length} loadMore={this.loadMore.bind(this)}/>
             </div>
         );
     }
