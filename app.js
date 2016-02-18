@@ -262,6 +262,37 @@
             // if user is valid, update pic
         });
 
+    app.route('/api/search/:type/:term')
+        .all(function(request, response, next) {
+            // request.term = request.params.term.toLowerCase();
+            request.term = request.params.term;
+            request.type = request.params.type;
+            next();
+        })
+        .get(function(request, response) {
+            var term = '%'+request.term+'%';
+            var type = request.type;
+            var start = request.query.start || 0;
+            var limit = request.query.limit || 16;
+            if (type !== 'bleats' && type !== 'users') {
+                response.status(404).json('Invalid type: '+term);
+                return;
+            } else if (type === 'users') {
+                db.all(
+                    'SELECT username, full_name FROM users WHERE username LIKE $term ORDER BY username DESC LIMIT $offset, $rows;',
+                    {'$term': term, '$offset': start, '$rows': limit},
+                    function(err, rows) {
+                        if (err) {
+                            response.sendStatus(404);
+                            console.log(err);
+                            return;
+                        }
+                        response.json(rows);
+                    }
+                );
+            }
+        });
+
     app.route('*')
         .get(function(request, response) {
             var path = require('path');
