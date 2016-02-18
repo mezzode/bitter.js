@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 export default class Search extends React.Component {
     constructor() {
@@ -33,7 +34,11 @@ export default class Search extends React.Component {
         if (type === 'bleats') {
             results = this.state.results.map(result => <BleatResult key={result} bleat={result}/>);
         } else if ((type === 'users') || !type) {
-            results = this.state.results.map(result => <UserResult key={result.username} user={result}/>);
+            results = (
+                <div className="panel panel-default">
+                    {this.state.results.map(result => <UserResult key={result.username} user={result}/>)}
+                </div>
+            );
         }
         return (
             <div className="row">
@@ -56,8 +61,20 @@ class BleatResult extends React.Component {
 class UserResult extends React.Component {
     render() {
         const user = this.props.user;
-        console.log(user.username);
-        console.log(user.full_name);
-        return <div></div>;
+        const {username, full_name} = user;
+        return (
+            <Link className="list-group-item" to={'/user/'+username}>
+                <div className="media-left">
+                    <img className="media-object" src={'/api/user/'+username+'/picture'} style={{maxWidth: '100px'}}></img>
+                </div>
+                <div className="media-body">
+                    <h3 className="media-heading">
+                        {full_name}
+                        <br/>
+                        <small>{username}</small>
+                    </h3>
+                </div>
+            </Link>
+        );
     }
 }
