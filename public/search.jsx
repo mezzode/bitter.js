@@ -90,42 +90,21 @@ class BleatResults extends React.Component {
     constructor() {
         super();
         this.state = {results: [], total: 0};
+        this.search = search;
     }
     componentDidMount() {
-        this.search();
+        this.getResults();
     }
     loadMore() {
         const {term} = this.props;
         const limit = this.state.results.length + 16;
-        $.ajax({
-            url: `/api/search/bleats/${term}`,
-            dataType: 'json',
-            cache: false,
-            data: {limit},
-            success: (data) => {
-                this.setState(data);
-            },
-            error: (xhr, status, err) => {
-                console.error(this.props.url, status, err.toString());
-            }
-        });
+        this.search('bleats', term, {limit});
     }
-    search() {
+    getResults() {
         const {term, page} = this.props;
         const start = (page-1)*16;
         const limit = 16;
-        $.ajax({
-            url: `/api/search/bleats/${term}`,
-            dataType: 'json',
-            cache: false,
-            data: {start, limit},
-            success: (data) => {
-                this.setState(data);
-            },
-            error: (xhr, status, err) => {
-                console.error(this.props.url, status, err.toString());
-            }
-        });
+        this.search('bleats', term, {start, limit});
     }
     render() {
         const {page, term} = this.props;
