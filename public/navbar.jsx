@@ -12,6 +12,7 @@ export default class Navbar extends React.Component {
         } else {
             browserHistory.push('/search/'+term);
         }
+        e.target.search.value = '';
     }
     render() {
         let right;
