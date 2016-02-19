@@ -80,6 +80,13 @@ class UserResults extends Results {
     render() {
         const {results, total} = this.state;
         const {term, page} = this.props;
+        if (!total) {
+            return (
+                <div>
+                    No results
+                </div>
+            );
+        }
         return (
             <div>
                 <div className="panel panel-default">
@@ -98,6 +105,13 @@ class BleatResults extends Results {
     render() {
         const {page, term} = this.props;
         const {results, total} = this.state;
+        if (!total) {
+            return (
+                <div>
+                    No results
+                </div>
+            );
+        }
         return <Bleats bleats={results} page={page} total={total} src={{pathname: `/search/${term}`, query: {type: 'bleats'}}} loaded={results.length} loadMore={this.loadMore.bind(this)}/>;
     }
 }
