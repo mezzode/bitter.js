@@ -6,7 +6,12 @@ export default class Navbar extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         const term = e.target.search.value;
-        browserHistory.push('/search/'+term);
+        const type = this.props.location.query.type;
+        if (type === 'bleats') {
+            browserHistory.push(`/search/${term}?type=bleats`);
+        } else {
+            browserHistory.push('/search/'+term);
+        }
     }
     render() {
         let right;
@@ -42,7 +47,7 @@ export default class Navbar extends React.Component {
                         <Link className="navbar-brand" to="/">Bitter</Link>
                     </div>
                     <div id="navbar" className="collapse navbar-collapse">
-                        <form className="navbar-form navbar-left" id="search" role="search" onSubmit={this.search}>
+                        <form className="navbar-form navbar-left" id="search" role="search" onSubmit={this.search.bind(this)}>
                         <div className="input-group">
                             <input type="text" name="search" className="form-control" placeholder="Search"/>
                             <span className="input-group-btn">

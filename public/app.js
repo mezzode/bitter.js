@@ -35,7 +35,7 @@ class App extends React.Component {
         }
         return (
             <div>
-                <Navbar user={this.state.curr} logout={this.logout.bind(this)}/>
+                <Navbar user={this.state.curr} logout={this.logout.bind(this)} location={this.props.location}/>
                 {login}
                 <div className="container">
                     {this.props.children}
