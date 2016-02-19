@@ -5,6 +5,7 @@ import Navbar from './navbar.jsx';
 import Login from './login.jsx';
 import User from './user.jsx';
 import Search from './search.jsx';
+import Home from './home.jsx';
 
 class App extends React.Component {
     constructor() {
@@ -55,23 +56,6 @@ class App extends React.Component {
                 console.error(this.props.id, status, err.toString());
             }
         });
-    }
-}
-
-class Home extends React.Component {
-    render() {
-        return (
-            <div className="row">
-                <div className="col-md-12">
-                    <div className="jumbotron">
-                        <h1>Welcome to Bitter</h1>
-                        <p>The latest and greatest thing since sliced bread!</p>
-                        <br/>
-                        <p><Link className="btn btn-primary btn-lg" to='/signup' role="button">Join Now</Link></p>
-                    </div>
-                </div>
-            </div>
-        );
     }
 }
 
