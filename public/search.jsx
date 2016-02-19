@@ -85,7 +85,7 @@ class UserResults extends Results {
                 <div className="panel panel-default">
                     {results.map(result => <UserResult key={result.username} user={result}/>)}
                 </div>
-                <Nav total={total} page={page} src={`/search/${term}`} loaded={results.length} loadMore={this.loadMore.bind(this)}/>
+                <Nav total={total} page={page} src={{pathname: `/search/${term}`}} loaded={results.length} loadMore={this.loadMore.bind(this)}/>
             </div>
         );
     }
@@ -99,7 +99,7 @@ class BleatResults extends Results {
     render() {
         const {page, term} = this.props;
         const {results, total} = this.state;
-        return <Bleats bleats={results} page={page} total={total} src={`/search/${term}?type=bleats`} loaded={results.length} loadMore={this.loadMore.bind(this)}/>;
+        return <Bleats bleats={results} page={page} total={total} src={{pathname: `/search/${term}`, query: {type: 'bleats'}}} loaded={results.length} loadMore={this.loadMore.bind(this)}/>;
     }
 }
 

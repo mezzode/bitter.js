@@ -19,6 +19,7 @@ export default class Nav extends React.Component {
 class Paginator extends React.Component {
     render() {
         const {total, page, src} = this.props;
+        const {pathname, query} = src;
         const pages = Math.ceil(total / 16);
         if (pages <= 1) {
             return false;
@@ -31,9 +32,9 @@ class Paginator extends React.Component {
             <nav>
                 <div className="text-center">
                     <ul className="pagination">
-                        <li className={+page === 1 ? 'disabled' : ''}><Link to={{pathname: src, query: {page: 1}}}>&laquo;</Link></li>
+                        <li className={+page === 1 ? 'disabled' : ''}><Link to={{pathname, query: Object.assign({page: 1}, query)}}>&laquo;</Link></li>
                         {links}
-                        <li className={+page === pages ? 'disabled' : ''}><Link to={{pathname: src, query: {page: pages}}}>&raquo;</Link></li>
+                        <li className={+page === pages ? 'disabled' : ''}><Link to={{pathname, query: Object.assign({page: pages}, query)}}>&raquo;</Link></li>
                     </ul>
                 </div>
             </nav>
