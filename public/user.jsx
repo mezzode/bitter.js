@@ -86,7 +86,6 @@ class UserBleats extends React.Component {
     render() {
         const {bleats, total} = this.state;
         const {page, user} = this.props;
-        const src = '/user/'+ user;
-        return <Bleats bleats={bleats} page={page} total={total} src={src} loadMore={this.loadMore.bind(this)}/>;
+        return <Bleats bleats={bleats} page={page} total={total} src={{pathname: `/user/${user}`}} loadMore={this.loadMore.bind(this)}/>;
     }
 }
