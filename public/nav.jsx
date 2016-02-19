@@ -18,15 +18,18 @@ export default class Nav extends React.Component {
 
 class Paginator extends React.Component {
     render() {
-        const {total, page, src} = this.props;
+        const {total, src} = this.props;
+        const page = parseInt(this.props.page);
         const {pathname, query} = src;
         const pages = Math.ceil(total / 16);
         if (pages <= 1) {
             return false;
         }
         const links = [];
-        for (let i = 1; i <= pages; i++) {
-            links.push(<li key={i} className={i === +page ? 'active' : ''}><Link to={{pathname: src, query: {page: i}}}>{i}</Link></li>);
+        const start = Math.max(1, page - 5);
+        const end = Math.min(page + 5, pages);
+        for (let i = start; i <= end; i++) {
+            links.push(<li key={i} className={i === +page ? 'active' : ''}><Link to={{pathname, query: Object.assign({page: i}, query)}}>{i}</Link></li>);
         }
         return (
             <nav>
