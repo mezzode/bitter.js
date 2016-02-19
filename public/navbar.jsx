@@ -6,11 +6,11 @@ export default class Navbar extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         const term = e.target.search.value;
-        const type = this.props.location.query.type;
-        if (type === 'bleats') {
-            browserHistory.push(`/search/${term}?type=bleats`);
+        const {type, page} = this.props.location.query;
+        if (page) {
+            browserHistory.push({pathname: '/search/'+term, query: {type, page: 1}});
         } else {
-            browserHistory.push('/search/'+term);
+            browserHistory.push({pathname: '/search/'+term, query: {type}});
         }
         e.target.search.value = '';
     }
