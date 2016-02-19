@@ -5,7 +5,8 @@ export default class Navbar extends React.Component {
     search(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log(e.target.search.value);
+        const term = e.target.search.value;
+        browserHistory.push('/search/'+term);
     }
     render() {
         let right;
