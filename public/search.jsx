@@ -35,8 +35,9 @@ export default class Search extends React.Component {
 }
 
 class Results extends React.Component {
-    constructor() {
+    constructor(type) {
         super();
+        this.type = type;
         this.state = {results: [], total: 0};
     }
     search(type, term, {start = 0, limit = 16} = {}) {
@@ -74,8 +75,7 @@ class Results extends React.Component {
 
 class UserResults extends Results {
     constructor() {
-        super();
-        this.type = 'users';
+        super('users');
     }
     render() {
         const {results, total} = this.state;
@@ -93,8 +93,7 @@ class UserResults extends Results {
 
 class BleatResults extends Results {
     constructor() {
-        super();
-        this.type = 'bleats';
+        super('bleats');
     }
     render() {
         const {page, term} = this.props;
