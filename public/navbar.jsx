@@ -2,6 +2,11 @@ import React from 'react';
 import {Router, Route, Link, browserHistory} from 'react-router';
 
 export default class Navbar extends React.Component {
+    search(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log(e.target.search.value);
+    }
     render() {
         let right;
         const user = this.props.user;
@@ -36,7 +41,7 @@ export default class Navbar extends React.Component {
                         <Link className="navbar-brand" to="/">Bitter</Link>
                     </div>
                     <div id="navbar" className="collapse navbar-collapse">
-                        <form className="navbar-form navbar-left" action="?" id="search" role="search">
+                        <form className="navbar-form navbar-left" id="search" role="search" onSubmit={this.search}>
                         <div className="input-group">
                             <input type="text" name="search" className="form-control" placeholder="Search"/>
                             <span className="input-group-btn">
