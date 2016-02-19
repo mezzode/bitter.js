@@ -56,7 +56,7 @@ class Results extends React.Component {
         this.getResults();
     }
     componentDidUpdate(prevProps) {
-        if (prevProps.page !== this.props.page) {
+        if (prevProps.page !== this.props.page || prevProps.term !== this.props.term) {
             this.getResults();
         }
     }
