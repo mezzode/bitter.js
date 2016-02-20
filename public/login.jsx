@@ -25,18 +25,20 @@ export default class Login extends React.Component {
                             <h4 className="modal-title">Log In</h4>
                         </div>
                         <div className="modal-body">
-                            <div className="form-group">
-                            <input type="text" className="form-control" name="username" placeholder="Username" value={this.state.username} onChange={this.check.bind(this)}/>
-                            </div>
-                            <div className="form-group">
-                            <input type="password" className="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.check.bind(this)}/>
-                            </div>
-                            <div className="checkbox">
-                                <label>
-                                    <input type="checkbox" name="remember" checked={this.state.checked} onChange={this.remember.bind(this)}/> Remember Me
-                                 </label>
-                            </div>
-                            <button className="btn btn-default" disabled={this.state.username && this.state.password ? false : 'disabled'} onClick={this.submit.bind(this)} data-dismiss="modal">Submit</button>
+                            <form onSubmit={this.submit}>
+                                <div className="form-group">
+                                <input type="text" className="form-control" name="username" placeholder="Username" value={this.state.username} onChange={this.check.bind(this)}/>
+                                </div>
+                                <div className="form-group">
+                                <input type="password" className="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.check.bind(this)}/>
+                                </div>
+                                <div className="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="remember" checked={this.state.checked} onChange={this.remember.bind(this)}/> Remember Me
+                                     </label>
+                                </div>
+                                <button type="submit" className="btn btn-default" disabled={this.state.username && this.state.password ? false : 'disabled'} onClick={this.submit.bind(this)} data-dismiss="modal">Submit</button>
+                            </form>
                         </div>
                     </div>
                 </div>
