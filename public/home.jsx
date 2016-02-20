@@ -53,6 +53,14 @@ class Dashboard extends React.Component {
         const limit = 16;
         this.load({start, limit});
     }
+    componentDidUpdate(prevProps) {
+        if (prevProps.page !== this.props.page) {
+            const {page} = this.props;
+            const start = page ? (page-1)*16 : 0;
+            const limit = 16;
+            this.load({start, limit});
+        }
+    }
     load({start = 0, limit = 16} = {}) {
         $.ajax({
             url: '/api/current/dashboard',

@@ -90,8 +90,8 @@
                             console.log(err);
                         }
                         var total = rows.length;
-                        var start = request.query.start || 0;
-                        var limit = request.query.limit || 16;
+                        var start = parseInt(request.query.start) || 0;
+                        var limit = parseInt(request.query.limit) || 16;
                         var bleats = rows.slice(start, start + limit);
                         bleats = bleats.map(function(row) {
                             return row.id;
@@ -239,8 +239,8 @@
         })
         .get(function(request, response) {
             var username = request.username;
-            var start = request.query.start || 0;
-            var limit = request.query.limit || 16;
+            var start = parseInt(request.query.start) || 0;
+            var limit = parseInt(request.query.limit) || 16;
             if (start < 0) {
                 response.status(400).json('Invalid start');
                 return;
