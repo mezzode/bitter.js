@@ -71,18 +71,55 @@
             });
         })
 
-    app.route('/api/bleat/')
-        .post(function(request, response) {
-            var token = request.cookies.token;
-            jwt.verify(token, 'secret', function(err, data) {
+    app.route('/api/current/dashboard')
+        .get(function(request, response) {
+            jwt.verify(request.cookies.token, 'secret', function(err, data) {
                 if (err) {
-                    response.sendStatus(401);
+                    response.status(401).json(false);
                     return err;
                 }
-                var bleat = request.query.bleat;
-                // write bleat to db
+                var user = data.user;
+                db.all("SELECT listen FROM listens WHERE username = $user;", {'$user': user}, function(err, rows) {
+                    rows = rows.map(function(row) {
+                        return row.listen;
+                    });
+                    rows.push(user);
+                    var matcher = "SELECT id FROM bleats WHERE username = ?" + ' OR username = ? '.repeat(rows.length - 1) + "ORDER BY time DESC;";
+                    db.all(matcher, rows, function(err, rows) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        rows = rows.map(function(row) {
+                            return row.id;
+                        });
+                        response.json(rows);
+                    });
+                });
+
             });
-        });
+        })
+
+    // app.route('/api/bleat/')
+    //     .post(function(request, response) {
+    //         var token = request.cookies.token;
+    //         jwt.verify(token, 'secret', function(err, data) {
+    //             if (err) {
+    //                 response.sendStatus(401);
+    //                 return err;
+    //             }
+    //             var user = data.user;
+    //             var bleat = request.body.bleat;
+    //             var time = new Date();
+    //             var latitude = data.latitude;
+    //             var longitude = data.longitude;
+    //             var in_reply_to = data.in_reply_to;
+    //             var id;
+    //             db.get("SELECT id FROM bleats ORDER BY id DESC", function(row) {
+    //                 id = row.id + 1;
+    //             });
+    //             db.run("INSERT INTO bleats", {'$id': id}, function(err, rows) {
+    //         });
+    //     });
 
     app.route('/api/bleat/:id')
         .get(function(request, response) {
