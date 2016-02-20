@@ -84,7 +84,11 @@
                         return row.listen;
                     });
                     rows.push(user);
-                    var matcher = "SELECT id FROM bleats WHERE username = ?" + ' OR username = ? '.repeat(rows.length - 1) + "ORDER BY time DESC;";
+                    var matcher = "SELECT id FROM bleats WHERE username = ?" + ' OR username = ? '.repeat(rows.length - 1) + "ORDER BY time DESC LIMIT ?, ?;";
+                    var start = request.query.start || '0';
+                    var limit = request.query.limit || 16;
+                    rows.push(start);
+                    rows.push(limit);
                     db.all(matcher, rows, function(err, rows) {
                         if (err) {
                             console.log(err);
