@@ -84,19 +84,19 @@
                         return row.listen;
                     });
                     rows.push(user);
-                    var matcher = "SELECT id FROM bleats WHERE username = ?" + ' OR username = ? '.repeat(rows.length - 1) + "ORDER BY time DESC LIMIT ?, ?;";
-                    var start = request.query.start || '0';
-                    var limit = request.query.limit || 16;
-                    rows.push(start);
-                    rows.push(limit);
+                    var matcher = "SELECT id FROM bleats WHERE username = ?" + ' OR username = ? '.repeat(rows.length - 1) + "ORDER BY time DESC;";
                     db.all(matcher, rows, function(err, rows) {
                         if (err) {
                             console.log(err);
                         }
-                        rows = rows.map(function(row) {
+                        var total = rows.length;
+                        var start = request.query.start || 0;
+                        var limit = request.query.limit || 16;
+                        var bleats = rows.slice(start, start + limit);
+                        bleats = bleats.map(function(row) {
                             return row.id;
                         });
-                        response.json(rows);
+                        response.json({total: total, bleats: bleats});
                     });
                 });
 
