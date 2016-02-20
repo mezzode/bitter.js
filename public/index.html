@@ -59,11 +59,11 @@
             }
         })
 
-        $('#new-user-required').keypress(function(e) {
-            if (e.which == 13) { // enter key
-                this.submit()
-            }
-        })
+        // $('#new-user-required').keypress(function(e) {
+        //     if (e.which == 13) { // enter key
+        //         this.submit()
+        //     }
+        // })
 
         $('form','div.panel-group').on('input', function () {
             $("button",this).attr("disabled",false);
@@ -113,66 +113,66 @@
             }
         })
 
-        $('#new-user-submit').click(function() {
-            $('div.form-group',$('#new-user-required')).each(function(i){
-                if ($('input',this).val().length == 0){
-                    $(this).addClass('has-error');
-                } else {
-                    $(this).removeClass('has-error');
-                }
-                if ($('input',this).attr("name") == 'email'){
-                    if (/^[^@\s]+@[\w\-]+(\.[\w\-]+)+$/.test($('input[name="email"]',this).val())){
-                        $(this).removeClass('has-error');
-                        $('#email-help').text('');
-                    } else {
-                        $(this).addClass('has-error');
-                        $('#email-help').text('Invalid email address.');
-                    }
-                } else if ($('input',this).attr("name") == 'full-name'){
-                    if (/^[A-Za-z\-]+( [A-Za-z\-]+)*$/.test($('input[name="full-name"]',this).val())){
-                        $(this).removeClass('has-error');
-                        $('#name-help').text('');
-                    } else {
-                        $(this).addClass('has-error');
-                        $('#name-help').text('Full name required.');
-                    }
-                } else if ($('input',this).attr("name") == 'new-username'){
-                    if (/^\w+$/.test($('input[name="new-username"]',this).val())){
-                        $(this).removeClass('has-error');
-                        $('#username-help').text('');
-                    } else {
-                        $(this).addClass('has-error');
-                        $('#username-help').text('Invalid username.');
-                    }
-                }
-            });
-            if ($('input[name="new-password"]').val() != $('input[name="new-password-confirm"]').val()){
-                $('input[name="new-password"]').parent().addClass('has-error');
-                $('input[name="new-password-confirm"]').parent().addClass('has-error');
-                $('#password-help').text('Passwords do not match.');
-                // alert('moo');
-                // $("span.help-block",this).text(count+'/142');
-            } else if ($('input[name="new-password"]').val() == '' && $('input[name="new-password-confirm"]').val() == ''){
-                $('input[name="new-password"]').parent().addClass('has-error');
-                $('input[name="new-password-confirm"]').parent().addClass('has-error');
-                $('#password-help').text('Password is required.');
-                // alert('oom');
-            } else {
-                $('#password-help').text('');
-                // alert('foo');
-            }
-            var all_valid = 1;
-            $('div.form-group',$('#new-user-required')).each(function(i){
-                if ($(this).hasClass("has-error")){
-                    all_valid = 0;
-                }
-            });
-            if (all_valid){
-                // alert('submit');
-                // $('#new-user-required').submit();
-                document.getElementById("new-user-required").submit();
-            }
-        });
+        // $('#new-user-submit').click(function() {
+        //     $('div.form-group',$('#new-user-required')).each(function(i){
+        //         if ($('input',this).val().length == 0){
+        //             $(this).addClass('has-error');
+        //         } else {
+        //             $(this).removeClass('has-error');
+        //         }
+        //         if ($('input',this).attr("name") == 'email'){
+        //             if (/^[^@\s]+@[\w\-]+(\.[\w\-]+)+$/.test($('input[name="email"]',this).val())){
+        //                 $(this).removeClass('has-error');
+        //                 $('#email-help').text('');
+        //             } else {
+        //                 $(this).addClass('has-error');
+        //                 $('#email-help').text('Invalid email address.');
+        //             }
+        //         } else if ($('input',this).attr("name") == 'full-name'){
+        //             if (/^[A-Za-z\-]+( [A-Za-z\-]+)*$/.test($('input[name="full-name"]',this).val())){
+        //                 $(this).removeClass('has-error');
+        //                 $('#name-help').text('');
+        //             } else {
+        //                 $(this).addClass('has-error');
+        //                 $('#name-help').text('Full name required.');
+        //             }
+        //         } else if ($('input',this).attr("name") == 'new-username'){
+        //             if (/^\w+$/.test($('input[name="new-username"]',this).val())){
+        //                 $(this).removeClass('has-error');
+        //                 $('#username-help').text('');
+        //             } else {
+        //                 $(this).addClass('has-error');
+        //                 $('#username-help').text('Invalid username.');
+        //             }
+        //         }
+        //     });
+        //     if ($('input[name="new-password"]').val() != $('input[name="new-password-confirm"]').val()){
+        //         $('input[name="new-password"]').parent().addClass('has-error');
+        //         $('input[name="new-password-confirm"]').parent().addClass('has-error');
+        //         $('#password-help').text('Passwords do not match.');
+        //         // alert('moo');
+        //         // $("span.help-block",this).text(count+'/142');
+        //     } else if ($('input[name="new-password"]').val() == '' && $('input[name="new-password-confirm"]').val() == ''){
+        //         $('input[name="new-password"]').parent().addClass('has-error');
+        //         $('input[name="new-password-confirm"]').parent().addClass('has-error');
+        //         $('#password-help').text('Password is required.');
+        //         // alert('oom');
+        //     } else {
+        //         $('#password-help').text('');
+        //         // alert('foo');
+        //     }
+        //     var all_valid = 1;
+        //     $('div.form-group',$('#new-user-required')).each(function(i){
+        //         if ($(this).hasClass("has-error")){
+        //             all_valid = 0;
+        //         }
+        //     });
+        //     if (all_valid){
+        //         // alert('submit');
+        //         // $('#new-user-required').submit();
+        //         document.getElementById("new-user-required").submit();
+        //     }
+        // });
         
         // remove error styling once edited
         $('div.form-group input').on('input', function () {
