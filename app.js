@@ -203,6 +203,9 @@
             console.log(name);
             console.log(email);
             console.log(password);
+            // send confirmation email, blah
+            // encode token with user details into url in email?
+            response.json(true);
         });
 
     app.route('/api/user/:username/details')
