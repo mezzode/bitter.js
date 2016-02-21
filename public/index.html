@@ -74,29 +74,29 @@
             $(this).val($(this).val().replace(/\n/g,''));
         })
 
-        $('#edit-user-submit').click(function(){
-            if (/^[A-Za-z\-]+( [A-Za-z\-]+)*$/.test($('input[name="edit-name"]').val())){
-                $('input[name="edit-name"]').parent().removeClass('has-error');
-                $('#name-help').text('');
-                $(this).parent().submit()
-            } else {
-                $('input[name="edit-name"]').parent().addClass('has-error');
-                $('#name-help').text('Full name required.');
-            }
-        })
+        // $('#edit-user-submit').click(function(){
+        //     if (/^[A-Za-z\-]+( [A-Za-z\-]+)*$/.test($('input[name="edit-name"]').val())){
+        //         $('input[name="edit-name"]').parent().removeClass('has-error');
+        //         $('#name-help').text('');
+        //         $(this).parent().submit()
+        //     } else {
+        //         $('input[name="edit-name"]').parent().addClass('has-error');
+        //         $('#name-help').text('Full name required.');
+        //     }
+        // })
 
-        $('#change-email-submit').click(function(){
-            var emailform = $(this).parent();
-            $('input[name="change-email"]',emailform).val()
-            if (/^[^@\s]+@[\w\-]+(\.[\w\-]+)+$/.test($('input[name="change-email"]',emailform).val())){
-                $('input[name="change-email"]',emailform).parent().removeClass('has-error');
-                $('span[class="help-block"]',emailform).text('');
-                emailform.submit();
-            } else {
-                $('input[name="change-email"]',emailform).parent().addClass('has-error');
-                $('span[class="help-block"]',emailform).text('Invalid email address.');
-            }
-        })
+        // $('#change-email-submit').click(function(){
+        //     var emailform = $(this).parent();
+        //     $('input[name="change-email"]',emailform).val()
+        //     if (/^[^@\s]+@[\w\-]+(\.[\w\-]+)+$/.test($('input[name="change-email"]',emailform).val())){
+        //         $('input[name="change-email"]',emailform).parent().removeClass('has-error');
+        //         $('span[class="help-block"]',emailform).text('');
+        //         emailform.submit();
+        //     } else {
+        //         $('input[name="change-email"]',emailform).parent().addClass('has-error');
+        //         $('span[class="help-block"]',emailform).text('Invalid email address.');
+        //     }
+        // })
         
         $('#change-password-submit').click(function(){
             if ($('input[name="change-password"]').val() != $('input[name="change-password-confirm"]').val()){
@@ -175,20 +175,20 @@
         // });
         
         // remove error styling once edited
-        $('div.form-group input').on('input', function () {
-            // alert('af');
-            $(this).parent().removeClass('has-error');
-            if ($(this).attr('name') == 'new-password'){
-                $('input[name="new-password-confirm"]').parent().removeClass('has-error');
-            } else if ($(this).attr('name') == 'new-password-confirm'){
-                $('input[name="new-password"]').parent().removeClass('has-error');
-            }
-            if ($(this).attr('name') == 'change-password'){
-                $('input[name="change-password-confirm"]').parent().removeClass('has-error');
-            } else if ($(this).attr('name') == 'change-password-confirm'){
-                $('input[name="change-password"]').parent().removeClass('has-error');
-            }
-        });
+        // $('div.form-group input').on('input', function () {
+        //     // alert('af');
+        //     $(this).parent().removeClass('has-error');
+        //     if ($(this).attr('name') == 'new-password'){
+        //         $('input[name="new-password-confirm"]').parent().removeClass('has-error');
+        //     } else if ($(this).attr('name') == 'new-password-confirm'){
+        //         $('input[name="new-password"]').parent().removeClass('has-error');
+        //     }
+        //     if ($(this).attr('name') == 'change-password'){
+        //         $('input[name="change-password-confirm"]').parent().removeClass('has-error');
+        //     } else if ($(this).attr('name') == 'change-password-confirm'){
+        //         $('input[name="change-password"]').parent().removeClass('has-error');
+        //     }
+        // });
 
         /* // limit names to alphabet
         $('input[name="full-name"]').on('input', function () {
