@@ -86,7 +86,7 @@ export default class Signup extends React.Component {
                         <Input name="email" title="Email" type="text" value={email} onChange={onChange} error={validEmail}/>
                         <Input name="username" title="Username" type="text" value={username} onChange={onChange} error={validUsername}/>
                         <Input name="password" title="Password" type="password" value={password} onChange={onChange} error={validPassword}/>
-                        <Input className="form-control" title="Confirm Password" type="password" value={confirm} onChange={onChange}/>
+                        <Input name="confirm" className="form-control" title="Confirm Password" type="password" value={confirm} onChange={onChange}/>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
