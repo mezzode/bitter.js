@@ -85,12 +85,43 @@ export default class Signup extends React.Component {
                         <Input name="name" title="Full Name" type="text" value={name} onChange={onChange} error={validName}/>
                         <Input name="email" title="Email" type="text" value={email} onChange={onChange} error={validEmail}/>
                         <Input name="username" title="Username" type="text" value={username} onChange={onChange} error={validUsername}/>
-                        <Input name="password" title="Password" type="password" value={password} onChange={onChange} error={validPassword}/>
-                        <Input name="confirm" className="form-control" title="Confirm Password" type="password" value={confirm} onChange={onChange}/>
+                        <Password password={password} confirm={confirm} onChange={onChange} error={validPassword}/>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
                 <div className="col-md-3">
+                </div>
+            </div>
+        );
+    }
+}
+
+class Password extends React.Component {
+    constructor() {
+        super();
+        this.state = {error: false};
+    }
+    onChange(e) {
+        this.props.onChange(e);
+        this.setState({error: false});
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.error !== this.props.error) {
+            this.setState({error: !!this.props.error});
+        }
+    }
+    render() {
+        const {password, confirm, error} = this.props;
+        return (
+            <div>
+                <div className={'form-group'+(this.state.error ? ' has-error' : '')}>
+                    <label>Password</label>
+                    <input name="password" className="form-control" placeholder="Password" type="password" value={password} onChange={this.onChange.bind(this)}/>
+                </div>
+                <div className={'form-group'+(this.state.error ? ' has-error' : '')}>
+                    <label>Confirm Password</label>
+                    <input name="confirm" className="form-control" placeholder="Confirm Password" type="password" value={confirm} onChange={this.onChange.bind(this)}/>
+                    <span className="help-block">{error}</span>
                 </div>
             </div>
         );
@@ -112,7 +143,7 @@ class Input extends React.Component {
         }
     }
     render() {
-        const {name, value, title, type, error, onChange} = this.props;
+        const {name, value, title, type, error} = this.props;
         return (
             <div className={'form-group'+(this.state.error ? ' has-error' : '')}>
                 <label>{title}</label>
