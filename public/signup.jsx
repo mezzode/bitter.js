@@ -82,9 +82,9 @@ export default class Signup extends React.Component {
                 <div className="col-md-6 col-sm-12">
                     <h1>New Profile</h1>
                     <form onSubmit={this.submit.bind(this)}>
-                        <Input name="name" title="Full Name" type="text" value={name} onChange={onChange} error={validName}/>
-                        <Input name="email" title="Email" type="text" value={email} onChange={onChange} error={validEmail}/>
-                        <Input name="username" title="Username" type="text" value={username} onChange={onChange} error={validUsername}/>
+                        <Input name="name" title="Full Name" value={name} onChange={onChange} error={validName}/>
+                        <Input name="email" title="Email" value={email} onChange={onChange} error={validEmail}/>
+                        <Input name="username" title="Username" value={username} onChange={onChange} error={validUsername}/>
                         <Password password={password} confirm={confirm} onChange={onChange} error={validPassword}/>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
@@ -147,7 +147,7 @@ class Input extends React.Component {
         return (
             <div className={'form-group'+(this.state.error ? ' has-error' : '')}>
                 <label>{title}</label>
-                <input name={name} className="form-control" placeholder={title} type={type} value={value} onChange={this.onChange.bind(this)}/>
+                <input name={name} className="form-control" placeholder={title} type="text" value={value} onChange={this.onChange.bind(this)}/>
                 <span className="help-block">{error}</span>
             </div>
         );
