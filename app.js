@@ -193,6 +193,18 @@
         });
     }
 
+    app.route('/api/user/')
+        .post(function(request, response) {
+            var username = request.body.username;
+            var name = request.body.name;
+            var email = request.body.email;
+            var password = request.body.password;
+            console.log(username);
+            console.log(name);
+            console.log(email);
+            console.log(password);
+        });
+
     app.route('/api/user/:username/details')
         .all(function(request, response, next) {
             // request.username = request.params.username.toLowerCase();

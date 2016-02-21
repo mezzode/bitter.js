@@ -21,9 +21,25 @@ export default class Signup extends React.Component {
         const username = this.validUsername();
         const password = this.validPassword();
         if (email && name && username && password) {
-            console.log('Sent');
-        } else {
-            console.log('<asdf');
+            $.ajax({
+                url: '/api/user',
+                method: 'POST',
+                dataType: 'json',
+                cache: false,
+                data: {
+                    email: this.state.email,
+                    username: this.state.username,
+                    name: this.state.name,
+                    password: this.state.password
+                },
+                success: () => {
+                    console.log('Sent');
+                    // push "Success" page to browserHistory
+                },
+                error: (xhr, status, err) => {
+                    console.error(status, err.toString());
+                }
+            });
         }
     }
     onChange(e) {
