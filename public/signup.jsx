@@ -19,6 +19,7 @@ export default class Signup extends React.Component {
         this.validEmail();
         this.validName();
         this.validUsername();
+        this.validPassword();
     }
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
@@ -59,8 +60,20 @@ export default class Signup extends React.Component {
         }
         this.setState({validUsername});
     }
+    validPassword() {
+        const password = this.state.password;
+        let validPassword;
+        if (password !== this.state.confirm) {
+            validPassword = 'Passwords do not match';
+        } else if (password.length === 0) {
+            validPassword = 'Password required';
+        } else {
+            validPassword = '';
+        }
+        this.setState({validPassword});
+    }
     render() {
-        const {name, email, username, password, confirm, validEmail, validName, validUsername} = this.state;
+        const {name, email, username, password, confirm, validEmail, validName, validUsername, validPassword} = this.state;
         const onChange = this.onChange.bind(this);
         return(
             <div className="row">
@@ -72,7 +85,7 @@ export default class Signup extends React.Component {
                         <Input name="name" title="Full Name" type="text" value={name} onChange={onChange} error={validName}/>
                         <Input name="email" title="Email" type="text" value={email} onChange={onChange} error={validEmail}/>
                         <Input name="username" title="Username" type="text" value={username} onChange={onChange} error={validUsername}/>
-                        <Input name="password" title="Password" type="password" value={password} onChange={onChange}/>
+                        <Input name="password" title="Password" type="password" value={password} onChange={onChange} error={validPassword}/>
                         <Input className="form-control" title="Confirm Password" type="password" value={confirm} onChange={onChange}/>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
