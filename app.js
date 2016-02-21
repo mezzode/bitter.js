@@ -205,6 +205,11 @@
             console.log(password);
             // send confirmation email, blah
             // encode token with user details into url in email?
+            jwt.sign({username: username, name: name, email: email, password: password}, 'secret', {expiresIn: "30d"}, function(token) {
+                var url = 'localhost:8080/confirm?token='+token;
+                console.log(token);
+                // send url in email
+            });
             response.json(true);
         });
 
