@@ -8,31 +8,41 @@ export default class Signup extends React.Component {
             email: '',
             username: '',
             password: '',
-            confirm: ''
+            confirm: '',
+            validEmail: ''
         };
     }
     submit(e) {
         e.preventDefault();
         e.stopPropagation();
         console.log('Submitted');
+        this.validEmail();
     }
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
     }
+    validEmail() {
+        if (this.state.email === 'a@a.a') {
+            this.setState({validEmail: ''});
+        } else {
+            this.setState({validEmail: 'Invalid'});
+        }
+    }
     render() {
-        const {name, email, username, password, confirm} = this.state;
+        const {name, email, username, password, confirm, validEmail} = this.state;
+        const onChange = this.onChange.bind(this);
         return(
             <div className="row">
                 <div className="col-md-3">
                 </div>
                 <div className="col-md-6 col-sm-12">
                     <h1>New Profile</h1>
-                    <form onSubmit={this.submit}>
-                        <Input name="name" title="Full Name" type="text" value={name} onChange={this.onChange.bind(this)} onChange={this.onChange.bind(this)}/>
-                        <Input name="email" title="Email" type="email" value={email} onChange={this.onChange.bind(this)}/>
-                        <Input name="username" title="Username" type="text" value={username} onChange={this.onChange.bind(this)}/>
-                        <Input name="password" title="Password" type="password" value={password} onChange={this.onChange.bind(this)}/>
-                        <Input className="form-control" title="Confirm Password" type="password" value={confirm} onChange={this.onChange.bind(this)}/>
+                    <form onSubmit={this.submit.bind(this)}>
+                        <Input name="name" title="Full Name" type="text" value={name} onChange={onChange}/>
+                        <Input name="email" title="Email" type="email" value={email} onChange={onChange} error={validEmail}/>
+                        <Input name="username" title="Username" type="text" value={username} onChange={onChange}/>
+                        <Input name="password" title="Password" type="password" value={password} onChange={onChange}/>
+                        <Input className="form-control" title="Confirm Password" type="password" value={confirm} onChange={onChange}/>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
