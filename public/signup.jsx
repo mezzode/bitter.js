@@ -25,35 +25,29 @@ export default class Signup extends React.Component {
                 <div className="col-md-6 col-sm-12">
                     <h1>New Profile</h1>
                     <form onSubmit={this.submit}>
-                        <div className="form-group">
-                            <label>Full Name</label>
-                            <input name="name" className="form-control" placeholder="Full Name" type="text" value={name}/>
-                            <span className="help-block"></span>
-                        </div>
-                        <div className="form-group">
-                            <label>Email Address</label>
-                            <input name="email" className="form-control" placeholder="Email" type="email" value={email}/>
-                            <span className="help-block"></span>
-                        </div>
-                        <div className="form-group">
-                            <label>Username</label>
-                            <input name="username" className="form-control" placeholder="Username" type="text" value={username}/>
-                            <span className="help-block"></span>
-                        </div>
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input name="password" className="form-control" placeholder="Password" type="password" value={password}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Confirm Password</label>
-                            <input className="form-control" placeholder="Confirm Password" type="password" value={confirm}/>
-                            <span className="help-block"></span>
-                        </div>
+                        <Input name="name" title="Full Name" type="text" value={name}/>
+                        <Input name="email" title="Email" type="email" value={email}/>
+                        <Input name="username" title="Username" type="text" value={username}/>
+                        <Input name="password" title="Password" type="password" value={password}/>
+                        <Input className="form-control" title="Confirm Password" type="password" value={confirm}/>
                         <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                 </div>
                 <div className="col-md-3">
                 </div>
+            </div>
+        );
+    }
+}
+
+class Input extends React.Component {
+    render() {
+        const {name, value, title, type, error} = this.props;
+        return (
+            <div className="form-group">
+                <label>{title}</label>
+                <input name={name} className="form-control" placeholder={title} type={type} value={value}/>
+                <span className="help-block">{error}</span>
             </div>
         );
     }
