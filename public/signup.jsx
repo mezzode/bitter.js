@@ -57,7 +57,7 @@ class Input extends React.Component {
     render() {
         const {name, value, title, type, error, onChange} = this.props;
         return (
-            <div className="form-group">
+            <div className={'form-group'+(error ? ' has-error' : '')}>
                 <label>{title}</label>
                 <input name={name} className="form-control" placeholder={title} type={type} value={value} onChange={onChange}/>
                 <span className="help-block">{error}</span>
