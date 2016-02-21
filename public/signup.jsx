@@ -30,9 +30,16 @@ export default class Signup extends React.Component {
         }
     }
     validName() {
-        this.setState({
-            validName: /^[A-Za-z\-]+( [A-Za-z\-]+)*$/.test(this.state.name) ? '' : 'Full name required.'
-        });
+        const name = this.state.name;
+        let validName;
+        if (name.length === 0) {
+            validName = 'Full name required.';
+        } else if (/^[A-Za-z\-]+( [A-Za-z\-]+)*$/.test(this.state.name)) {
+            validName = '';
+        } else {
+            validName = 'Invalid name.';
+        }
+        this.setState({validName});
     }
     render() {
         const {name, email, username, password, confirm, validEmail, validName} = this.state;
