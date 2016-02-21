@@ -16,10 +16,15 @@ export default class Signup extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         console.log('Submitted');
-        this.validEmail();
-        this.validName();
-        this.validUsername();
-        this.validPassword();
+        const email = this.validEmail();
+        const name = this.validName();
+        const username = this.validUsername();
+        const password = this.validPassword();
+        if (email && name && username && password) {
+            console.log('Sent');
+        } else {
+            console.log('<asdf');
+        }
     }
     onChange(e) {
         this.setState({[e.target.name]: e.target.value});
@@ -35,6 +40,7 @@ export default class Signup extends React.Component {
             validEmail = 'Invalid email address';
         }
         this.setState({validEmail});
+        return !validEmail;
     }
     validName() {
         const name = this.state.name;
@@ -47,6 +53,7 @@ export default class Signup extends React.Component {
             validName = 'Invalid name';
         }
         this.setState({validName});
+        return !validName;
     }
     validUsername() {
         const username = this.state.username;
@@ -59,6 +66,7 @@ export default class Signup extends React.Component {
             validUsername = 'Invalid username';
         }
         this.setState({validUsername});
+        return !validUsername;
     }
     validPassword() {
         const password = this.state.password;
@@ -71,6 +79,7 @@ export default class Signup extends React.Component {
             validPassword = '';
         }
         this.setState({validPassword});
+        return !validPassword;
     }
     render() {
         const {name, email, username, password, confirm, validEmail, validName, validUsername, validPassword} = this.state;
