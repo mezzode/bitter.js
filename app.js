@@ -199,18 +199,40 @@
             var name = request.body.name;
             var email = request.body.email;
             var password = request.body.password;
+            var token = request.body.token;
             console.log(username);
             console.log(name);
             console.log(email);
             console.log(password);
-            // send confirmation email, blah
-            // encode token with user details into url in email?
-            jwt.sign({username: username, name: name, email: email, password: password}, 'secret', {expiresIn: "30d"}, function(token) {
-                var url = 'localhost:8080/confirm?token='+token;
-                console.log(token);
-                // send url in email
-            });
-            response.json(true);
+            if (token) {
+                jwt.verify(token, 'secret', function(err, data) {
+                    if (err) {
+                        response.json(false);
+                        return err;
+                    }
+                    bcrypt.hash(data.password, 8, function(err, hash) {
+                        db.run(
+                            "INSERT INTO users (username, name, email, password) VALUES (?,?,?,?)",
+                            [data.username, data.name, data.email, hash],
+                            function(err) {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                response.json("User added.")
+                            }
+                        );
+                    });
+                });
+            } else {
+                // send confirmation email, blah
+                // encode token with user details into url in email?
+                jwt.sign({username: username, name: name, email: email, password: password}, 'secret', {expiresIn: "30d"}, function(token) {
+                    var url = 'localhost:8080/confirm?token='+token;
+                    console.log(token);
+                    // send url in email
+                    response.json("Email sent.");
+                });
+            }
         });
 
     app.route('/api/user/:username/details')
