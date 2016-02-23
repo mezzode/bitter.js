@@ -35,7 +35,7 @@ export default class Confirm extends React.Component {
                 <div className="col-md-3">
                 </div>
                 <div className="col-md-6 col-sm-12">
-                {message}
+                    {message}
                 </div>
                 <div className="col-md-3">
                 </div>
