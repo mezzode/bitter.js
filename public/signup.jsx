@@ -16,22 +16,18 @@ export default class Signup extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         console.log('Submitted');
-        const email = this.validEmail();
-        const name = this.validName();
-        const username = this.validUsername();
-        const password = this.validPassword();
-        if (email && name && username && password) {
+        const validEmail = this.validEmail();
+        const validName = this.validName();
+        const validUsername = this.validUsername();
+        const validPassword = this.validPassword();
+        if (validEmail && validName && validUsername && validPassword) {
+            const {email, username, name, password} = this.state;
             $.ajax({
                 url: '/api/user',
                 method: 'POST',
                 dataType: 'json',
                 cache: false,
-                data: {
-                    email: this.state.email,
-                    username: this.state.username,
-                    name: this.state.name,
-                    password: this.state.password
-                },
+                data: {email, username, name, password},
                 success: () => {
                     console.log('Sent');
                     // push "Success" page to browserHistory
