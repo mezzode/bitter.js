@@ -43,16 +43,16 @@ export default class Signup extends React.Component {
     }
     validEmail() {
         const email = this.state.email;
-        let validEmail;
+        let error;
         if (email.length === 0) {
-            validEmail = 'Email address required';
+            error = 'Email address required';
         } else if (/^[^@\s]+@[\w\-]+(\.[\w\-]+)+$/.test(email)) {
-            validEmail = '';
+            error = '';
         } else {
-            validEmail = 'Invalid email address';
+            error = 'Invalid email address';
         }
-        this.setState({validEmail});
-        return !validEmail;
+        this.setState({validEmail: error});
+        return !error;
     }
     validName() {
         const name = this.state.name;
