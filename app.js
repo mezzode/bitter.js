@@ -395,6 +395,7 @@
         .get(function(request, response) {
             var path = require('path');
             response.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+            // maybe should redirect?
         });
 
     app.listen(8080);

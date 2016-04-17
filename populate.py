@@ -1,8 +1,9 @@
 #!python
 import os, sys, sqlite3, bcrypt
 
-users_dir = './dataset-medium/users'
-bleats_dir = './dataset-medium/bleats'
+dataset = 'huge'
+users_dir = './dataset-%s/users' % dataset
+bleats_dir = './dataset-%s/bleats' % dataset
 conn = sqlite3.connect('bitter.db')
 c = conn.cursor()
 
