@@ -1,4 +1,4 @@
-dataset-medium
+dataset-*
 node_modules
 bundle.js
 bitter.db
